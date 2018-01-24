@@ -9,7 +9,7 @@
 package org.antframework.manager.test;
 
 import org.antframework.boot.core.Apps;
-import org.antframework.manager.assemble.Main;
+import org.antframework.manager.Main;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
