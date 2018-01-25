@@ -19,10 +19,12 @@ import org.antframework.manager.facade.result.ManagerLoginResult;
 import org.antframework.manager.facade.result.QueryManagerResult;
 import org.bekit.service.ServiceEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 故那里远服务提供者
  */
+@Service
 public class ManagerServiceProvider implements ManagerService {
     @Autowired
     private ServiceEngine serviceEngine;
