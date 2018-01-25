@@ -10,8 +10,10 @@ package org.antframework.manager.dal.dao;
 
 import org.antframework.common.util.query.QueryParam;
 import org.antframework.manager.dal.entity.Relation;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.repository.RepositoryDefinition;
 
+import javax.persistence.LockModeType;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,7 +27,10 @@ public interface RelationDao {
 
     void delete(Relation relation);
 
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     Relation findLockByManagerIdAndTargetId(String managerId, String targetId);
+
+    Relation findByManagerIdAndTargetId(String managerId, String targetId);
 
     List<Relation> query(Collection<QueryParam> queryParams);
 }

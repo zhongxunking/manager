@@ -11,6 +11,8 @@ package org.antframework.manager.facade.api;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.order.AddRelationOrder;
 import org.antframework.manager.facade.order.DeleteRelationOrder;
+import org.antframework.manager.facade.order.FindRelationOrder;
+import org.antframework.manager.facade.result.FindRelationResult;
 
 /**
  * 关系服务
@@ -27,4 +29,8 @@ public interface RelationService {
      */
     EmptyResult deleteRelation(DeleteRelationOrder order);
 
+    /**
+     * 查找关系
+     */
+    FindRelationResult findRelation(FindRelationOrder order);
 }

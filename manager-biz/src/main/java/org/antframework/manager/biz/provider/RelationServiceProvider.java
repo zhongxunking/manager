@@ -12,6 +12,8 @@ import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.AddRelationOrder;
 import org.antframework.manager.facade.order.DeleteRelationOrder;
+import org.antframework.manager.facade.order.FindRelationOrder;
+import org.antframework.manager.facade.result.FindRelationResult;
 import org.bekit.service.ServiceEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,5 +34,10 @@ public class RelationServiceProvider implements RelationService {
     @Override
     public EmptyResult deleteRelation(DeleteRelationOrder order) {
         return serviceEngine.execute("deleteRelationService", order);
+    }
+
+    @Override
+    public FindRelationResult findRelation(FindRelationOrder order) {
+        return serviceEngine.execute("findRelationService", order);
     }
 }
