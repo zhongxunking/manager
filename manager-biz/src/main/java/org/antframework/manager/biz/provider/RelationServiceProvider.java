@@ -11,6 +11,7 @@ package org.antframework.manager.biz.provider;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.AddRelationOrder;
+import org.antframework.manager.facade.order.DeleteRelationOrder;
 import org.bekit.service.ServiceEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,10 @@ public class RelationServiceProvider implements RelationService {
     @Override
     public EmptyResult addRelation(AddRelationOrder order) {
         return serviceEngine.execute("addRelationService", order);
+    }
+
+    @Override
+    public EmptyResult deleteRelation(DeleteRelationOrder order) {
+        return serviceEngine.execute("deleteRelationService", order);
     }
 }

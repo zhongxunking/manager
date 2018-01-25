@@ -10,6 +10,7 @@ package org.antframework.manager.facade.api;
 
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.order.AddRelationOrder;
+import org.antframework.manager.facade.order.DeleteRelationOrder;
 
 /**
  * 关系服务
@@ -20,4 +21,10 @@ public interface RelationService {
      * 新增关系
      */
     EmptyResult addRelation(AddRelationOrder order);
+
+    /**
+     * 删除关系
+     */
+    EmptyResult deleteRelation(DeleteRelationOrder order);
+
 }
