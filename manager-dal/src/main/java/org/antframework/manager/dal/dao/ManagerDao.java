@@ -12,8 +12,10 @@ import org.antframework.common.util.query.QueryParam;
 import org.antframework.manager.dal.entity.Manager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.repository.RepositoryDefinition;
 
+import javax.persistence.LockModeType;
 import java.util.Collection;
 
 /**
@@ -26,6 +28,7 @@ public interface ManagerDao {
 
     void delete(Manager manager);
 
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     Manager findLockByManagerId(String managerId);
 
     Page<Manager> query(Collection<QueryParam> queryParams, Pageable pageable);
