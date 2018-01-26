@@ -38,7 +38,8 @@ public class AddManagerService {
         if (manager != null) {
             throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), String.format("管理员[%s]已存在", order.getManagerId()));
         }
-        managerDao.save(buildManager(order));
+        manager = buildManager(order);
+        managerDao.save(manager);
     }
 
     // 构建管理员

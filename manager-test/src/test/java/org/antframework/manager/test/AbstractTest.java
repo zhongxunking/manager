@@ -9,6 +9,7 @@
 package org.antframework.manager.test;
 
 import org.antframework.boot.core.Apps;
+import org.antframework.common.util.facade.AbstractResult;
 import org.antframework.manager.Main;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -27,5 +28,11 @@ public class AbstractTest {
     static {
         // 设置使用环境
         Apps.setProfileIfAbsent("dev");
+    }
+
+    protected void assertSuccess(AbstractResult result) {
+        if (!result.isSuccess()) {
+            throw new RuntimeException("失败：" + result.toString());
+        }
     }
 }
