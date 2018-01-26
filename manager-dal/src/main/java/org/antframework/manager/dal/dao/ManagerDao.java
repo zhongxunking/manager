@@ -31,5 +31,7 @@ public interface ManagerDao {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Manager findLockByManagerId(String managerId);
 
+    Manager findByManagerId(String managerId);
+
     Page<Manager> query(Collection<QueryParam> queryParams, Pageable pageable);
 }
