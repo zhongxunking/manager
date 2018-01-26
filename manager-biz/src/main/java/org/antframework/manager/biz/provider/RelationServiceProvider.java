@@ -8,14 +8,16 @@
  */
 package org.antframework.manager.biz.provider;
 
+import org.antframework.boot.bekit.CommonQueryConstant;
+import org.antframework.boot.bekit.CommonQueryResult;
 import org.antframework.common.util.facade.EmptyResult;
+import org.antframework.manager.biz.util.QueryUtils;
+import org.antframework.manager.dal.dao.RelationDao;
 import org.antframework.manager.facade.api.RelationService;
-import org.antframework.manager.facade.order.AddRelationOrder;
-import org.antframework.manager.facade.order.DeleteRelationOrder;
-import org.antframework.manager.facade.order.FindRelationOrder;
-import org.antframework.manager.facade.order.QueryManagerRelationOrder;
+import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindRelationResult;
 import org.antframework.manager.facade.result.QueryManagerRelationResult;
+import org.antframework.manager.facade.result.QueryRelationResult;
 import org.bekit.service.ServiceEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +48,11 @@ public class RelationServiceProvider implements RelationService {
     @Override
     public QueryManagerRelationResult queryManagerRelation(QueryManagerRelationOrder order) {
         return serviceEngine.execute("queryManagerRelationService", order);
+    }
+
+    @Override
+    public QueryRelationResult queryRelation(QueryRelationOrder order) {
+        CommonQueryResult result = serviceEngine.execute(CommonQueryConstant.SERVICE_NAME, order, QueryUtils.buildCommonQueryAttachment(RelationDao.class));
+        return result.convertTo(QueryRelationResult.class);
     }
 }
