@@ -41,7 +41,7 @@ public class ManagerLoginService {
         ManagerLoginOrder order = context.getOrder();
         ManagerLoginResult result = context.getResult();
 
-        Manager manager = managerDao.findLockByManagerId(order.getManagerId());
+        Manager manager = managerDao.findByManagerId(order.getManagerId());
         if (manager == null) {
             throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), String.format("管理员[%s]不存在", order.getManagerId()));
         }
