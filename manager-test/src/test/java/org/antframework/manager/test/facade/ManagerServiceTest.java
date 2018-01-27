@@ -28,7 +28,7 @@ public class ManagerServiceTest extends AbstractTest {
     @Test
     public void testAddManager() {
         AddManagerOrder order = new AddManagerOrder();
-        order.setManagerId("admin2");
+        order.setManagerId("admin");
         order.setName("钟勋");
         order.setPassword("123");
         order.setType(ManagerType.ADMIN);
