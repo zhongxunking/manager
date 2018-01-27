@@ -10,6 +10,8 @@ package org.antframework.manager.dal.dao;
 
 import org.antframework.common.util.query.QueryParam;
 import org.antframework.manager.dal.entity.Relation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.repository.RepositoryDefinition;
 
@@ -33,4 +35,6 @@ public interface RelationDao {
     Relation findByManagerIdAndTargetId(String managerId, String targetId);
 
     List<Relation> query(Collection<QueryParam> queryParams);
+
+    Page<Relation> query(Collection<QueryParam> queryParams, Pageable pageable);
 }
