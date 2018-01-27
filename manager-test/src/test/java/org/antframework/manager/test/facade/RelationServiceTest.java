@@ -13,15 +13,19 @@ import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.AddRelationOrder;
 import org.antframework.manager.facade.order.FindRelationOrder;
 import org.antframework.manager.facade.order.QueryManagerRelationOrder;
+import org.antframework.manager.facade.order.QueryRelationOrder;
 import org.antframework.manager.facade.result.FindRelationResult;
 import org.antframework.manager.facade.result.QueryManagerRelationResult;
+import org.antframework.manager.facade.result.QueryRelationResult;
 import org.antframework.manager.test.AbstractTest;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 关系服务单元测试
  */
+@Ignore
 public class RelationServiceTest extends AbstractTest {
     @Autowired
     private RelationService relationService;
@@ -54,6 +58,16 @@ public class RelationServiceTest extends AbstractTest {
         order.setManagerId("admin");
 
         QueryManagerRelationResult result = relationService.queryManagerRelation(order);
+        assertSuccess(result);
+    }
+
+    @Test
+    public void testQueryRelation() {
+        QueryRelationOrder order = new QueryRelationOrder();
+        order.setPageNo(1);
+        order.setPageSize(10);
+
+        QueryRelationResult result = relationService.queryRelation(order);
         assertSuccess(result);
     }
 }
