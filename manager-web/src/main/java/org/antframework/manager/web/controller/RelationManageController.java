@@ -83,7 +83,7 @@ public class RelationManageController {
      * 查询与指定管理员相关的关系
      *
      * @param pageNo    页码（必填）
-     * @param pageSize  每夜大小（必填）
+     * @param pageSize  每页大小（必填）
      * @param managerId 管理员id（必填）
      * @param targetId  目标id（选填）
      * @return 查询结果
@@ -104,7 +104,7 @@ public class RelationManageController {
      * 查询关系
      *
      * @param pageNo    页码（必填）
-     * @param pageSize  每夜大小（必填）
+     * @param pageSize  每页大小（必填）
      * @param managerId 管理员id（选填）
      * @param targetId  目标id（选填）
      * @return 查询结果

@@ -118,7 +118,7 @@ public class ManagerManageController {
      * 查询管理员
      *
      * @param pageNo    页码（必填）
-     * @param pageSize  每夜大小（必填）
+     * @param pageSize  每页大小（必填）
      * @param managerId 管理员id（选填）
      * @param type      类型（选填）
      * @param name      名称（选填）
