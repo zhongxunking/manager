@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 管理员登录controller
+ * 管理员主体controller
  */
 @RestController
-@RequestMapping("/manage/manager")
-public class ManagerLoginController extends AbstractController {
+@RequestMapping("/manager/main")
+public class ManagerMainController extends AbstractController {
     @Autowired
     private ManagerService managerService;
 
@@ -51,7 +51,7 @@ public class ManagerLoginController extends AbstractController {
     }
 
     /**
-     * 退出登陆
+     * 退出登录
      */
     @RequestMapping("/logout")
     public EmptyResult logout() {
@@ -60,10 +60,11 @@ public class ManagerLoginController extends AbstractController {
     }
 
     /**
-     * 获取当前管理员
+     * 获取当前信息
      */
-    public GetCurrentManagerResult getCurrentManager() {
-        GetCurrentManagerResult result = new GetCurrentManagerResult();
+    @RequestMapping("/current")
+    public CurrentResult current() {
+        CurrentResult result = new CurrentResult();
         result.setStatus(Status.SUCCESS);
         result.setCode(CommonResultCode.SUCCESS.getCode());
         result.setMessage(CommonResultCode.SUCCESS.getMessage());
@@ -73,9 +74,9 @@ public class ManagerLoginController extends AbstractController {
     }
 
     /**
-     * 获取当前管理员
+     * 获取当前信息
      */
-    public static class GetCurrentManagerResult extends AbstractResult {
+    public static class CurrentResult extends AbstractResult {
         // 管理员
         private ManagerInfo manager;
 
