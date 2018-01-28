@@ -36,19 +36,19 @@ public class ManagerManageController {
      * 新增管理员
      *
      * @param managerId 管理员id（必填）
+     * @param type      类型（必填）
      * @param name      名称（必填）
      * @param password  密码（必填）
-     * @param type      类型（必填）
      * @return 新增管理员结果
      */
     @RequestMapping("/add")
-    public EmptyResult add(String managerId, String name, String password, ManagerType type) {
+    public EmptyResult add(String managerId, ManagerType type, String name, String password) {
         assertAdmin();
         AddManagerOrder order = new AddManagerOrder();
         order.setManagerId(managerId);
+        order.setType(type);
         order.setName(name);
         order.setPassword(password);
-        order.setType(type);
 
         return managerService.addManager(order);
     }
@@ -125,19 +125,19 @@ public class ManagerManageController {
      * @param pageNo    页码（必填）
      * @param pageSize  每夜大小（必填）
      * @param managerId 管理员id（选填）
-     * @param name      名称（选填）
      * @param type      类型（选填）
+     * @param name      名称（选填）
      * @return 查询结果
      */
     @RequestMapping("/query")
-    public QueryManagerResult query(int pageNo, int pageSize, String managerId, String name, ManagerType type) {
+    public QueryManagerResult query(int pageNo, int pageSize, String managerId, ManagerType type, String name) {
         assertAdmin();
         QueryManagerOrder order = new QueryManagerOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
         order.setManagerId(managerId);
-        order.setName(name);
         order.setType(type);
+        order.setName(name);
 
         return managerService.queryManager(order);
     }

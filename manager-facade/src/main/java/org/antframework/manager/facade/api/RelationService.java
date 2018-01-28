@@ -18,7 +18,6 @@ import org.antframework.manager.facade.result.QueryRelationResult;
  * 关系服务
  */
 public interface RelationService {
-
     /**
      * 新增关系
      */

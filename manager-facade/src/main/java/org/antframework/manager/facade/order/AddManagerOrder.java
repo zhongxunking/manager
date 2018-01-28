@@ -22,6 +22,9 @@ public class AddManagerOrder extends AbstractOrder {
     // 管理员id
     @NotBlank
     private String managerId;
+    // 类型
+    @NotNull
+    private ManagerType type;
     // 名称
     @NotBlank
     private String name;
@@ -29,9 +32,6 @@ public class AddManagerOrder extends AbstractOrder {
     @NotBlank
     @Mask(allMask = true)
     private String password;
-    // 类型
-    @NotNull
-    private ManagerType type;
 
     public String getManagerId() {
         return managerId;
@@ -39,6 +39,14 @@ public class AddManagerOrder extends AbstractOrder {
 
     public void setManagerId(String managerId) {
         this.managerId = managerId;
+    }
+
+    public ManagerType getType() {
+        return type;
+    }
+
+    public void setType(ManagerType type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -55,13 +63,5 @@ public class AddManagerOrder extends AbstractOrder {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public ManagerType getType() {
-        return type;
-    }
-
-    public void setType(ManagerType type) {
-        this.type = type;
     }
 }

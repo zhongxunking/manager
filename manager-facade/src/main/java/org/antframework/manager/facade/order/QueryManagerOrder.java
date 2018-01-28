@@ -20,12 +20,12 @@ public class QueryManagerOrder extends AbstractQueryOrder {
     // 管理员id
     @QueryLike
     private String managerId;
-    // 名称
-    @QueryLike
-    private String name;
     // 类型
     @QueryEQ
     private ManagerType type;
+    // 名称
+    @QueryLike
+    private String name;
 
     public String getManagerId() {
         return managerId;
@@ -35,19 +35,19 @@ public class QueryManagerOrder extends AbstractQueryOrder {
         this.managerId = managerId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public ManagerType getType() {
         return type;
     }
 
     public void setType(ManagerType type) {
         this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

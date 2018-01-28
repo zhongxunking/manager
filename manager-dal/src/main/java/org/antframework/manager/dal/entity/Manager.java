@@ -25,6 +25,11 @@ public class Manager extends AbstractEntity {
     @Column(unique = true, length = 64)
     private String managerId;
 
+    // 类型
+    @Column(length = 40)
+    @Enumerated(EnumType.STRING)
+    private ManagerType type;
+
     // 名称
     @Column(length = 64)
     private String name;
@@ -33,17 +38,20 @@ public class Manager extends AbstractEntity {
     @Column(length = 64)
     private String password;
 
-    // 类型
-    @Column(length = 40)
-    @Enumerated(EnumType.STRING)
-    private ManagerType type;
-
     public String getManagerId() {
         return managerId;
     }
 
     public void setManagerId(String managerId) {
         this.managerId = managerId;
+    }
+
+    public ManagerType getType() {
+        return type;
+    }
+
+    public void setType(ManagerType type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -60,13 +68,5 @@ public class Manager extends AbstractEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public ManagerType getType() {
-        return type;
-    }
-
-    public void setType(ManagerType type) {
-        this.type = type;
     }
 }

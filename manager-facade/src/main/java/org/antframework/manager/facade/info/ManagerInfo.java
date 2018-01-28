@@ -17,10 +17,10 @@ import org.antframework.manager.facade.enums.ManagerType;
 public class ManagerInfo extends AbstractInfo {
     // 管理员id
     private String managerId;
-    // 名称
-    private String name;
     // 类型
     private ManagerType type;
+    // 名称
+    private String name;
 
     public String getManagerId() {
         return managerId;
@@ -30,19 +30,19 @@ public class ManagerInfo extends AbstractInfo {
         this.managerId = managerId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public ManagerType getType() {
         return type;
     }
 
     public void setType(ManagerType type) {
         this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
