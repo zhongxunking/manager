@@ -101,7 +101,7 @@ public class ManagerManageController {
      * 修改名称
      *
      * @param managerId 被修改的管理员id（必填）
-     * @param newName   新名称
+     * @param newName   新名称（必填）
      * @return 修改结果
      */
     @RequestMapping("/modifyName")
