@@ -8,17 +8,12 @@
  */
 package org.antframework.manager.web.controller;
 
-import org.antframework.common.util.facade.BizException;
-import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.EmptyResult;
-import org.antframework.common.util.facade.Status;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
-import org.antframework.manager.facade.info.ManagerInfo;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.QueryManagerResult;
 import org.antframework.manager.web.common.ManagerSessionAccessor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +38,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/add")
     public EmptyResult add(String managerId, ManagerType type, String name, String password) {
-        assertAdmin();
+        ManagerSessionAccessor.assertAdmin();
         AddManagerOrder order = new AddManagerOrder();
         order.setManagerId(managerId);
         order.setType(type);
@@ -61,7 +56,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/delete")
     public EmptyResult delete(String managerId) {
-        assertAdmin();
+        ManagerSessionAccessor.assertAdmin();
         DeleteManagerOrder order = new DeleteManagerOrder();
         order.setManagerId(managerId);
 
@@ -77,7 +72,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyPassword")
     public EmptyResult modifyPassword(String managerId, String newPassword) {
-        assertAdminOrMyself(managerId);
+        ManagerSessionAccessor.assertAdminOrMyself(managerId);
         ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
         order.setManagerId(managerId);
         order.setNewPassword(newPassword);
@@ -94,7 +89,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyType")
     public EmptyResult modifyType(String managerId, ManagerType newType) {
-        assertAdmin();
+        ManagerSessionAccessor.assertAdmin();
         ModifyManagerTypeOrder order = new ModifyManagerTypeOrder();
         order.setManagerId(managerId);
         order.setNewType(newType);
@@ -111,7 +106,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyName")
     public EmptyResult modifyName(String managerId, String newName) {
-        assertAdminOrMyself(managerId);
+        ManagerSessionAccessor.assertAdminOrMyself(managerId);
         ModifyManagerNameOrder order = new ModifyManagerNameOrder();
         order.setManagerId(managerId);
         order.setNewName(newName);
@@ -131,7 +126,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/query")
     public QueryManagerResult query(int pageNo, int pageSize, String managerId, ManagerType type, String name) {
-        assertAdmin();
+        ManagerSessionAccessor.assertAdmin();
         QueryManagerOrder order = new QueryManagerOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
@@ -140,27 +135,5 @@ public class ManagerManageController {
         order.setName(name);
 
         return managerService.queryManager(order);
-    }
-
-    // 断言当前管理员为超级管理员
-    private void assertAdmin() {
-        ManagerInfo manager = ManagerSessionAccessor.getManager();
-        if (manager == null) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), "管理员未登陆");
-        }
-        if (manager.getType() != ManagerType.ADMIN) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员[%s]不是超级管理员", manager.getManagerId()));
-        }
-    }
-
-    // 断言当前管理员为超级管理员或者为指定的管理员
-    private void assertAdminOrMyself(String managerId) {
-        ManagerInfo manager = ManagerSessionAccessor.getManager();
-        if (manager == null) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), "管理员未登陆");
-        }
-        if (manager.getType() != ManagerType.ADMIN && !StringUtils.equals(managerId, manager.getManagerId())) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员[%s]不是超级管理员且不是指定管理员[%s]", manager.getManagerId(), managerId));
-        }
     }
 }

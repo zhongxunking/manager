@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/manager/main")
-public class ManagerMainController extends AbstractController {
+public class ManagerMainController {
     @Autowired
     private ManagerService managerService;
 
@@ -56,7 +56,12 @@ public class ManagerMainController extends AbstractController {
     @RequestMapping("/logout")
     public EmptyResult logout() {
         ManagerSessionAccessor.removeManager();
-        return successResult();
+
+        EmptyResult result = new EmptyResult();
+        result.setStatus(Status.SUCCESS);
+        result.setCode(CommonResultCode.SUCCESS.getCode());
+        result.setMessage(CommonResultCode.SUCCESS.getMessage());
+        return result;
     }
 
     /**

@@ -14,6 +14,7 @@ import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindRelationResult;
 import org.antframework.manager.facade.result.QueryManagerRelationResult;
 import org.antframework.manager.facade.result.QueryRelationResult;
+import org.antframework.manager.web.common.ManagerSessionAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 关系管理controller
  */
 @RestController
-@RequestMapping("/manager/relation/manage")
+@RequestMapping("/manager/relation")
 public class RelationManageController {
     @Autowired
     private RelationService relationService;
@@ -36,6 +37,7 @@ public class RelationManageController {
      */
     @RequestMapping("/add")
     public EmptyResult add(String managerId, String targetId) {
+        ManagerSessionAccessor.assertAdmin();
         AddRelationOrder order = new AddRelationOrder();
         order.setManagerId(managerId);
         order.setTargetId(targetId);
@@ -52,6 +54,7 @@ public class RelationManageController {
      */
     @RequestMapping("/delete")
     public EmptyResult delete(String managerId, String targetId) {
+        ManagerSessionAccessor.assertAdmin();
         DeleteRelationOrder order = new DeleteRelationOrder();
         order.setManagerId(managerId);
         order.setTargetId(targetId);
@@ -68,6 +71,7 @@ public class RelationManageController {
      */
     @RequestMapping("/find")
     public FindRelationResult find(String managerId, String targetId) {
+        ManagerSessionAccessor.assertAdminOrMyself(managerId);
         FindRelationOrder order = new FindRelationOrder();
         order.setManagerId(managerId);
         order.setTargetId(targetId);
@@ -86,6 +90,7 @@ public class RelationManageController {
      */
     @RequestMapping("/queryManagerRelation")
     public QueryManagerRelationResult queryManagerRelation(int pageNo, int pageSize, String managerId, String targetId) {
+        ManagerSessionAccessor.assertAdminOrMyself(managerId);
         QueryManagerRelationOrder order = new QueryManagerRelationOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
@@ -106,6 +111,7 @@ public class RelationManageController {
      */
     @RequestMapping("/query")
     public QueryRelationResult query(int pageNo, int pageSize, String managerId, String targetId) {
+        ManagerSessionAccessor.assertAdmin();
         QueryRelationOrder order = new QueryRelationOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
