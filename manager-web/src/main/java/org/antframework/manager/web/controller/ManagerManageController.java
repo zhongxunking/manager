@@ -119,6 +119,16 @@ public class ManagerManageController {
         return managerService.modifyManagerName(order);
     }
 
+    /**
+     * 查询管理员
+     *
+     * @param pageNo    页码（必填）
+     * @param pageSize  每夜大小（必填）
+     * @param managerId 管理员id（选填）
+     * @param name      名称（选填）
+     * @param type      类型（选填）
+     * @return 查询结果
+     */
     @RequestMapping("/query")
     public QueryManagerResult query(int pageNo, int pageSize, String managerId, String name, ManagerType type) {
         assertAdmin();
