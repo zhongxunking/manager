@@ -22,7 +22,9 @@ import org.springframework.core.Ordered;
  * web层配置
  */
 @Configuration
-@Import({ManagerMainController.class, ManagerManageController.class, RelationManageController.class})
+@Import({ManagerMainController.class,
+        ManagerManageController.class,
+        RelationManageController.class})
 public class WebConfiguration {
 
     /**
