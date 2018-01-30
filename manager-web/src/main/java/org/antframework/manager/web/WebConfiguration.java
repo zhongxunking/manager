@@ -9,6 +9,7 @@
 package org.antframework.manager.web;
 
 import org.antframework.manager.web.common.SessionAccessorFilter;
+import org.antframework.manager.web.controller.ManagerInitController;
 import org.antframework.manager.web.controller.ManagerMainController;
 import org.antframework.manager.web.controller.ManagerManageController;
 import org.antframework.manager.web.controller.RelationManageController;
@@ -22,7 +23,8 @@ import org.springframework.core.Ordered;
  * web层配置
  */
 @Configuration
-@Import({ManagerMainController.class,
+@Import({ManagerInitController.class,
+        ManagerMainController.class,
         ManagerManageController.class,
         RelationManageController.class})
 public class WebConfiguration {
