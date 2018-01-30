@@ -8,6 +8,8 @@
  */
 package org.antframework.manager.dal;
 
+import org.antframework.boot.jpa.boot.AntJpaRepositoriesAutoConfiguration;
+import org.antframework.boot.jpa.boot.AntJpaRepositoriesConfigureRegistrar;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -15,10 +17,10 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.domain.EntityScanPackages;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
+import org.springframework.context.annotation.Import;
 import org.springframework.util.ClassUtils;
 
 import java.util.ArrayList;
@@ -28,18 +30,27 @@ import java.util.List;
  * dal层配置
  */
 @Configuration
+@AutoConfigureAfter(AntJpaRepositoriesAutoConfiguration.class)
+@Import({DalConfiguration.JpaScanConfiguration.class,
+        DalConfiguration.JpaRepositoriesRegistrar.class})
 public class DalConfiguration {
 
-    // jpa扫描配置
-    @Bean
-    public static JpaScanConfiguration jpaScanConfiguration() {
-        return new JpaScanConfiguration();
+    /**
+     * jpa repository扫描配置
+     */
+    public static class JpaRepositoriesRegistrar extends AntJpaRepositoriesConfigureRegistrar {
+        @Override
+        protected Iterable<String> getBasePackages() {
+            List<String> basePackages = new ArrayList<>();
+            basePackages.add(ClassUtils.getPackageName(DalConfiguration.class));
+            return basePackages;
+        }
     }
 
     /**
      * jpa扫描配置
      */
-    public static class JpaScanConfiguration implements BeanFactoryAware, BeanDefinitionRegistryPostProcessor, Ordered {
+    public static class JpaScanConfiguration implements BeanFactoryAware, BeanDefinitionRegistryPostProcessor {
         // Spring的bean工厂
         private BeanFactory beanFactory;
 
@@ -61,12 +72,6 @@ public class DalConfiguration {
 
         @Override
         public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        }
-
-        @Override
-        public int getOrder() {
-            // 防止影响spring其他设置，本配置以最低优先级执行
-            return Ordered.LOWEST_PRECEDENCE;
         }
     }
 }
