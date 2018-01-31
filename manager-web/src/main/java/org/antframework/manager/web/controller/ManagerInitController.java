@@ -13,6 +13,7 @@ import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.common.util.facade.Status;
 import org.antframework.manager.facade.api.ManagerService;
+import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.AddManagerOrder;
 import org.antframework.manager.facade.order.QueryManagerOrder;
 import org.antframework.manager.facade.result.QueryManagerResult;
@@ -56,6 +57,7 @@ public class ManagerInitController {
         assertCanInitAdmin();
         AddManagerOrder order = new AddManagerOrder();
         order.setManagerId(managerId);
+        order.setType(ManagerType.ADMIN);
         order.setName(name);
         order.setPassword(password);
 
