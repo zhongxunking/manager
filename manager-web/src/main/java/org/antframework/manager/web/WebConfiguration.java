@@ -8,6 +8,7 @@
  */
 package org.antframework.manager.web;
 
+import org.antframework.manager.web.common.GlobalExceptionHandler;
 import org.antframework.manager.web.common.SessionAccessorFilter;
 import org.antframework.manager.web.controller.ManagerInitController;
 import org.antframework.manager.web.controller.ManagerMainController;
@@ -23,7 +24,8 @@ import org.springframework.core.Ordered;
  * web层配置
  */
 @Configuration
-@Import({ManagerInitController.class,
+@Import({GlobalExceptionHandler.class,
+        ManagerInitController.class,
         ManagerMainController.class,
         ManagerManageController.class,
         RelationManageController.class})
