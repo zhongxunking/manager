@@ -13,7 +13,7 @@ import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.QueryManagerResult;
-import org.antframework.manager.web.common.ManagerSessionAccessor;
+import org.antframework.manager.web.common.ManagerAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +38,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/add")
     public EmptyResult add(String managerId, ManagerType type, String name, String password) {
-        ManagerSessionAccessor.assertAdmin();
+        ManagerAssert.admin();
         AddManagerOrder order = new AddManagerOrder();
         order.setManagerId(managerId);
         order.setType(type);
@@ -56,7 +56,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/delete")
     public EmptyResult delete(String managerId) {
-        ManagerSessionAccessor.assertAdmin();
+        ManagerAssert.admin();
         DeleteManagerOrder order = new DeleteManagerOrder();
         order.setManagerId(managerId);
 
@@ -72,7 +72,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyPassword")
     public EmptyResult modifyPassword(String managerId, String newPassword) {
-        ManagerSessionAccessor.assertAdminOrMyself(managerId);
+        ManagerAssert.adminOrMyself(managerId);
         ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
         order.setManagerId(managerId);
         order.setNewPassword(newPassword);
@@ -89,7 +89,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyType")
     public EmptyResult modifyType(String managerId, ManagerType newType) {
-        ManagerSessionAccessor.assertAdmin();
+        ManagerAssert.admin();
         ModifyManagerTypeOrder order = new ModifyManagerTypeOrder();
         order.setManagerId(managerId);
         order.setNewType(newType);
@@ -106,7 +106,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyName")
     public EmptyResult modifyName(String managerId, String newName) {
-        ManagerSessionAccessor.assertAdminOrMyself(managerId);
+        ManagerAssert.adminOrMyself(managerId);
         ModifyManagerNameOrder order = new ModifyManagerNameOrder();
         order.setManagerId(managerId);
         order.setNewName(newName);
@@ -126,7 +126,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/query")
     public QueryManagerResult query(int pageNo, int pageSize, String managerId, ManagerType type, String name) {
-        ManagerSessionAccessor.assertAdmin();
+        ManagerAssert.admin();
         QueryManagerOrder order = new QueryManagerOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
