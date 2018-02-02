@@ -22,8 +22,9 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 管理员断言
  */
-public class ManagerAssert {
-    private static RelationService relationService = Contexts.getApplicationContext().getBean(RelationService.class);
+public final class ManagerAssert {
+    // 关系服务
+    private static final RelationService relationService = Contexts.getApplicationContext().getBean(RelationService.class);
 
     /**
      * 断言管理员已登陆并获取管理员信息
