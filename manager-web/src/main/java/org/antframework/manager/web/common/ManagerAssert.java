@@ -60,7 +60,7 @@ public final class ManagerAssert {
     }
 
     /**
-     * 断言当前管理员为超级管理员或以目标有关系
+     * 断言当前管理员为超级管理员或与目标有关系
      *
      * @param targetId 目标id
      */
