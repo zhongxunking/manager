@@ -35,11 +35,6 @@ public class ManagerServiceProvider implements ManagerService {
     }
 
     @Override
-    public EmptyResult deleteManager(DeleteManagerOrder order) {
-        return serviceEngine.execute("deleteManagerService", order);
-    }
-
-    @Override
     public EmptyResult modifyManagerType(ModifyManagerTypeOrder order) {
         return serviceEngine.execute("modifyManagerTypeService", order);
     }
@@ -52,6 +47,11 @@ public class ManagerServiceProvider implements ManagerService {
     @Override
     public EmptyResult modifyManagerPassword(ModifyManagerPasswordOrder order) {
         return serviceEngine.execute("modifyManagerPasswordService", order);
+    }
+
+    @Override
+    public EmptyResult deleteManager(DeleteManagerOrder order) {
+        return serviceEngine.execute("deleteManagerService", order);
     }
 
     @Override

@@ -40,25 +40,6 @@ public class ManagerServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testDeleteManager() {
-        DeleteManagerOrder order = new DeleteManagerOrder();
-        order.setManagerId("admin");
-
-        EmptyResult result = managerService.deleteManager(order);
-        assertSuccess(result);
-    }
-
-    @Test
-    public void testModifyManagerPassword() {
-        ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
-        order.setManagerId("admin");
-        order.setNewPassword("abc");
-
-        EmptyResult result = managerService.modifyManagerPassword(order);
-        assertSuccess(result);
-    }
-
-    @Test
     public void testModifyManagerType() {
         ModifyManagerTypeOrder order = new ModifyManagerTypeOrder();
         order.setManagerId("admin");
@@ -75,6 +56,25 @@ public class ManagerServiceTest extends AbstractTest {
         order.setNewName("zhongxun");
 
         EmptyResult result = managerService.modifyManagerName(order);
+        assertSuccess(result);
+    }
+
+    @Test
+    public void testModifyManagerPassword() {
+        ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
+        order.setManagerId("admin");
+        order.setNewPassword("abc");
+
+        EmptyResult result = managerService.modifyManagerPassword(order);
+        assertSuccess(result);
+    }
+
+    @Test
+    public void testDeleteManager() {
+        DeleteManagerOrder order = new DeleteManagerOrder();
+        order.setManagerId("admin");
+
+        EmptyResult result = managerService.deleteManager(order);
         assertSuccess(result);
     }
 

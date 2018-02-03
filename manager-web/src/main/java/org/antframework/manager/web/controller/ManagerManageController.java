@@ -49,38 +49,6 @@ public class ManagerManageController {
     }
 
     /**
-     * 删除管理员
-     *
-     * @param managerId 被删除的管理员id（必填）
-     * @return 删除管理员结果
-     */
-    @RequestMapping("/delete")
-    public EmptyResult delete(String managerId) {
-        ManagerAssert.admin();
-        DeleteManagerOrder order = new DeleteManagerOrder();
-        order.setManagerId(managerId);
-
-        return managerService.deleteManager(order);
-    }
-
-    /**
-     * 修改管理员密码
-     *
-     * @param managerId   被修改的管理员id（必填）
-     * @param newPassword 新密码（必填）
-     * @return 修改结果
-     */
-    @RequestMapping("/modifyPassword")
-    public EmptyResult modifyPassword(String managerId, String newPassword) {
-        ManagerAssert.adminOrMyself(managerId);
-        ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
-        order.setManagerId(managerId);
-        order.setNewPassword(newPassword);
-
-        return managerService.modifyManagerPassword(order);
-    }
-
-    /**
      * 修改管理员类型
      *
      * @param managerId 被修改的管理员id（必填）
@@ -112,6 +80,38 @@ public class ManagerManageController {
         order.setNewName(newName);
 
         return managerService.modifyManagerName(order);
+    }
+
+    /**
+     * 修改管理员密码
+     *
+     * @param managerId   被修改的管理员id（必填）
+     * @param newPassword 新密码（必填）
+     * @return 修改结果
+     */
+    @RequestMapping("/modifyPassword")
+    public EmptyResult modifyPassword(String managerId, String newPassword) {
+        ManagerAssert.adminOrMyself(managerId);
+        ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
+        order.setManagerId(managerId);
+        order.setNewPassword(newPassword);
+
+        return managerService.modifyManagerPassword(order);
+    }
+
+    /**
+     * 删除管理员
+     *
+     * @param managerId 被删除的管理员id（必填）
+     * @return 删除管理员结果
+     */
+    @RequestMapping("/delete")
+    public EmptyResult delete(String managerId) {
+        ManagerAssert.admin();
+        DeleteManagerOrder order = new DeleteManagerOrder();
+        order.setManagerId(managerId);
+
+        return managerService.deleteManager(order);
     }
 
     /**

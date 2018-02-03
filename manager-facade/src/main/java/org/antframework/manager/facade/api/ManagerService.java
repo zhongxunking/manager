@@ -23,11 +23,6 @@ public interface ManagerService {
     EmptyResult addManager(AddManagerOrder order);
 
     /**
-     * 删除管理员
-     */
-    EmptyResult deleteManager(DeleteManagerOrder order);
-
-    /**
      * 修改管理员类型
      */
     EmptyResult modifyManagerType(ModifyManagerTypeOrder order);
@@ -41,6 +36,11 @@ public interface ManagerService {
      * 修改管理员密码
      */
     EmptyResult modifyManagerPassword(ModifyManagerPasswordOrder order);
+
+    /**
+     * 删除管理员
+     */
+    EmptyResult deleteManager(DeleteManagerOrder order);
 
     /**
      * 查询管理员
