@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     // 处理Exception
     @ExceptionHandler(Exception.class)
     public EmptyResult handleException(Exception e) {
-        logger.error("web层捕获带未知异常：", e);
+        logger.error("web层捕获到未知异常：", e);
         EmptyResult result = new EmptyResult();
         result.setStatus(Status.PROCESSING);
         result.setCode(CommonResultCode.UNKNOWN_ERROR.getCode());
