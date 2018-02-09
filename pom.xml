@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.antframework.boot</groupId>
         <artifactId>ant-boot-starter-parent</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.1.0.RELEASE</version>
     </parent>
 
     <groupId>org.antframework.manager</groupId>
@@ -15,8 +15,6 @@
 
     <name>manager</name>
 
-    <dependencyManagement>
-    </dependencyManagement>
     <modules>
         <module>manager-facade</module>
         <module>manager-common</module>
@@ -26,4 +24,7 @@
         <module>manager-assemble</module>
         <module>manager-test</module>
     </modules>
+
+    <dependencyManagement>
+    </dependencyManagement>
 </project>
