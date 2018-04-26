@@ -8,8 +8,7 @@
  */
 package org.antframework.manager.biz.provider;
 
-import org.antframework.boot.bekit.CommonQueryConstant;
-import org.antframework.boot.bekit.CommonQueryResult;
+import org.antframework.boot.bekit.CommonQueries;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.biz.util.QueryUtils;
 import org.antframework.manager.dal.dao.ManagerDao;
@@ -56,7 +55,7 @@ public class ManagerServiceProvider implements ManagerService {
 
     @Override
     public QueryManagerResult queryManager(QueryManagerOrder order) {
-        CommonQueryResult result = serviceEngine.execute(CommonQueryConstant.SERVICE_NAME, order, QueryUtils.buildCommonQueryAttachment(ManagerDao.class));
+        CommonQueries.CommonQueryResult result = serviceEngine.execute(CommonQueries.SERVICE_NAME, order, QueryUtils.buildCommonQueryAttachment(ManagerDao.class));
         return result.convertTo(QueryManagerResult.class);
     }
 

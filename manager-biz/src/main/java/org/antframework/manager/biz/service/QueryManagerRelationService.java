@@ -8,8 +8,7 @@
  */
 package org.antframework.manager.biz.service;
 
-import org.antframework.boot.bekit.CommonQueryConstant;
-import org.antframework.boot.bekit.CommonQueryResult;
+import org.antframework.boot.bekit.CommonQueries;
 import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
@@ -21,7 +20,7 @@ import org.antframework.manager.facade.order.QueryManagerRelationOrder;
 import org.antframework.manager.facade.result.QueryManagerRelationResult;
 import org.bekit.service.ServiceEngine;
 import org.bekit.service.annotation.service.Service;
-import org.bekit.service.annotation.service.ServiceCheck;
+import org.bekit.service.annotation.service.ServiceBefore;
 import org.bekit.service.annotation.service.ServiceExecute;
 import org.bekit.service.engine.ServiceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +35,8 @@ public class QueryManagerRelationService {
     @Autowired
     private ServiceEngine serviceEngine;
 
-    @ServiceCheck
-    public void check(ServiceContext<QueryManagerRelationOrder, QueryManagerRelationResult> context) {
+    @ServiceBefore
+    public void before(ServiceContext<QueryManagerRelationOrder, QueryManagerRelationResult> context) {
         QueryManagerRelationOrder order = context.getOrder();
 
         Manager manager = managerDao.findByManagerId(order.getManagerId());
@@ -51,7 +50,7 @@ public class QueryManagerRelationService {
         QueryManagerRelationOrder order = context.getOrder();
         QueryManagerRelationResult result = context.getResult();
 
-        CommonQueryResult commonQueryResult = serviceEngine.execute(CommonQueryConstant.SERVICE_NAME, order, QueryUtils.buildCommonQueryAttachment(RelationDao.class));
+        CommonQueries.CommonQueryResult commonQueryResult = serviceEngine.execute(CommonQueries.SERVICE_NAME, order, QueryUtils.buildCommonQueryAttachment(RelationDao.class));
         commonQueryResult.convertTo(result, null);
     }
 }
