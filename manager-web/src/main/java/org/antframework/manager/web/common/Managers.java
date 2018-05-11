@@ -13,7 +13,7 @@ import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.common.util.facade.Status;
 import org.antframework.manager.facade.api.RelationService;
-import org.antframework.manager.facade.order.DeleteRelationOrder;
+import org.antframework.manager.facade.order.DeleteRelationsOrder;
 import org.antframework.manager.facade.order.QueryManagerRelationsOrder;
 import org.antframework.manager.facade.result.QueryManagerRelationsResult;
 
@@ -30,10 +30,10 @@ public final class Managers {
      * @param targetId 目标id
      */
     public static void deleteAllRelationsByTarget(String targetId) {
-        DeleteRelationOrder deleteRelationOrder = new DeleteRelationOrder();
-        deleteRelationOrder.setTargetId(targetId);
+        DeleteRelationsOrder order = new DeleteRelationsOrder();
+        order.setTargetId(targetId);
 
-        EmptyResult result = relationService.deleteRelation(deleteRelationOrder);
+        EmptyResult result = relationService.deleteRelations(order);
         if (!result.isSuccess()) {
             throw new BizException(result.getStatus(), result.getCode(), result.getMessage());
         }

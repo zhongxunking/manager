@@ -35,8 +35,8 @@ public class RelationServiceProvider implements RelationService {
     }
 
     @Override
-    public EmptyResult deleteRelation(DeleteRelationOrder order) {
-        return serviceEngine.execute("deleteRelationService", order);
+    public EmptyResult deleteRelations(DeleteRelationsOrder order) {
+        return serviceEngine.execute("deleteRelationsService", order);
     }
 
     @Override

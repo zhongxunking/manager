@@ -38,11 +38,11 @@ public class RelationServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testDeleteRelation() {
-        DeleteRelationOrder order = new DeleteRelationOrder();
+    public void testDeleteRelations() {
+        DeleteRelationsOrder order = new DeleteRelationsOrder();
         order.setManagerId("admin");
 
-        EmptyResult result = relationService.deleteRelation(order);
+        EmptyResult result = relationService.deleteRelations(order);
         assertSuccess(result);
     }
 

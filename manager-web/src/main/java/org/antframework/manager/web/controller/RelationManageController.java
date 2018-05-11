@@ -55,11 +55,11 @@ public class RelationManageController {
     @RequestMapping("/delete")
     public EmptyResult delete(String managerId, String targetId) {
         ManagerAssert.admin();
-        DeleteRelationOrder order = new DeleteRelationOrder();
+        DeleteRelationsOrder order = new DeleteRelationsOrder();
         order.setManagerId(managerId);
         order.setTargetId(targetId);
 
-        return relationService.deleteRelation(order);
+        return relationService.deleteRelations(order);
     }
 
     /**

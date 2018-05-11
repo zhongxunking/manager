@@ -14,7 +14,7 @@ import org.antframework.manager.dal.dao.ManagerDao;
 import org.antframework.manager.dal.entity.Manager;
 import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.DeleteManagerOrder;
-import org.antframework.manager.facade.order.DeleteRelationOrder;
+import org.antframework.manager.facade.order.DeleteRelationsOrder;
 import org.bekit.service.annotation.service.Service;
 import org.bekit.service.annotation.service.ServiceExecute;
 import org.bekit.service.engine.ServiceContext;
@@ -39,7 +39,7 @@ public class DeleteManagerService {
             return;
         }
         // 删除与管理员相关的关系
-        EmptyResult deleteRelationResult = relationService.deleteRelation(buildDeleteRelationOrder(manager));
+        EmptyResult deleteRelationResult = relationService.deleteRelations(buildDeleteRelationsOrder(manager));
         if (!deleteRelationResult.isSuccess()) {
             throw new BizException(deleteRelationResult.getStatus(), deleteRelationResult.getCode(), deleteRelationResult.getMessage());
         }
@@ -48,8 +48,8 @@ public class DeleteManagerService {
     }
 
     // 构建删除与管理员相关的关系order
-    private DeleteRelationOrder buildDeleteRelationOrder(Manager manager) {
-        DeleteRelationOrder order = new DeleteRelationOrder();
+    private DeleteRelationsOrder buildDeleteRelationsOrder(Manager manager) {
+        DeleteRelationsOrder order = new DeleteRelationsOrder();
         order.setManagerId(manager.getManagerId());
         order.setTargetId(null);
 

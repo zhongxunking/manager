@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Import;
         AddManagerService.class,
         AddRelationService.class,
         DeleteManagerService.class,
-        DeleteRelationService.class,
+        DeleteRelationsService.class,
         FindRelationService.class,
         ManagerLoginService.class,
         ModifyManagerNameService.class,

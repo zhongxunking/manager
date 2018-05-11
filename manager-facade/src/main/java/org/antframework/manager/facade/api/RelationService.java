@@ -26,7 +26,7 @@ public interface RelationService {
     /**
      * 删除关系
      */
-    EmptyResult deleteRelation(DeleteRelationOrder order);
+    EmptyResult deleteRelations(DeleteRelationsOrder order);
 
     /**
      * 查找关系
