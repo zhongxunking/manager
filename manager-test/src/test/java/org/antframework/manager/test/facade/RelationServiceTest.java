@@ -13,7 +13,7 @@ import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindRelationResult;
 import org.antframework.manager.facade.result.QueryManagerRelationsResult;
-import org.antframework.manager.facade.result.QueryRelationResult;
+import org.antframework.manager.facade.result.QueryRelationsResult;
 import org.antframework.manager.test.AbstractTest;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -68,12 +68,12 @@ public class RelationServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testQueryRelation() {
-        QueryRelationOrder order = new QueryRelationOrder();
+    public void testQueryRelations() {
+        QueryRelationsOrder order = new QueryRelationsOrder();
         order.setPageNo(1);
         order.setPageSize(10);
 
-        QueryRelationResult result = relationService.queryRelation(order);
+        QueryRelationsResult result = relationService.queryRelations(order);
         assertSuccess(result);
     }
 }

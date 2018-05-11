@@ -13,7 +13,7 @@ import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindRelationResult;
 import org.antframework.manager.facade.result.QueryManagerRelationsResult;
-import org.antframework.manager.facade.result.QueryRelationResult;
+import org.antframework.manager.facade.result.QueryRelationsResult;
 import org.antframework.manager.web.common.ManagerAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -110,14 +110,14 @@ public class RelationManageController {
      * @return 查询结果
      */
     @RequestMapping("/query")
-    public QueryRelationResult query(int pageNo, int pageSize, String managerId, String targetId) {
+    public QueryRelationsResult query(int pageNo, int pageSize, String managerId, String targetId) {
         ManagerAssert.admin();
-        QueryRelationOrder order = new QueryRelationOrder();
+        QueryRelationsOrder order = new QueryRelationsOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
         order.setManagerId(managerId);
         order.setTargetId(targetId);
 
-        return relationService.queryRelation(order);
+        return relationService.queryRelations(order);
     }
 }

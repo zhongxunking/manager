@@ -14,7 +14,7 @@ import org.antframework.common.util.query.annotation.operator.QueryLike;
 /**
  * 查询关系order
  */
-public class QueryRelationOrder extends AbstractQueryOrder {
+public class QueryRelationsOrder extends AbstractQueryOrder {
     // 管理员id
     @QueryLike
     private String managerId;

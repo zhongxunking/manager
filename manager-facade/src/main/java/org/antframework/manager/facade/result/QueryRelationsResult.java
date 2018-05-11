@@ -14,5 +14,5 @@ import org.antframework.manager.facade.info.RelationInfo;
 /**
  * 查询关系result
  */
-public class QueryRelationResult extends AbstractQueryResult<RelationInfo> {
+public class QueryRelationsResult extends AbstractQueryResult<RelationInfo> {
 }

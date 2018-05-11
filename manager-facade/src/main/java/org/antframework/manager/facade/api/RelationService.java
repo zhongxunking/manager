@@ -12,7 +12,7 @@ import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindRelationResult;
 import org.antframework.manager.facade.result.QueryManagerRelationsResult;
-import org.antframework.manager.facade.result.QueryRelationResult;
+import org.antframework.manager.facade.result.QueryRelationsResult;
 
 /**
  * 关系服务
@@ -41,5 +41,5 @@ public interface RelationService {
     /**
      * 查询关系
      */
-    QueryRelationResult queryRelation(QueryRelationOrder order);
+    QueryRelationsResult queryRelations(QueryRelationsOrder order);
 }
