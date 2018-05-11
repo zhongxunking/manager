@@ -13,7 +13,7 @@ import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.ManagerLoginResult;
-import org.antframework.manager.facade.result.QueryManagerResult;
+import org.antframework.manager.facade.result.QueryManagersResult;
 import org.antframework.manager.test.AbstractTest;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -79,12 +79,12 @@ public class ManagerServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testQueryManager() {
-        QueryManagerOrder order = new QueryManagerOrder();
+    public void testQueryManagers() {
+        QueryManagersOrder order = new QueryManagersOrder();
         order.setPageNo(1);
         order.setPageSize(10);
 
-        QueryManagerResult result = managerService.queryManager(order);
+        QueryManagersResult result = managerService.queryManagers(order);
         assertSuccess(result);
     }
 

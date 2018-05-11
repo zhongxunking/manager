@@ -11,7 +11,7 @@ package org.antframework.manager.facade.api;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.ManagerLoginResult;
-import org.antframework.manager.facade.result.QueryManagerResult;
+import org.antframework.manager.facade.result.QueryManagersResult;
 
 /**
  * 管理员服务
@@ -45,7 +45,7 @@ public interface ManagerService {
     /**
      * 查询管理员
      */
-    QueryManagerResult queryManager(QueryManagerOrder order);
+    QueryManagersResult queryManagers(QueryManagersOrder order);
 
     /**
      * 管理员登录

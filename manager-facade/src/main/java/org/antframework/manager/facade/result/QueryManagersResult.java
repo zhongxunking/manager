@@ -14,5 +14,5 @@ import org.antframework.manager.facade.info.ManagerInfo;
 /**
  * 查询管理员result
  */
-public class QueryManagerResult extends AbstractQueryResult<ManagerInfo> {
+public class QueryManagersResult extends AbstractQueryResult<ManagerInfo> {
 }

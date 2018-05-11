@@ -15,8 +15,8 @@ import org.antframework.common.util.facade.Status;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.AddManagerOrder;
-import org.antframework.manager.facade.order.QueryManagerOrder;
-import org.antframework.manager.facade.result.QueryManagerResult;
+import org.antframework.manager.facade.order.QueryManagersOrder;
+import org.antframework.manager.facade.result.QueryManagersResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,10 +66,10 @@ public class ManagerInitController {
 
     // 断言能初始化超级管理员
     private void assertCanInitAdmin() {
-        QueryManagerOrder order = new QueryManagerOrder();
+        QueryManagersOrder order = new QueryManagersOrder();
         order.setPageNo(1);
         order.setPageSize(1);
-        QueryManagerResult result = managerService.queryManager(order);
+        QueryManagersResult result = managerService.queryManagers(order);
         if (!result.isSuccess()) {
             throw new BizException(Status.FAIL, result.getCode(), result.getMessage());
         }

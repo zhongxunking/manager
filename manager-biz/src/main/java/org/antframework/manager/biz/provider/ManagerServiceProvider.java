@@ -15,7 +15,7 @@ import org.antframework.manager.dal.dao.ManagerDao;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.ManagerLoginResult;
-import org.antframework.manager.facade.result.QueryManagerResult;
+import org.antframework.manager.facade.result.QueryManagersResult;
 import org.bekit.service.ServiceEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,9 +54,9 @@ public class ManagerServiceProvider implements ManagerService {
     }
 
     @Override
-    public QueryManagerResult queryManager(QueryManagerOrder order) {
+    public QueryManagersResult queryManagers(QueryManagersOrder order) {
         CommonQueries.CommonQueryResult result = serviceEngine.execute(CommonQueries.SERVICE_NAME, order, QueryUtils.buildCommonQueryAttachment(ManagerDao.class));
-        return result.convertTo(QueryManagerResult.class);
+        return result.convertTo(QueryManagersResult.class);
     }
 
     @Override

@@ -16,7 +16,7 @@ import org.antframework.manager.facade.enums.ManagerType;
 /**
  * 查询管理员order
  */
-public class QueryManagerOrder extends AbstractQueryOrder {
+public class QueryManagersOrder extends AbstractQueryOrder {
     // 管理员id
     @QueryLike
     private String managerId;

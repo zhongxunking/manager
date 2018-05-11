@@ -12,7 +12,7 @@ import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
-import org.antframework.manager.facade.result.QueryManagerResult;
+import org.antframework.manager.facade.result.QueryManagersResult;
 import org.antframework.manager.web.common.ManagerAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -125,15 +125,15 @@ public class ManagerManageController {
      * @return 查询结果
      */
     @RequestMapping("/query")
-    public QueryManagerResult query(int pageNo, int pageSize, String managerId, ManagerType type, String name) {
+    public QueryManagersResult query(int pageNo, int pageSize, String managerId, ManagerType type, String name) {
         ManagerAssert.admin();
-        QueryManagerOrder order = new QueryManagerOrder();
+        QueryManagersOrder order = new QueryManagersOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
         order.setManagerId(managerId);
         order.setType(type);
         order.setName(name);
 
-        return managerService.queryManager(order);
+        return managerService.queryManagers(order);
     }
 }
