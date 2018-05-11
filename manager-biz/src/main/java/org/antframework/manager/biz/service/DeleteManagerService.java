@@ -39,9 +39,9 @@ public class DeleteManagerService {
             return;
         }
         // 删除与管理员相关的关系
-        EmptyResult deleteRelationResult = relationService.deleteRelations(buildDeleteRelationsOrder(manager));
-        if (!deleteRelationResult.isSuccess()) {
-            throw new BizException(deleteRelationResult.getStatus(), deleteRelationResult.getCode(), deleteRelationResult.getMessage());
+        EmptyResult deleteRelationsResult = relationService.deleteRelations(buildDeleteRelationsOrder(manager));
+        if (!deleteRelationsResult.isSuccess()) {
+            throw new BizException(deleteRelationsResult.getStatus(), deleteRelationsResult.getCode(), deleteRelationsResult.getMessage());
         }
 
         managerDao.delete(manager);
