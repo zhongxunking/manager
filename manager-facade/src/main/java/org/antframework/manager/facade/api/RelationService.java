@@ -11,7 +11,7 @@ package org.antframework.manager.facade.api;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindRelationResult;
-import org.antframework.manager.facade.result.QueryManagerRelationResult;
+import org.antframework.manager.facade.result.QueryManagerRelationsResult;
 import org.antframework.manager.facade.result.QueryRelationResult;
 
 /**
@@ -36,7 +36,7 @@ public interface RelationService {
     /**
      * 查询指定管理员相关的关系
      */
-    QueryManagerRelationResult queryManagerRelation(QueryManagerRelationOrder order);
+    QueryManagerRelationsResult queryManagerRelations(QueryManagerRelationsOrder order);
 
     /**
      * 查询关系

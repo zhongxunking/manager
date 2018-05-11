@@ -14,8 +14,8 @@ import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.common.util.facade.Status;
 import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.DeleteRelationOrder;
-import org.antframework.manager.facade.order.QueryManagerRelationOrder;
-import org.antframework.manager.facade.result.QueryManagerRelationResult;
+import org.antframework.manager.facade.order.QueryManagerRelationsOrder;
+import org.antframework.manager.facade.result.QueryManagerRelationsResult;
 
 /**
  * manager工具类
@@ -47,14 +47,14 @@ public final class Managers {
      * @param targetId 目标id（选填）
      * @return 查询结果
      */
-    public static QueryManagerRelationResult queryManagerRelation(int pageNo, int pageSize, String targetId) {
-        QueryManagerRelationOrder order = new QueryManagerRelationOrder();
+    public static QueryManagerRelationsResult queryManagerRelations(int pageNo, int pageSize, String targetId) {
+        QueryManagerRelationsOrder order = new QueryManagerRelationsOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
         order.setManagerId(ManagerAssert.currentManager().getManagerId());
         order.setTargetId(targetId);
 
-        QueryManagerRelationResult result = relationService.queryManagerRelation(order);
+        QueryManagerRelationsResult result = relationService.queryManagerRelations(order);
         if (!result.isSuccess()) {
             throw new BizException(Status.FAIL, result.getCode(), result.getMessage());
         }

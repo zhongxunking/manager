@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  * 查询指定管理员相关的关系order
  */
-public class QueryManagerRelationOrder extends AbstractQueryOrder {
+public class QueryManagerRelationsOrder extends AbstractQueryOrder {
     // 管理员id
     @QueryEQ
     @NotBlank

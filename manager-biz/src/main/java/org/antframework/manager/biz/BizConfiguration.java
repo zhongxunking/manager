@@ -29,6 +29,6 @@ import org.springframework.context.annotation.Import;
         ModifyManagerNameService.class,
         ModifyManagerPasswordService.class,
         ModifyManagerTypeService.class,
-        QueryManagerRelationService.class})
+        QueryManagerRelationsService.class})
 public class BizConfiguration {
 }
