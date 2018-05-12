@@ -9,7 +9,7 @@
 package org.antframework.manager.biz.service;
 
 import org.antframework.common.util.facade.EmptyResult;
-import org.antframework.common.util.query.annotation.QueryParamsParser;
+import org.antframework.common.util.query.annotation.QueryParams;
 import org.antframework.manager.dal.dao.RelationDao;
 import org.antframework.manager.dal.entity.Relation;
 import org.antframework.manager.facade.order.DeleteRelationsOrder;
@@ -32,7 +32,7 @@ public class DeleteRelationsService {
     public void execute(ServiceContext<DeleteRelationsOrder, EmptyResult> context) {
         DeleteRelationsOrder order = context.getOrder();
 
-        List<Relation> relations = relationDao.query(QueryParamsParser.parse(order));
+        List<Relation> relations = relationDao.query(QueryParams.parse(order));
         for (Relation relation : relations) {
             relationDao.delete(relation);
         }
