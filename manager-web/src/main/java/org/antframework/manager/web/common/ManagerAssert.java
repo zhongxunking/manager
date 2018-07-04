@@ -32,7 +32,7 @@ public final class ManagerAssert {
     public static ManagerInfo currentManager() {
         ManagerInfo manager = ManagerSessionAccessor.getManager();
         if (manager == null) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), "管理员未登录或登录已超时");
+            throw new BizException(Status.FAIL, CommonResultCode.UNAUTHORIZED.getCode(), CommonResultCode.UNAUTHORIZED.getMessage());
         }
         return manager;
     }
