@@ -4,7 +4,7 @@
 
 /*
  * 修订记录:
- * @author 钟勋 2017-09-20 13:44 创建
+ * @author 钟勋 2018-08-04 00:59 创建
  */
 package org.antframework.manager.facade.result;
 
@@ -12,10 +12,10 @@ import org.antframework.common.util.facade.AbstractResult;
 import org.antframework.manager.facade.info.ManagerInfo;
 
 /**
- * 管理员登陆result
+ * 查找管理员result
  */
-public class ManagerLoginResult extends AbstractResult {
-    // 管理员
+public class FindManagerResult extends AbstractResult {
+    // 管理员（null表示不存在该管理员）
     private ManagerInfo manager;
 
     public ManagerInfo getManager() {

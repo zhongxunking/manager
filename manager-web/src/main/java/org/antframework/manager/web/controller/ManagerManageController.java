@@ -12,6 +12,7 @@ import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
+import org.antframework.manager.facade.result.FindManagerResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
 import org.antframework.manager.web.common.ManagerAssert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,21 @@ public class ManagerManageController {
         order.setManagerId(managerId);
 
         return managerService.deleteManager(order);
+    }
+
+    /**
+     * 查找管理员
+     *
+     * @param managerId 管理员id
+     * @return 查找管理员结果
+     */
+    @RequestMapping("/findManager")
+    public FindManagerResult findManager(String managerId) {
+        ManagerAssert.adminOrMyself(managerId);
+        FindManagerOrder order = new FindManagerOrder();
+        order.setManagerId(managerId);
+
+        return managerService.findManager(order);
     }
 
     /**

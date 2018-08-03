@@ -45,7 +45,7 @@ public class ManagerMainController {
 
         ManagerLoginResult result = managerService.managerLogin(order);
         if (result.isSuccess()) {
-            ManagerSessionAccessor.setManager(result.getManagerInfo());
+            ManagerSessionAccessor.setManager(result.getManager());
         }
         return result;
     }

@@ -78,7 +78,7 @@ public final class ManagerAssert {
         if (!result.isSuccess()) {
             throw new BizException(Status.FAIL, result.getCode(), result.getMessage());
         }
-        if (result.getRelationInfo() == null) {
+        if (result.getRelation() == null) {
             throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员%s与%s不存在关系", manager.getManagerId(), targetId));
         }
     }

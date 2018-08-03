@@ -35,7 +35,7 @@ public class FindRelationService {
 
         Relation relation = relationDao.findByManagerIdAndTargetId(order.getManagerId(), order.getTargetId());
         if (relation != null) {
-            context.getResult().setRelationInfo(INFO_CONVERTER.convert(relation));
+            context.getResult().setRelation(INFO_CONVERTER.convert(relation));
         }
     }
 }

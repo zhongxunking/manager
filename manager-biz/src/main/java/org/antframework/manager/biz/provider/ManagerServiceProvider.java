@@ -14,6 +14,7 @@ import org.antframework.manager.biz.util.QueryUtils;
 import org.antframework.manager.dal.dao.ManagerDao;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.order.*;
+import org.antframework.manager.facade.result.FindManagerResult;
 import org.antframework.manager.facade.result.ManagerLoginResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
 import org.bekit.service.ServiceEngine;
@@ -21,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 故那里远服务提供者
+ * 管理员服务提供者
  */
 @Service
 public class ManagerServiceProvider implements ManagerService {
@@ -51,6 +52,11 @@ public class ManagerServiceProvider implements ManagerService {
     @Override
     public EmptyResult deleteManager(DeleteManagerOrder order) {
         return serviceEngine.execute("deleteManagerService", order);
+    }
+
+    @Override
+    public FindManagerResult findManager(FindManagerOrder order) {
+        return serviceEngine.execute("findManagerService", order);
     }
 
     @Override

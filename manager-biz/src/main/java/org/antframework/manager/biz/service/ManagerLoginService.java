@@ -48,6 +48,6 @@ public class ManagerLoginService {
         if (!StringUtils.equals(PasswordUtils.digest(order.getPassword()), manager.getPassword())) {
             throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), "密码不正确");
         }
-        result.setManagerInfo(INFO_CONVERTER.convert(manager));
+        result.setManager(INFO_CONVERTER.convert(manager));
     }
 }

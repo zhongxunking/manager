@@ -15,14 +15,14 @@ import org.antframework.manager.facade.info.RelationInfo;
  * 查找关系result
  */
 public class FindRelationResult extends AbstractResult {
-    // 关系info（null表示不存在该关系）
-    private RelationInfo relationInfo;
+    // 关系（null表示不存在该关系）
+    private RelationInfo relation;
 
-    public RelationInfo getRelationInfo() {
-        return relationInfo;
+    public RelationInfo getRelation() {
+        return relation;
     }
 
-    public void setRelationInfo(RelationInfo relationInfo) {
-        this.relationInfo = relationInfo;
+    public void setRelation(RelationInfo relation) {
+        this.relation = relation;
     }
 }

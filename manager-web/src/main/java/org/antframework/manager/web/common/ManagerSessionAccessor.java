@@ -38,8 +38,8 @@ public class ManagerSessionAccessor {
     /**
      * 向session设置管理员
      */
-    public static void setManager(ManagerInfo info) {
-        SESSION_HOLDER.get().setAttribute(KEY_MANAGER, info);
+    public static void setManager(ManagerInfo manager) {
+        SESSION_HOLDER.get().setAttribute(KEY_MANAGER, manager);
     }
 
     /**
