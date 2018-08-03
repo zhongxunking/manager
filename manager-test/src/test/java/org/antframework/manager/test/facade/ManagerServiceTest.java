@@ -12,6 +12,7 @@ import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
+import org.antframework.manager.facade.result.FindManagerResult;
 import org.antframework.manager.facade.result.ManagerLoginResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
 import org.antframework.manager.test.AbstractTest;
@@ -75,6 +76,15 @@ public class ManagerServiceTest extends AbstractTest {
         order.setManagerId("admin");
 
         EmptyResult result = managerService.deleteManager(order);
+        assertSuccess(result);
+    }
+
+    @Test
+    public void testFindManager() {
+        FindManagerOrder order = new FindManagerOrder();
+        order.setManagerId("admin");
+
+        FindManagerResult result = managerService.findManager(order);
         assertSuccess(result);
     }
 
