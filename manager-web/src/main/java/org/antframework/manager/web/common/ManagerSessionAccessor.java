@@ -37,9 +37,15 @@ public class ManagerSessionAccessor {
 
     /**
      * 向session设置管理员
+     *
+     * @param manager 管理员（null表示删除session中的管理员）
      */
     public static void setManager(ManagerInfo manager) {
-        SESSION_HOLDER.get().setAttribute(KEY_MANAGER, manager);
+        if (manager != null) {
+            SESSION_HOLDER.get().setAttribute(KEY_MANAGER, manager);
+        } else {
+            SESSION_HOLDER.get().removeAttribute(KEY_MANAGER);
+        }
     }
 
     /**
@@ -47,12 +53,5 @@ public class ManagerSessionAccessor {
      */
     public static ManagerInfo getManager() {
         return (ManagerInfo) SESSION_HOLDER.get().getAttribute(KEY_MANAGER);
-    }
-
-    /**
-     * 从session删除管理员
-     */
-    public static void removeManager() {
-        SESSION_HOLDER.get().removeAttribute(KEY_MANAGER);
     }
 }

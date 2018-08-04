@@ -55,7 +55,7 @@ public class ManagerMainController {
      */
     @RequestMapping("/logout")
     public EmptyResult logout() {
-        ManagerSessionAccessor.removeManager();
+        ManagerSessionAccessor.setManager(null);
 
         EmptyResult result = new EmptyResult();
         result.setStatus(Status.SUCCESS);

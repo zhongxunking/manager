@@ -15,6 +15,7 @@ import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindManagerResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
 import org.antframework.manager.web.common.ManagerAssert;
+import org.antframework.manager.web.common.ManagerSessionAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,7 +64,9 @@ public class ManagerManageController {
         order.setManagerId(managerId);
         order.setNewType(newType);
 
-        return managerService.modifyManagerType(order);
+        EmptyResult result = managerService.modifyManagerType(order);
+        tryRefreshSessionManager(managerId);
+        return result;
     }
 
     /**
@@ -80,7 +83,9 @@ public class ManagerManageController {
         order.setManagerId(managerId);
         order.setNewName(newName);
 
-        return managerService.modifyManagerName(order);
+        EmptyResult result = managerService.modifyManagerName(order);
+        tryRefreshSessionManager(managerId);
+        return result;
     }
 
     /**
@@ -112,7 +117,9 @@ public class ManagerManageController {
         DeleteManagerOrder order = new DeleteManagerOrder();
         order.setManagerId(managerId);
 
-        return managerService.deleteManager(order);
+        EmptyResult result = managerService.deleteManager(order);
+        tryRefreshSessionManager(managerId);
+        return result;
     }
 
     /**
@@ -151,5 +158,22 @@ public class ManagerManageController {
         order.setName(name);
 
         return managerService.queryManagers(order);
+    }
+
+    // 尝试刷新session中的管理员
+    private void tryRefreshSessionManager(String managerId) {
+        try {
+            ManagerAssert.myself(managerId);
+            // 刷新session中的管理员
+            FindManagerOrder order = new FindManagerOrder();
+            order.setManagerId(managerId);
+
+            FindManagerResult result = managerService.findManager(order);
+            if (result.isSuccess()) {
+                ManagerSessionAccessor.setManager(result.getManager());
+            }
+        } catch (Throwable e) {
+            // 忽略
+        }
     }
 }

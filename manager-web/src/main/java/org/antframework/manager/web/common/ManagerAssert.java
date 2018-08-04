@@ -48,14 +48,32 @@ public final class ManagerAssert {
     }
 
     /**
+     * 断言当前管理员为指定的管理员
+     *
+     * @param managerId 管理员id
+     */
+    public static void myself(String managerId) {
+        ManagerInfo manager = currentManager();
+        if (!StringUtils.equals(managerId, manager.getManagerId())) {
+            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员[%s]不是指定管理员[%s]", manager.getManagerId(), managerId));
+        }
+    }
+
+    /**
      * 断言当前管理员为超级管理员或为指定的管理员
      *
      * @param managerId 管理员id
      */
     public static void adminOrMyself(String managerId) {
-        ManagerInfo manager = currentManager();
-        if (manager.getType() != ManagerType.ADMIN && !StringUtils.equals(managerId, manager.getManagerId())) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员[%s]不是超级管理员且不是指定管理员[%s]", manager.getManagerId(), managerId));
+        try {
+            admin();
+        } catch (BizException adminE) {
+            try {
+                myself(managerId);
+            } catch (BizException myselfE) {
+                ManagerInfo manager = currentManager();
+                throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员[%s]既不是超级管理员也不是指定管理员[%s]", manager.getManagerId(), managerId));
+            }
         }
     }
 
