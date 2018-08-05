@@ -11,9 +11,7 @@
             }
             return scripts[last].src;
         }();
-        for (let i = 0; i < 2; i++) {
-            path = path.substring(0, path.lastIndexOf('/'));
-        }
+        path = path.substring(0, path.lastIndexOf('/'));
         return path;
     }();
     // 导入js、css
