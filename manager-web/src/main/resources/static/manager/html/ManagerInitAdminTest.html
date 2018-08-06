@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>初始化超级管理员</title>
+    <script src="../import.js"></script>
+    <script src="../component/ManagerInitAdmin.js"></script>
+</head>
+<body>
+<div id="managerInitAdminApp">
+    <manager-init-admin :login-path="loginPath"></manager-init-admin>
+</div>
+<script>
+    const managerInitAdminApp = new Vue({
+        el: '#managerInitAdminApp',
+        components: {
+            'manager-init-admin': ManagerInitAdmin
+        },
+        data: {
+            loginPath: 'ManagerLoginTest.html'
+        }
+    });
+</script>
+</body>
+</html>

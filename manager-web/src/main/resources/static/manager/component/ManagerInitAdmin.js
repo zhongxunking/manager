@@ -1,5 +1,5 @@
-// 初始化超级管理员组件
-const initAdminComponentTemplate = `
+// 管理员--初始化超级管理员组件
+const ManagerInitAdminTemplate = `
 <div style="position:absolute; left:0; top:0; width:100%;height:100%;background-color: #304156">
     <el-form ref="initAdminForm" :model="initAdminForm" style="width: 350px;padding: 35px;margin: 120px auto">
         <div style="text-align: center;color: #eee;margin-bottom: 40px;">
@@ -21,8 +21,8 @@ const initAdminComponentTemplate = `
 </div>
 `;
 
-const initAdminComponent = {
-    template: initAdminComponentTemplate,
+const ManagerInitAdmin = {
+    template: ManagerInitAdminTemplate,
     props: ['loginPath'],
     data: function () {
         return {
