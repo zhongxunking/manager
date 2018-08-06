@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="../import.js"></script>
-    <script src="../component/login.js"></script>
+    <script src="../component/ManagerLogin.js"></script>
 </head>
 <body>
 <div id="loginApp">
-    <login :title-html="titleHtml" :main-path="mainPath" :init-admin-path="initAdminPath"></login>
+    <manager-login :title-html="titleHtml" :init-admin-path="initAdminPath" :main-path="mainPath"></manager-login>
 </div>
 <script>
     const loginApp = new Vue({
         el: '#loginApp',
         components: {
-            'login': loginComponent
+            'manager-login': ManagerLogin
         },
         data: {
             titleHtml: `
                 <span style="font-size: xx-large;">后台管理</span>
             `,
-            mainPath: 'main.html',
-            initAdminPath: 'initAdmin.html',
+            initAdminPath: 'ManagerInitAdminTest.html',
+            mainPath: 'ManagerMainTest.html'
         }
     });
 </script>

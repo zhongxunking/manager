@@ -1,5 +1,5 @@
-// 登录组件
-const loginComponentTemplate = `
+// 管理员登录组件
+const ManagerLoginTemplate = `
 <div style="position:absolute; left:0; top:0; width:100%;height:100%;background-color: #304156">
     <el-form ref="loginForm" :model="loginForm" style="width: 350px;padding: 35px;margin: 120px auto">
         <div v-html="titleHtml" style="text-align: center;color: #eee;margin-bottom: 40px;"></div>
@@ -16,9 +16,9 @@ const loginComponentTemplate = `
 </div>
 `;
 
-const loginComponent = {
-    template: loginComponentTemplate,
-    props: ['titleHtml', 'mainPath', 'initAdminPath'],
+const ManagerLogin = {
+    template: ManagerLoginTemplate,
+    props: ['titleHtml', 'initAdminPath', 'mainPath'],
     data: function () {
         return {
             loginForm: {
