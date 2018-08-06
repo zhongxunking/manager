@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <script src="../import.js"></script>
+    <script src="../component/ManagerProfile.js"></script>
+</head>
+<body>
+<div id="managerProfileApp">
+    <manager-profile :login-path="loginPath"></manager-profile>
+</div>
+</body>
+<script>
+    const managerProfileApp = new Vue({
+        el: '#managerProfileApp',
+        components: {
+            'manager-profile': ManagerProfile
+        },
+        data: {
+            loginPath: 'ManagerLoginTest.html'
+        }
+    });
+</script>
+</html>
