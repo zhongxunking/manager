@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>配置中心</title>
+    <script src="../import.js"></script>
+    <style>
+        .main-sidebar-menu {
+            height: 100%;
+        }
+
+        .main-sidebar-menu:not(.el-menu--collapse) {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="mainApp">
+    <el-container style="position:absolute; left:0; top:0; width:100%;height:100%;">
+        <el-header style="height: 50px;padding-top: 5px;background-color: #3d4e63;">
+            <div v-html="titleHtml" style="display: inline"></div>
+            <el-dropdown @command="handleProfileCommand" trigger="click" style="cursor: pointer;position: absolute;right: 30px;margin-top: 8px;line-height: 30px">
+                <span style="color: #fff">{{ manager.name }}<i class="el-icon-caret-bottom el-icon--right"></i></span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="showManagerProfile">我的信息</el-dropdown-item>
+                    <el-dropdown-item command="logout">退出</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </el-header>
+        <el-container>
+            <el-aside :style="{'overflow-x': 'hidden', width: sidebarCollapsed ? '65px' : '200px', transition: sidebarCollapsed ? 'width 0.3s' : 'width 0.45s'}">
+                <el-menu :collapse="sidebarCollapsed"
+                         :default-active="activeMenuItem"
+                         router
+                         class="main-sidebar-menu"
+                         background-color="#304156"
+                         text-color="#bfcbd9"
+                         active-text-color="#409EFF">
+                    <el-menu-item v-for="route in $router.options.routes" v-if="!route.meta.hidden" :index="route.path" :key="route.path">
+                        <i :class="route.meta.icon"></i>
+                        <span slot="title">{{ route.meta.title }}</span>
+                    </el-menu-item>
+                </el-menu>
+            </el-aside>
+            <el-container>
+                <el-header height="50px" style="padding: 0px 10px; border-bottom: solid 1px rgb(230, 230, 230)">
+                    <div style="float: left;line-height: 58px;">
+                        <svg @click="sidebarCollapsed = !sidebarCollapsed" p-id="1691" t="1492500959545" :style="{display: 'inline-block',cursor: 'pointer',width: '20px',height: '20px',transform: sidebarCollapsed ? 'rotate(90deg)' : 'rotate(0deg)',transition: '.38s','transform-origin': '50% 50%'}" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                            <path p-id="1692" d="M966.8023 568.849776 57.196677 568.849776c-31.397081 0-56.850799-25.452695-56.850799-56.850799l0 0c0-31.397081 25.452695-56.849776 56.850799-56.849776l909.605623 0c31.397081 0 56.849776 25.452695 56.849776 56.849776l0 0C1023.653099 543.397081 998.200404 568.849776 966.8023 568.849776z"></path>
+                            <path p-id="1693" d="M966.8023 881.527125 57.196677 881.527125c-31.397081 0-56.850799-25.452695-56.850799-56.849776l0 0c0-31.397081 25.452695-56.849776 56.850799-56.849776l909.605623 0c31.397081 0 56.849776 25.452695 56.849776 56.849776l0 0C1023.653099 856.07443 998.200404 881.527125 966.8023 881.527125z"></path>
+                            <path p-id="1694" d="M966.8023 256.17345 57.196677 256.17345c-31.397081 0-56.850799-25.452695-56.850799-56.849776l0 0c0-31.397081 25.452695-56.850799 56.850799-56.850799l909.605623 0c31.397081 0 56.849776 25.452695 56.849776 56.850799l0 0C1023.653099 230.720755 998.200404 256.17345 966.8023 256.17345z"></path>
+                        </svg>
+                    </div>
+                    <el-breadcrumb style="display: inline-block;margin-left: 20px;line-height: 50px;">
+                        <el-breadcrumb-item v-for="item in breadcrumbItems" :to="{ path: item.path }" :key="item.path">{{ item.title }}</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </el-header>
+                <el-main>
+                    <router-view></router-view>
+                </el-main>
+            </el-container>
+        </el-container>
+    </el-container>
+</div>
+<script>
+    //    const router = new VueRouter({
+    //        routes: [{
+    //            path: '/configs',
+    //            component: {
+    //                template: '<router-view></router-view>'
+    //            },
+    //            meta: {
+    //                title: '配置',
+    //                icon: 'el-icon-tickets'
+    //            },
+    //            children: [{
+    //                path: '',
+    //                component: configsComponent
+    //            }, {
+    //                path: ':appId',
+    //                props: true,
+    //                component: {
+    //                    props: ['appId'],
+    //                    template: '<router-view :appId="appId"></router-view>'
+    //                },
+    //                meta: {
+    //                    title: '应用'
+    //                },
+    //                children: [{
+    //                    path: '',
+    //                    component: propertyKeysComponent
+    //                }, {
+    //                    path: ':profileId',
+    //                    props: true,
+    //                    component: propertyValuesComponent,
+    //                    meta: {
+    //                        title: '环境'
+    //                    }
+    //                }]
+    //            }]
+    //        }, {
+    //            path: '/apps',
+    //            component: appsComponent,
+    //            meta: {
+    //                title: '应用',
+    //                icon: 'el-icon-menu'
+    //            }
+    //        }, {
+    //            path: '/profiles',
+    //            component: profilesComponent,
+    //            meta: {
+    //                title: '环境',
+    //                icon: 'configcenter-iconfont configcenter-icon-cloud'
+    //            }
+    //        }, {
+    //            path: '/managers',
+    //            component: managersComponent,
+    //            meta: {
+    //                title: '管理员',
+    //                icon: 'configcenter-iconfont configcenter-icon-team'
+    //            }
+    //        }, {
+    //            path: '/relations',
+    //            component: relationsComponent,
+    //            meta: {
+    //                title: '权限',
+    //                icon: 'el-icon-view'
+    //            }
+    //        }, {
+    //            path: '/managerProfile',
+    //            component: managerProfileComponent,
+    //            meta: {
+    //                hidden: true,
+    //                title: '我的信息'
+    //            }
+    //        }]
+    //    });
+
+    const routes = [];
+
+    const mainApp = new Vue({
+        el: '#mainApp',
+        router: new VueRouter({routes: routes}),
+        data: {
+            titleHtml: `
+                <i class="manager-iconfont manager-icon-user" style="font-size: xx-large;color: #fff"></i>
+                <span style="font-size: xx-large;color: #fff;">管理员后台</span>
+            `,
+            loginPath: 'ManagerLogin.html',
+            sidebarCollapsed: false,
+            manager: {}
+        },
+        computed: {
+            activeMenuItem: function () {
+                if (this.$route.matched.length > 0) {
+                    return this.$route.matched[0].path;
+                }
+                return '';
+            },
+            breadcrumbItems: function () {
+                let parts = [];
+                this.$route.path.split('/').forEach(function (part) {
+                    if (part) {
+                        parts.push(part);
+                    }
+                });
+
+                let items = [];
+                this.$route.matched.forEach(function (routeRecord) {
+                    if (routeRecord.path.endsWith('/')) {
+                        return;
+                    }
+                    let partSize = 0;
+                    routeRecord.path.split('/').forEach(function (part) {
+                        if (part) {
+                            partSize++;
+                        }
+                    });
+                    let path = '';
+                    for (let i = 0; i < partSize; i++) {
+                        path += '/' + parts[i];
+                    }
+                    items.push({
+                        title: routeRecord.meta.title,
+                        path: path
+                    });
+                });
+                return items;
+            }
+        },
+        created: function () {
+            const theThis = this;
+            // 获取当前管理员
+            axios.get(managerRootPath + '/manager/main/current')
+                .then(function (result) {
+                    if (!result.success) {
+                        Vue.prototype.$message.error(result.message);
+                        return;
+                    }
+                    if (result.manager === null) {
+                        // 未登录，则跳转到登录页面
+                        Vue.prototype.$alert('未登录或登录已超时，请进行登录', '警告', {
+                            callback: function () {
+                                window.location.href = theThis.loginPath;
+                            }
+                        });
+                        return;
+                    }
+                    theThis.manager = Object.assign({}, theThis.manager, result.manager);
+                });
+            // 检查路径
+            if (this.$route.matched.length <= 0) {
+                for (let i = 0; i < this.$router.options.routes.length; i++) {
+                    let routeRecord = this.$router.options.routes[i];
+                    if (!routeRecord.meta.hidden) {
+                        this.$router.push(routeRecord.path);
+                        break;
+                    }
+                }
+            }
+        },
+        methods: {
+            handleProfileCommand: function (command) {
+                switch (command) {
+                    case 'showManagerProfile':
+                        this.showManagerProfile();
+                        break;
+                    case 'logout':
+                        this.logout();
+                        break;
+                }
+            },
+            showManagerProfile: function () {
+                this.$router.push('/managerProfile');
+            },
+            logout: function () {
+                const theThis = this;
+                axios.get(managerRootPath + '/manager/main/logout')
+                    .then(function (result) {
+                        if (!result.success) {
+                            Vue.prototype.$message.error(result.message);
+                            return;
+                        }
+                        window.location.href = theThis.loginPath;
+                    });
+            }
+        }
+    });
+</script>
+</body>
+</html>
