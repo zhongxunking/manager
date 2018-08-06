@@ -4,10 +4,10 @@ const loginComponentTemplate = `
     <el-form ref="loginForm" :model="loginForm" style="width: 350px;padding: 35px;margin: 120px auto">
         <div v-html="titleHtml" style="text-align: center;color: #eee;margin-bottom: 40px;"></div>
         <el-form-item prop="managerId" :rules="[{ required:true, message:'请输入管理员id', trigger:'blur'}]">
-            <el-input v-model="loginForm.managerId" prefix-icon="configcenter-iconfont configcenter-icon-user" clearable placeholder="请输入管理员id"></el-input>
+            <el-input v-model="loginForm.managerId" prefix-icon="manager-iconfont manager-icon-user" clearable placeholder="请输入管理员id"></el-input>
         </el-form-item>
         <el-form-item prop="password" :rules="[{required:true, message:'请输入密码', trigger:'blur'}]">
-            <el-input type="password" v-model="loginForm.password" prefix-icon="configcenter-iconfont configcenter-icon-lock    " clearable placeholder="请输入密码"></el-input>
+            <el-input type="password" v-model="loginForm.password" prefix-icon="manager-iconfont manager-icon-lock" clearable placeholder="请输入密码"></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="login" style="width: 100%">登录</el-button>
