@@ -63,6 +63,19 @@
                 <span style="font-size: xx-large;color: #fff;">管理员后台</span>
             `,
             loginPath: 'ManagerLogin.html',
+            targetName: '应用',
+            findTarget: function (targetId, successCallback) {
+                successCallback({
+                    id: targetId,
+                    label: 'label-' + targetId
+                });
+            },
+            queryMatchedTargets: function (targetId, successCallback) {
+                successCallback([{
+                    id: targetId,
+                    label: 'label-' + targetId
+                }]);
+            },
             allRoutes: [],
             sidebarCollapsed: false,
             manager: {}
@@ -106,9 +119,32 @@
             }
         },
         created: function () {
+            // 添加管理员相关组件
             this.allRoutes.push({
+                path: '/managerManagers',
+                component: ManagerManagers,
+                meta: {
+                    title: '管理员',
+                    icon: 'manager-iconfont manager-icon-team'
+                }
+            }, {
+                path: '/managerRelations',
+                component: ManagerRelations,
+                props: {
+                    targetName: this.targetName,
+                    findTarget: this.findTarget,
+                    queryMatchedTargets: this.queryMatchedTargets
+                },
+                meta: {
+                    title: '权限',
+                    icon: 'el-icon-view'
+                }
+            }, {
                 path: '/managerProfile',
                 component: ManagerProfile,
+                props: {
+                    loginPath: this.loginPath
+                },
                 meta: {
                     hidden: true,
                     title: '我的信息'

@@ -28,9 +28,9 @@ const ManagerManagersTemplate = `
     <el-table :data="managers" v-loading="managersLoading" border stripe>
         <el-table-column prop="managerId" label="管理员id">
             <template slot-scope="{ row }">
-                <!--<router-link :to="'/relations?managerId=' + row.managerId">-->
-                <el-button type="text">{{ row.managerId }}</el-button>
-                <!--</router-link>-->
+                <router-link :to="'/managerRelations?managerId=' + row.managerId">
+                    <el-button type="text">{{ row.managerId }}</el-button>
+                </router-link>
             </template>
         </el-table-column>
         <el-table-column prop="name" label="名称">

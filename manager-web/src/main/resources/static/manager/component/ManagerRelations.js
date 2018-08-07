@@ -76,8 +76,8 @@ const ManagerRelations = {
             queryRelationsForm: {
                 pageNo: 1,
                 pageSize: 10,
-                managerId: null,
-                targetId: null
+                managerId: this.$route.query.managerId,
+                targetId: this.$route.query.targetId
             },
             relationsLoading: false,
             totalRelations: 0,

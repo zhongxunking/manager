@@ -51,7 +51,7 @@ const ManagerMainTemplate = `
 
 const ManagerMain = {
     template: ManagerMainTemplate,
-    props: ['titleHtml', 'loginPath', 'routes'],
+    props: ['titleHtml', 'loginPath', 'routes', 'targetName', 'findTarget', 'queryMatchedTargets'],
     router: new VueRouter({routes: []}),
     data: function () {
         return {
@@ -99,9 +99,32 @@ const ManagerMain = {
         }
     },
     created: function () {
+        // 添加管理员相关组件
         this.allRoutes.push({
+            path: '/managerManagers',
+            component: ManagerManagers,
+            meta: {
+                title: '管理员',
+                icon: 'manager-iconfont manager-icon-team'
+            }
+        }, {
+            path: '/managerRelations',
+            component: ManagerRelations,
+            props: {
+                targetName: this.targetName,
+                findTarget: this.findTarget,
+                queryMatchedTargets: this.queryMatchedTargets
+            },
+            meta: {
+                title: '权限',
+                icon: 'el-icon-view'
+            }
+        }, {
             path: '/managerProfile',
             component: ManagerProfile,
+            props: {
+                loginPath: this.loginPath
+            },
             meta: {
                 hidden: true,
                 title: '我的信息'
