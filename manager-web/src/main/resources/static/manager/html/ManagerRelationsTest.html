@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>权限</title>
+    <script src="../import.js"></script>
+</head>
+<body>
+<div id="managerRelationsApp">
+    <manager-relations :target-name="targetName" :find-target="findTarget" :query-matched-targets="queryMatchedTargets"></manager-relations>
+</div>
+<script>
+    const managerRelationsApp = new Vue({
+        el: '#managerRelationsApp',
+        components: {
+            'manager-relations': ManagerRelations
+        },
+        data: {
+            targetName: '应用',
+            findTarget: function (targetId, successCallback) {
+                successCallback({
+                    id: targetId,
+                    label: 'label-' + targetId
+                });
+            },
+            queryMatchedTargets: function (targetId, successCallback) {
+                successCallback([{
+                    id: targetId,
+                    label: 'label-' + targetId
+                }]);
+            }
+        }
+    })
+</script>
+</body>
+</html>

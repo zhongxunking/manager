@@ -28,6 +28,7 @@ document.write('<link rel="stylesheet" type="text/css" href="' + managerRootPath
 // 管理员组件
 document.write('<script src="' + managerRootPath + '/manager/component/ManagerLogin.js"></script>');
 document.write('<script src="' + managerRootPath + '/manager/component/ManagerInitAdmin.js"></script>');
-document.write('<script src="' + managerRootPath + '/manager/component/ManagerProfile.js"></script>');
 document.write('<script src="' + managerRootPath + '/manager/component/ManagerManagers.js"></script>');
+document.write('<script src="' + managerRootPath + '/manager/component/ManagerRelations.js"></script>');
+document.write('<script src="' + managerRootPath + '/manager/component/ManagerProfile.js"></script>');
 document.write('<script src="' + managerRootPath + '/manager/component/ManagerMain.js"></script>');
