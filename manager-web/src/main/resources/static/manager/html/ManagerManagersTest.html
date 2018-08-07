@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员</title>
+    <script src="../import.js"></script>
+</head>
+<body>
+<div id="managerManagersApp">
+    <manager-managers></manager-managers>
+</div>
+</body>
+<script>
+    const managerManagersApp = new Vue({
+        el: '#managerManagersApp',
+        components: {
+            'manager-managers': ManagerManagers
+        }
+    })
+</script>
+</html>
