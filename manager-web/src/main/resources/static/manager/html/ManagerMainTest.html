@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页面</title>
+    <script src="../import.js"></script>
+    <style>
+        .main-sidebar-menu {
+            height: 100%;
+        }
+
+        .main-sidebar-menu:not(.el-menu--collapse) {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="managerMainApp">
+    <manager-main :title-html="titleHtml" :login-path="loginPath" :routes="routes"></manager-main>
+</div>
+<script>
+    const managerMainApp = new Vue({
+        el: '#managerMainApp',
+        components: {
+            'manager-main': ManagerMain
+        },
+        data: {
+            titleHtml: `
+                <i class="manager-iconfont manager-icon-user" style="font-size: xx-large;color: #fff"></i>
+                <span style="font-size: xx-large;color: #fff;">管理员后台</span>
+            `,
+            loginPath: 'ManagerLoginTest.html',
+            routes: []
+        }
+    });
+</script>
+</body>
+</html>

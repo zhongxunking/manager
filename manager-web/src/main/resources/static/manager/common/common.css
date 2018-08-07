@@ -1,0 +1,8 @@
+/*管理员主页面css*/
+.manager-main-sidebar-menu {
+    height: 100%;
+}
+
+.manager-main-sidebar-menu:not(.el-menu--collapse) {
+    width: 200px;
+}

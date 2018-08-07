@@ -15,7 +15,7 @@ const managerRootPath = function () {
     }
     return path;
 }();
-// 导入js、css
+// 导入依赖
 document.write('<script src="' + managerRootPath + '/manager/lib/vue.js"></script>');
 document.write('<script src="' + managerRootPath + '/manager/lib/vue-router.js"></script>');
 document.write('<link rel="stylesheet" type="text/css" href="' + managerRootPath + '/manager/lib/element-ui/element-ui.css">');
@@ -24,3 +24,9 @@ document.write('<script src="' + managerRootPath + '/manager/lib/axios.js"></scr
 document.write('<script src="' + managerRootPath + '/manager/lib/qs.js"></script>');
 document.write('<link rel="stylesheet" type="text/css" href="' + managerRootPath + '/manager/lib/icon/iconfont.css">');
 document.write('<script src="' + managerRootPath + '/manager/common/common.js"></script>');
+document.write('<link rel="stylesheet" type="text/css" href="' + managerRootPath + '/manager/common/common.css">');
+// 管理员组件
+document.write('<script src="' + managerRootPath + '/manager/component/ManagerLogin.js"></script>');
+document.write('<script src="' + managerRootPath + '/manager/component/ManagerInitAdmin.js"></script>');
+document.write('<script src="' + managerRootPath + '/manager/component/ManagerProfile.js"></script>');
+document.write('<script src="' + managerRootPath + '/manager/component/ManagerMain.js"></script>');

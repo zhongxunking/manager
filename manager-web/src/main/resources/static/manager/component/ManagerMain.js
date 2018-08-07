@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>配置中心</title>
-    <script src="../import.js"></script>
-</head>
-<body>
-<div id="mainApp">
+// 管理员主页面组件
+const ManagerMainTemplate = `
+<div>
     <el-container style="position:absolute; left:0; top:0; width:100%;height:100%;">
         <el-header style="height: 50px;padding-top: 5px;background-color: #3d4e63;">
             <div v-html="titleHtml" style="display: inline"></div>
@@ -53,126 +47,122 @@
         </el-container>
     </el-container>
 </div>
-<script>
-    const mainApp = new Vue({
-        el: '#mainApp',
-        router: new VueRouter({routes: []}),
-        data: {
-            titleHtml: `
-                <i class="manager-iconfont manager-icon-user" style="font-size: xx-large;color: #fff"></i>
-                <span style="font-size: xx-large;color: #fff;">管理员后台</span>
-            `,
-            loginPath: 'ManagerLogin.html',
-            allRoutes: [],
+`;
+
+const ManagerMain = {
+    template: ManagerMainTemplate,
+    props: ['titleHtml', 'loginPath', 'routes'],
+    router: new VueRouter({routes: []}),
+    data: function () {
+        return {
+            allRoutes: this.routes,
             sidebarCollapsed: false,
             manager: {}
-        },
-        computed: {
-            activeMenuItem: function () {
-                if (this.$route.matched.length > 0) {
-                    return this.$route.matched[0].path;
-                }
-                return '';
-            },
-            breadcrumbItems: function () {
-                let parts = [];
-                this.$route.path.split('/').forEach(function (part) {
-                    if (part) {
-                        parts.push(part);
-                    }
-                });
-
-                let items = [];
-                this.$route.matched.forEach(function (routeRecord) {
-                    if (routeRecord.path.endsWith('/')) {
-                        return;
-                    }
-                    let partSize = 0;
-                    routeRecord.path.split('/').forEach(function (part) {
-                        if (part) {
-                            partSize++;
-                        }
-                    });
-                    let path = '';
-                    for (let i = 0; i < partSize; i++) {
-                        path += '/' + parts[i];
-                    }
-                    items.push({
-                        title: routeRecord.meta.title,
-                        path: path
-                    });
-                });
-                return items;
+        };
+    },
+    computed: {
+        activeMenuItem: function () {
+            if (this.$route.matched.length > 0) {
+                return this.$route.matched[0].path;
             }
+            return '';
         },
-        created: function () {
-            this.allRoutes.push({
-                path: '/managerProfile',
-                component: ManagerProfile,
-                meta: {
-                    hidden: true,
-                    title: '我的信息'
+        breadcrumbItems: function () {
+            let parts = [];
+            this.$route.path.split('/').forEach(function (part) {
+                if (part) {
+                    parts.push(part);
                 }
             });
-            this.$router.addRoutes(this.allRoutes);
 
+            let items = [];
+            this.$route.matched.forEach(function (routeRecord) {
+                if (routeRecord.path.endsWith('/')) {
+                    return;
+                }
+                let partSize = 0;
+                routeRecord.path.split('/').forEach(function (part) {
+                    if (part) {
+                        partSize++;
+                    }
+                });
+                let path = '';
+                for (let i = 0; i < partSize; i++) {
+                    path += '/' + parts[i];
+                }
+                items.push({
+                    title: routeRecord.meta.title,
+                    path: path
+                });
+            });
+            return items;
+        }
+    },
+    created: function () {
+        this.allRoutes.push({
+            path: '/managerProfile',
+            component: ManagerProfile,
+            meta: {
+                hidden: true,
+                title: '我的信息'
+            }
+        });
+        this.$router.addRoutes(this.allRoutes);
+
+        const theThis = this;
+        // 获取当前管理员
+        axios.get(managerRootPath + '/manager/main/current')
+            .then(function (result) {
+                if (!result.success) {
+                    Vue.prototype.$message.error(result.message);
+                    return;
+                }
+                if (result.manager === null) {
+                    // 未登录，则跳转到登录页面
+                    Vue.prototype.$alert('未登录或登录已超时，请进行登录', '警告', {
+                        callback: function () {
+                            window.location.href = theThis.loginPath;
+                        }
+                    });
+                    return;
+                }
+                theThis.manager = Object.assign({}, theThis.manager, result.manager);
+            });
+        // 检查路径
+        if (this.$route.matched.length <= 0) {
+            for (let i = 0; i < this.allRoutes.length; i++) {
+                let routeRecord = this.allRoutes[i];
+                if (!routeRecord.meta.hidden) {
+                    this.$router.push(routeRecord.path);
+                    break;
+                }
+            }
+        }
+    },
+    methods: {
+        handleProfileCommand: function (command) {
+            switch (command) {
+                case 'showManagerProfile':
+                    this.showManagerProfile();
+                    break;
+                case 'logout':
+                    this.logout();
+                    break;
+            }
+        },
+        showManagerProfile: function () {
+            this.$router.push('/managerProfile');
+        },
+        logout: function () {
             const theThis = this;
-            // 获取当前管理员
-            axios.get(managerRootPath + '/manager/main/current')
+            axios.get(managerRootPath + '/manager/main/logout')
                 .then(function (result) {
                     if (!result.success) {
                         Vue.prototype.$message.error(result.message);
                         return;
                     }
-                    if (result.manager === null) {
-                        // 未登录，则跳转到登录页面
-                        Vue.prototype.$alert('未登录或登录已超时，请进行登录', '警告', {
-                            callback: function () {
-                                window.location.href = theThis.loginPath;
-                            }
-                        });
-                        return;
-                    }
-                    theThis.manager = Object.assign({}, theThis.manager, result.manager);
+                    window.location.href = theThis.loginPath;
                 });
-            // 检查路径
-            if (this.$route.matched.length <= 0) {
-                for (let i = 0; i < this.allRoutes.length; i++) {
-                    let routeRecord = this.allRoutes[i];
-                    if (!routeRecord.meta.hidden) {
-                        this.$router.push(routeRecord.path);
-                        break;
-                    }
-                }
-            }
-        },
-        methods: {
-            handleProfileCommand: function (command) {
-                switch (command) {
-                    case 'showManagerProfile':
-                        this.showManagerProfile();
-                        break;
-                    case 'logout':
-                        this.logout();
-                        break;
-                }
-            },
-            showManagerProfile: function () {
-                this.$router.push('/managerProfile');
-            },
-            logout: function () {
-                const theThis = this;
-                axios.get(managerRootPath + '/manager/main/logout')
-                    .then(function (result) {
-                        if (!result.success) {
-                            Vue.prototype.$message.error(result.message);
-                            return;
-                        }
-                        window.location.href = theThis.loginPath;
-                    });
-            }
         }
-    });
-</script>
-</body>
-</html>
+    }
+};
