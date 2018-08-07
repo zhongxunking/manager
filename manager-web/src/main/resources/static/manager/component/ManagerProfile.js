@@ -2,7 +2,7 @@
 const ManagerProfileTemplate = `
 <div>
     <el-row>
-        <el-col :span="6">
+        <el-col>
             <el-form label-width="110px">
                 <el-form-item label="管理员id：" prop="managerId">
                     <span>{{ manager.managerId }}</span>
@@ -18,7 +18,7 @@ const ManagerProfileTemplate = `
         </el-col>
     </el-row>
     <el-row>
-        <el-col :span="6">
+        <el-col>
             <el-button @click="modifyNameDialogVisible = true" type="primary" plain icon="el-icon-edit" size="small">修改名称</el-button>
             <el-button @click="modifyPasswordDialogVisible = true" type="primary" plain icon="el-icon-edit" size="small">修改密码</el-button>
         </el-col>
