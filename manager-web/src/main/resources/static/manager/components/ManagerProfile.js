@@ -140,3 +140,5 @@ const ManagerProfile = {
         }
     }
 };
+
+Vue.component('manager-profile', ManagerProfile);

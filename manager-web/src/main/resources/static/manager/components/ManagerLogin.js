@@ -73,3 +73,5 @@ const ManagerLogin = {
         }
     }
 };
+
+Vue.component('manager-login', ManagerLogin);

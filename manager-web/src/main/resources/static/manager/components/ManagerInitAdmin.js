@@ -69,3 +69,5 @@ const ManagerInitAdmin = {
         }
     }
 };
+
+Vue.component('manager-init-admin', ManagerInitAdmin);

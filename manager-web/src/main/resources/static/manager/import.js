@@ -27,7 +27,7 @@ document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/qs.js"></scri
 document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PATH + '/manager/lib/icon/iconfont.css">');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/common/common.js"></script>');
 document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PATH + '/manager/common/common.css">');
-// 管理员组件
+// 导入管理员组件
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerLogin.js"></script>');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerInitAdmin.js"></script>');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerManagers.js"></script>');

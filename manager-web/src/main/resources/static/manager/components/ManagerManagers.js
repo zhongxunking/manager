@@ -292,3 +292,5 @@ const ManagerManagers = {
         }
     }
 };
+
+Vue.component('manager-managers', ManagerManagers);

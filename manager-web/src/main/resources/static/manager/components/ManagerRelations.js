@@ -203,3 +203,5 @@ const ManagerRelations = {
         }
     }
 };
+
+Vue.component('manager-relations', ManagerRelations);

@@ -188,3 +188,5 @@ const ManagerMain = {
         }
     }
 };
+
+Vue.component('manager-main', ManagerMain);
