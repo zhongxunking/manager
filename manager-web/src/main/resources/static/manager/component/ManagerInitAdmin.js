@@ -36,7 +36,7 @@ const ManagerInitAdmin = {
     created: function () {
         const theThis = this;
         // 判断是否需要初始化超级管理员
-        axios.get(managerRootPath + '/manager/init/canInitAdmin')
+        axios.get(MANAGER_ROOT_PATH + '/manager/init/canInitAdmin')
             .then(function (result) {
                 if (result.success) {
                     return;
@@ -55,7 +55,7 @@ const ManagerInitAdmin = {
                 if (!valid) {
                     return;
                 }
-                axios.post(managerRootPath + '/manager/init/initAdmin', theThis.initAdminForm)
+                axios.post(MANAGER_ROOT_PATH + '/manager/init/initAdmin', theThis.initAdminForm)
                     .then(function (result) {
                         if (!result.success) {
                             Vue.prototype.$message.error(result.message);

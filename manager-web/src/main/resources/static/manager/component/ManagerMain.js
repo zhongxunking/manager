@@ -134,7 +134,7 @@ const ManagerMain = {
 
         const theThis = this;
         // 获取当前管理员
-        axios.get(managerRootPath + '/manager/main/current')
+        axios.get(MANAGER_ROOT_PATH + '/manager/main/current')
             .then(function (result) {
                 if (!result.success) {
                     Vue.prototype.$message.error(result.message);
@@ -178,7 +178,7 @@ const ManagerMain = {
         },
         logout: function () {
             const theThis = this;
-            axios.get(managerRootPath + '/manager/main/logout')
+            axios.get(MANAGER_ROOT_PATH + '/manager/main/logout')
                 .then(function (result) {
                     if (!result.success) {
                         Vue.prototype.$message.error(result.message);

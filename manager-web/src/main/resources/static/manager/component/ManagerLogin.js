@@ -30,7 +30,7 @@ const ManagerLogin = {
     created: function () {
         const theThis = this;
         // 判断用户是否已登录
-        axios.get(managerRootPath + '/manager/main/current')
+        axios.get(MANAGER_ROOT_PATH + '/manager/main/current')
             .then(function (result) {
                 if (!result.success) {
                     Vue.prototype.$message.error(result.message);
@@ -42,7 +42,7 @@ const ManagerLogin = {
             });
 
         // 判断是否需要初始化超级管理员
-        axios.get(managerRootPath + '/manager/init/canInitAdmin')
+        axios.get(MANAGER_ROOT_PATH + '/manager/init/canInitAdmin')
             .then(function (result) {
                 if (!result.success) {
                     return;
@@ -61,7 +61,7 @@ const ManagerLogin = {
                 if (!valid) {
                     return;
                 }
-                axios.post(managerRootPath + '/manager/main/login', theThis.loginForm)
+                axios.post(MANAGER_ROOT_PATH + '/manager/main/login', theThis.loginForm)
                     .then(function (result) {
                         if (result.success) {
                             window.location.href = theThis.mainPath;

@@ -73,7 +73,7 @@ const ManagerProfile = {
         findCurrentManager: function () {
             const theThis = this;
             // 获取当前管理员
-            axios.get(managerRootPath + '/manager/main/current')
+            axios.get(MANAGER_ROOT_PATH + '/manager/main/current')
                 .then(function (result) {
                     if (!result.success) {
                         Vue.prototype.$message.error(result.message);
@@ -101,7 +101,7 @@ const ManagerProfile = {
                 if (!valid) {
                     return;
                 }
-                axios.post(managerRootPath + '/manager/manage/modifyName', {
+                axios.post(MANAGER_ROOT_PATH + '/manager/manage/modifyName', {
                     managerId: theThis.manager.managerId,
                     newName: theThis.modifyNameForm.newName
                 }).then(function (result) {
@@ -125,7 +125,7 @@ const ManagerProfile = {
                 if (!valid) {
                     return;
                 }
-                axios.post(managerRootPath + '/manager/manage/modifyPassword', {
+                axios.post(MANAGER_ROOT_PATH + '/manager/manage/modifyPassword', {
                     managerId: theThis.manager.managerId,
                     newPassword: theThis.modifyPasswordForm.newPassword
                 }).then(function (result) {

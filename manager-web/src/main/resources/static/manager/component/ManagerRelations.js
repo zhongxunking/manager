@@ -98,7 +98,7 @@ const ManagerRelations = {
         queryRelations: function () {
             this.relationsLoading = true;
             const theThis = this;
-            axios.get(managerRootPath + '/manager/relation/query', {params: this.queryRelationsForm})
+            axios.get(MANAGER_ROOT_PATH + '/manager/relation/query', {params: this.queryRelationsForm})
                 .then(function (result) {
                     theThis.relationsLoading = false;
                     if (!result.success) {
@@ -110,7 +110,7 @@ const ManagerRelations = {
                     theThis.relations.forEach(function (relation) {
                         // 查找管理员
                         Vue.set(relation, "manager", null);
-                        axios.get(managerRootPath + '/manager/manage/findManager', {
+                        axios.get(MANAGER_ROOT_PATH + '/manager/manage/findManager', {
                             params: {
                                 managerId: relation.managerId
                             }
@@ -143,7 +143,7 @@ const ManagerRelations = {
             const theThis = this;
             Vue.prototype.$confirm('确定删除该权限？', '警告', {type: 'warning'})
                 .then(function () {
-                    axios.post(managerRootPath + '/manager/relation/delete', {
+                    axios.post(MANAGER_ROOT_PATH + '/manager/relation/delete', {
                         managerId: relation.managerId,
                         targetId: relation.targetId
                     }).then(function (result) {
@@ -158,7 +158,7 @@ const ManagerRelations = {
         },
         queryMatchedManagers: function (managerId) {
             const theThis = this;
-            axios.get(managerRootPath + '/manager/manage/query', {
+            axios.get(MANAGER_ROOT_PATH + '/manager/manage/query', {
                 params: {
                     pageNo: 1,
                     pageSize: 100,
@@ -184,7 +184,7 @@ const ManagerRelations = {
                 if (!valid) {
                     return;
                 }
-                axios.post(managerRootPath + '/manager/relation/add', theThis.addRelationForm)
+                axios.post(MANAGER_ROOT_PATH + '/manager/relation/add', theThis.addRelationForm)
                     .then(function (result) {
                         if (!result.success) {
                             Vue.prototype.$message.error(result.message);

@@ -170,7 +170,7 @@ const ManagerManagers = {
         queryManagers: function () {
             this.managersLoading = true;
             const theThis = this;
-            axios.get(managerRootPath + '/manager/manage/query', {params: this.queryManagersForm})
+            axios.get(MANAGER_ROOT_PATH + '/manager/manage/query', {params: this.queryManagersForm})
                 .then(function (result) {
                     theThis.managersLoading = false;
                     if (!result.success) {
@@ -196,7 +196,7 @@ const ManagerManagers = {
             manager.savePopoverShowing = false;
 
             const theThis = this;
-            axios.post(managerRootPath + '/manager/manage/modifyType', {
+            axios.post(MANAGER_ROOT_PATH + '/manager/manage/modifyType', {
                 managerId: manager.managerId,
                 newType: manager.editingType
             }).then(function (result) {
@@ -204,7 +204,7 @@ const ManagerManagers = {
                     Vue.prototype.$message.error(result.message);
                     return;
                 }
-                axios.post(managerRootPath + '/manager/manage/modifyName', {
+                axios.post(MANAGER_ROOT_PATH + '/manager/manage/modifyName', {
                     managerId: manager.managerId,
                     newName: manager.editingName
                 }).then(function (result) {
@@ -221,7 +221,7 @@ const ManagerManagers = {
             const theThis = this;
             Vue.prototype.$confirm('确定删除管理员？', '警告', {type: 'warning'})
                 .then(function () {
-                    axios.post(managerRootPath + '/manager/manage/delete', {managerId: manager.managerId})
+                    axios.post(MANAGER_ROOT_PATH + '/manager/manage/delete', {managerId: manager.managerId})
                         .then(function (result) {
                             if (!result.success) {
                                 Vue.prototype.$message.error(result.message);
@@ -238,7 +238,7 @@ const ManagerManagers = {
                 if (!valid) {
                     return;
                 }
-                axios.post(managerRootPath + '/manager/manage/add', theThis.addManagerForm)
+                axios.post(MANAGER_ROOT_PATH + '/manager/manage/add', theThis.addManagerForm)
                     .then(function (result) {
                         if (!result.success) {
                             Vue.prototype.$message.error(result.message);
@@ -263,7 +263,7 @@ const ManagerManagers = {
         },
         modifyManagerPassword: function () {
             const theThis = this;
-            axios.post(managerRootPath + '/manager/manage/modifyPassword', {
+            axios.post(MANAGER_ROOT_PATH + '/manager/manage/modifyPassword', {
                 managerId: this.modifyManagerPasswordForm.manager.managerId,
                 newPassword: this.modifyManagerPasswordForm.newPassword
             }).then(function (result) {
