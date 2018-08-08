@@ -137,7 +137,7 @@
                                 relation.manager = result.manager;
                             });
                             // 查找目标对象
-                            Vue.set(relation, "target", null);
+                            Vue.set(relation, "target", {});
                             theThis.findTarget(relation.targetId, function (target) {
                                 relation.target = target;
                             });
