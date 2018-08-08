@@ -99,36 +99,6 @@ const ManagerMain = {
         }
     },
     created: function () {
-        // 添加管理员相关组件
-        this.allRoutes.push({
-            path: '/managerManagers',
-            component: ManagerManagers,
-            meta: {
-                title: '管理员',
-                icon: 'manager-iconfont manager-icon-team'
-            }
-        }, {
-            path: '/managerRelations',
-            component: ManagerRelations,
-            props: {
-                targetName: this.targetName,
-                findTarget: this.findTarget,
-                queryMatchedTargets: this.queryMatchedTargets
-            },
-            meta: {
-                title: '权限',
-                icon: 'el-icon-view'
-            }
-        }, {
-            path: '/managerProfile',
-            component: ManagerProfile,
-            meta: {
-                hidden: true,
-                title: '我的信息'
-            }
-        });
-        this.$router.addRoutes(this.allRoutes);
-
         const theThis = this;
         // 获取当前管理员
         axios.get(MANAGER_ROOT_PATH + '/manager/main/current')
@@ -147,17 +117,50 @@ const ManagerMain = {
                     return;
                 }
                 theThis.manager = Object.assign({}, theThis.manager, result.manager);
-            });
-        // 检查路径
-        if (this.$route.matched.length <= 0) {
-            for (let i = 0; i < this.allRoutes.length; i++) {
-                let routeRecord = this.allRoutes[i];
-                if (!routeRecord.meta.hidden) {
-                    this.$router.push(routeRecord.path);
-                    break;
+
+                // 添加管理员相关组件
+                if (theThis.manager.type === 'ADMIN') {
+                    theThis.allRoutes.push({
+                        path: '/managerManagers',
+                        component: ManagerManagers,
+                        meta: {
+                            title: '管理员',
+                            icon: 'manager-iconfont manager-icon-team'
+                        }
+                    }, {
+                        path: '/managerRelations',
+                        component: ManagerRelations,
+                        props: {
+                            targetName: theThis.targetName,
+                            findTarget: theThis.findTarget,
+                            queryMatchedTargets: theThis.queryMatchedTargets
+                        },
+                        meta: {
+                            title: '权限',
+                            icon: 'el-icon-view'
+                        }
+                    });
                 }
-            }
-        }
+                theThis.allRoutes.push({
+                    path: '/managerProfile',
+                    component: ManagerProfile,
+                    meta: {
+                        hidden: true,
+                        title: '我的信息'
+                    }
+                });
+                theThis.$router.addRoutes(theThis.allRoutes);
+                // 检查路径
+                if (theThis.$route.matched.length <= 0) {
+                    for (let i = 0; i < theThis.allRoutes.length; i++) {
+                        let routeRecord = theThis.allRoutes[i];
+                        if (!routeRecord.meta.hidden) {
+                            theThis.$router.push(routeRecord.path);
+                            break;
+                        }
+                    }
+                }
+            });
     },
     methods: {
         handleProfileCommand: function (command) {

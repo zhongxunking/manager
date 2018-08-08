@@ -28,9 +28,9 @@ document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PA
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/common/common.js"></script>');
 document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PATH + '/manager/common/common.css">');
 // 管理员组件
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/component/ManagerLogin.js"></script>');
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/component/ManagerInitAdmin.js"></script>');
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/component/ManagerManagers.js"></script>');
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/component/ManagerRelations.js"></script>');
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/component/ManagerProfile.js"></script>');
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/component/ManagerMain.js"></script>');
+document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerLogin.js"></script>');
+document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerInitAdmin.js"></script>');
+document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerManagers.js"></script>');
+document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerRelations.js"></script>');
+document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerProfile.js"></script>');
+document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerMain.js"></script>');
