@@ -7,16 +7,14 @@
 </head>
 <body>
 <div id="managerInitAdminApp">
-    <manager-init-admin :login-path="loginPath"></manager-init-admin>
+    <manager-init-admin></manager-init-admin>
 </div>
 <script>
+    MANAGER_LOGIN_PATH = 'ManagerLoginTest.html';
     const managerInitAdminApp = new Vue({
         el: '#managerInitAdminApp',
         components: {
             'manager-init-admin': ManagerInitAdmin
-        },
-        data: {
-            loginPath: 'ManagerLoginTest.html'
         }
     });
 </script>

@@ -43,7 +43,7 @@ axios.interceptors.response.use(function (response) {
             // 未登录，则跳转到登录页面
             Vue.prototype.$confirm('未登录或登录已超时，是否重新登录？', '警告')
                 .then(function () {
-                    window.location.href = 'login.html';
+                    window.location.href = MANAGER_LOGIN_PATH;
                 });
             return Promise.reject(response);
         }

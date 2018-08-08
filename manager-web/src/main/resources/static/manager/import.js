@@ -1,3 +1,5 @@
+// 登录页面路径（由使用方设置）
+let MANAGER_LOGIN_PATH = null;
 // 计算根路径
 const MANAGER_ROOT_PATH = function () {
     let path = document.currentScript ? document.currentScript.src : function () {

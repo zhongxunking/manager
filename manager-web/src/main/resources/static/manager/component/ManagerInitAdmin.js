@@ -1,4 +1,4 @@
-// 管理员--初始化超级管理员组件
+// 初始化超级管理员组件
 const ManagerInitAdminTemplate = `
 <div style="position:absolute; left:0; top:0; width:100%;height:100%;background-color: #304156">
     <el-form ref="initAdminForm" :model="initAdminForm" style="width: 350px;padding: 35px;margin: 120px auto">
@@ -23,7 +23,6 @@ const ManagerInitAdminTemplate = `
 
 const ManagerInitAdmin = {
     template: ManagerInitAdminTemplate,
-    props: ['loginPath'],
     data: function () {
         return {
             initAdminForm: {
@@ -34,7 +33,6 @@ const ManagerInitAdmin = {
         };
     },
     created: function () {
-        const theThis = this;
         // 判断是否需要初始化超级管理员
         axios.get(MANAGER_ROOT_PATH + '/manager/init/canInitAdmin')
             .then(function (result) {
@@ -43,7 +41,7 @@ const ManagerInitAdmin = {
                 }
                 Vue.prototype.$alert('超级管理员已初始化，不能重复初始化，现跳转到登录页面', '警告', {
                     callback: function () {
-                        window.location.href = theThis.loginPath;
+                        window.location.href = MANAGER_LOGIN_PATH;
                     }
                 });
             });
@@ -63,7 +61,7 @@ const ManagerInitAdmin = {
                         }
                         Vue.prototype.$alert('超级管理员已初始化完成，现跳转回登录页面进行登录', '提示', {
                             callback: function () {
-                                window.location.href = theThis.loginPath;
+                                window.location.href = MANAGER_LOGIN_PATH;
                             }
                         });
                     });

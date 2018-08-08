@@ -51,7 +51,7 @@ const ManagerMainTemplate = `
 
 const ManagerMain = {
     template: ManagerMainTemplate,
-    props: ['titleHtml', 'loginPath', 'routes', 'targetName', 'findTarget', 'queryMatchedTargets'],
+    props: ['titleHtml', 'routes', 'targetName', 'findTarget', 'queryMatchedTargets'],
     router: new VueRouter({routes: []}),
     data: function () {
         return {
@@ -122,9 +122,6 @@ const ManagerMain = {
         }, {
             path: '/managerProfile',
             component: ManagerProfile,
-            props: {
-                loginPath: this.loginPath
-            },
             meta: {
                 hidden: true,
                 title: '我的信息'
@@ -144,7 +141,7 @@ const ManagerMain = {
                     // 未登录，则跳转到登录页面
                     Vue.prototype.$alert('未登录或登录已超时，请进行登录', '警告', {
                         callback: function () {
-                            window.location.href = theThis.loginPath;
+                            window.location.href = MANAGER_LOGIN_PATH;
                         }
                     });
                     return;
@@ -177,14 +174,13 @@ const ManagerMain = {
             this.$router.push('/managerProfile');
         },
         logout: function () {
-            const theThis = this;
             axios.get(MANAGER_ROOT_PATH + '/manager/main/logout')
                 .then(function (result) {
                     if (!result.success) {
                         Vue.prototype.$message.error(result.message);
                         return;
                     }
-                    window.location.href = theThis.loginPath;
+                    window.location.href = MANAGER_LOGIN_PATH;
                 });
         }
     }

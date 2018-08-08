@@ -54,6 +54,7 @@
     </el-container>
 </div>
 <script>
+    MANAGER_LOGIN_PATH = 'ManagerLogin.html';
     const mainApp = new Vue({
         el: '#mainApp',
         router: new VueRouter({routes: []}),
@@ -62,7 +63,6 @@
                 <i class="manager-iconfont manager-icon-user" style="font-size: xx-large;color: #fff"></i>
                 <span style="font-size: xx-large;color: #fff;">管理员后台</span>
             `,
-            loginPath: 'ManagerLogin.html',
             targetName: '应用',
             findTarget: function (targetId, successCallback) {
                 successCallback({
@@ -142,9 +142,6 @@
             }, {
                 path: '/managerProfile',
                 component: ManagerProfile,
-                props: {
-                    loginPath: this.loginPath
-                },
                 meta: {
                     hidden: true,
                     title: '我的信息'
@@ -164,7 +161,7 @@
                         // 未登录，则跳转到登录页面
                         Vue.prototype.$alert('未登录或登录已超时，请进行登录', '警告', {
                             callback: function () {
-                                window.location.href = theThis.loginPath;
+                                window.location.href = MANAGER_LOGIN_PATH;
                             }
                         });
                         return;
@@ -197,14 +194,13 @@
                 this.$router.push('/managerProfile');
             },
             logout: function () {
-                const theThis = this;
                 axios.get(MANAGER_ROOT_PATH + '/manager/main/logout')
                     .then(function (result) {
                         if (!result.success) {
                             Vue.prototype.$message.error(result.message);
                             return;
                         }
-                        window.location.href = theThis.loginPath;
+                        window.location.href = MANAGER_LOGIN_PATH;
                     });
             }
         }

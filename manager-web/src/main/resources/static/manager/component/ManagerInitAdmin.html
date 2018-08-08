@@ -26,10 +26,10 @@
     </el-form>
 </div>
 <script>
+    MANAGER_LOGIN_PATH = 'ManagerLogin.html';
     const initAdminApp = new Vue({
         el: '#initAdminApp',
         data: {
-            loginPath: 'ManagerLogin.html',
             initAdminForm: {
                 managerId: null,
                 name: null,
@@ -37,7 +37,6 @@
             }
         },
         created: function () {
-            const theThis = this;
             // 判断是否需要初始化超级管理员
             axios.get(MANAGER_ROOT_PATH + '/manager/init/canInitAdmin')
                 .then(function (result) {
@@ -46,7 +45,7 @@
                     }
                     Vue.prototype.$alert('超级管理员已初始化，不能重复初始化，现跳转到登录页面', '警告', {
                         callback: function () {
-                            window.location.href = theThis.loginPath;
+                            window.location.href = MANAGER_LOGIN_PATH;
                         }
                     });
                 });
@@ -66,7 +65,7 @@
                             }
                             Vue.prototype.$alert('超级管理员已初始化完成，现跳转回登录页面进行登录', '提示', {
                                 callback: function () {
-                                    window.location.href = theThis.loginPath;
+                                    window.location.href = MANAGER_LOGIN_PATH;
                                 }
                             });
                         });

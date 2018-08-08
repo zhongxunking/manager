@@ -52,7 +52,6 @@ const ManagerProfileTemplate = `
 
 const ManagerProfile = {
     template: ManagerProfileTemplate,
-    props: ['loginPath'],
     data: function () {
         return {
             manager: {},
@@ -83,7 +82,7 @@ const ManagerProfile = {
                         // 未登录，则跳转到登录页面
                         Vue.prototype.$alert('未登录或登录已超时，请进行登录', '警告', {
                             callback: function () {
-                                window.location.href = theThis.loginPath;
+                                window.location.href = MANAGER_LOGIN_PATH;
                             }
                         });
                         return;
