@@ -116,7 +116,7 @@ const ManagerMain = {
                     });
                     return;
                 }
-                theThis.manager = Object.assign({}, theThis.manager, result.manager);
+                theThis.manager = Object.assign({}, result.manager);
 
                 // 添加管理员相关组件
                 if (theThis.manager.type === 'ADMIN') {
