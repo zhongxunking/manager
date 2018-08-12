@@ -11,6 +11,7 @@ package org.antframework.manager.web.common;
 import org.antframework.boot.core.Contexts;
 import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
+import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.common.util.facade.Status;
 import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.enums.ManagerType;
@@ -93,9 +94,7 @@ public final class ManagerAssert {
         order.setTargetId(targetId);
 
         FindRelationResult result = relationService.findRelation(order);
-        if (!result.isSuccess()) {
-            throw new BizException(Status.FAIL, result.getCode(), result.getMessage());
-        }
+        FacadeUtils.assertSuccess(result);
         if (result.getRelation() == null) {
             throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员%s与%s不存在关系", manager.getManagerId(), targetId));
         }

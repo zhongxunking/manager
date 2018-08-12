@@ -9,9 +9,8 @@
 package org.antframework.manager.web.common;
 
 import org.antframework.boot.core.Contexts;
-import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.EmptyResult;
-import org.antframework.common.util.facade.Status;
+import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.DeleteRelationsOrder;
 import org.antframework.manager.facade.order.QueryManagerRelationsOrder;
@@ -34,9 +33,7 @@ public final class Managers {
         order.setTargetId(targetId);
 
         EmptyResult result = relationService.deleteRelations(order);
-        if (!result.isSuccess()) {
-            throw new BizException(result.getStatus(), result.getCode(), result.getMessage());
-        }
+        FacadeUtils.assertSuccess(result);
     }
 
     /**
@@ -55,9 +52,7 @@ public final class Managers {
         order.setTargetId(targetId);
 
         QueryManagerRelationsResult result = relationService.queryManagerRelations(order);
-        if (!result.isSuccess()) {
-            throw new BizException(Status.FAIL, result.getCode(), result.getMessage());
-        }
+        FacadeUtils.assertSuccess(result);
         return result;
     }
 }

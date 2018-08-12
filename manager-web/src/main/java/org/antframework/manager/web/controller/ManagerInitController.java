@@ -8,10 +8,7 @@
  */
 package org.antframework.manager.web.controller;
 
-import org.antframework.common.util.facade.BizException;
-import org.antframework.common.util.facade.CommonResultCode;
-import org.antframework.common.util.facade.EmptyResult;
-import org.antframework.common.util.facade.Status;
+import org.antframework.common.util.facade.*;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.AddManagerOrder;
@@ -70,9 +67,7 @@ public class ManagerInitController {
         order.setPageNo(1);
         order.setPageSize(1);
         QueryManagersResult result = managerService.queryManagers(order);
-        if (!result.isSuccess()) {
-            throw new BizException(Status.FAIL, result.getCode(), result.getMessage());
-        }
+        FacadeUtils.assertSuccess(result);
         if (result.getTotalCount() > 0) {
             throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), "已存在管理员，不能初始化超级管理员");
         }

@@ -8,8 +8,8 @@
  */
 package org.antframework.manager.biz.service;
 
-import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.EmptyResult;
+import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.manager.dal.dao.ManagerDao;
 import org.antframework.manager.dal.entity.Manager;
 import org.antframework.manager.facade.api.RelationService;
@@ -40,9 +40,7 @@ public class DeleteManagerService {
         }
         // 删除与管理员相关的关系
         EmptyResult deleteRelationsResult = relationService.deleteRelations(buildDeleteRelationsOrder(manager));
-        if (!deleteRelationsResult.isSuccess()) {
-            throw new BizException(deleteRelationsResult.getStatus(), deleteRelationsResult.getCode(), deleteRelationsResult.getMessage());
-        }
+        FacadeUtils.assertSuccess(deleteRelationsResult);
 
         managerDao.delete(manager);
     }
