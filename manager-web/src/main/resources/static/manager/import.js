@@ -17,8 +17,17 @@ const MANAGER_ROOT_PATH = function () {
     }
     return path;
 }();
+// 是否为开发模式
+const DEV_MODE = function () {
+    let host = window.location.hostname;
+    return host === 'localhost' || host === '127.0.0.1';
+}();
 // 导入依赖
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue.js"></script>');
+if (DEV_MODE) {
+    document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue.js"></script>');
+} else {
+    document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue.min.js"></script>');
+}
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue-router.js"></script>');
 document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PATH + '/manager/lib/element-ui/element-ui.css">');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/element-ui/element-ui.js"></script>');
