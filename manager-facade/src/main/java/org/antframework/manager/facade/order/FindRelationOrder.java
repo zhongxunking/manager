@@ -15,26 +15,37 @@ import org.hibernate.validator.constraints.NotBlank;
  * 查找关系order
  */
 public class FindRelationOrder extends AbstractOrder {
-    // 管理员id
+    // 类型
     @NotBlank
-    private String managerId;
-    // 目标id
+    private String type;
+    // 源
     @NotBlank
-    private String targetId;
+    private String source;
+    // 目标
+    @NotBlank
+    private String target;
 
-    public String getManagerId() {
-        return managerId;
+    public String getType() {
+        return type;
     }
 
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getTargetId() {
-        return targetId;
+    public String getSource() {
+        return source;
     }
 
-    public void setTargetId(String targetId) {
-        this.targetId = targetId;
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 }

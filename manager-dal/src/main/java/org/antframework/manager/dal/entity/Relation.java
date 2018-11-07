@@ -10,38 +10,61 @@ package org.antframework.manager.dal.entity;
 
 import org.antframework.boot.jpa.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 /**
  * 关联
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"managerId", "targetId"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "pk_source_target_type", columnNames = {"source", "target", "type"}),
+        indexes = {@Index(name = "idx_source", columnList = "source"),
+                @Index(name = "idx_target", columnList = "target")})
 public class Relation extends AbstractEntity {
-    // 管理员id
+    // 类型
     @Column(length = 64)
-    private String managerId;
+    private String type;
 
-    // 目标id
+    // 源
     @Column
-    private String targetId;
+    private String source;
 
-    public String getManagerId() {
-        return managerId;
+    // 目标
+    @Column
+    private String target;
+
+    // 值
+    @Column(length = 1024)
+    private String value;
+
+    public String getType() {
+        return type;
     }
 
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getTargetId() {
-        return targetId;
+    public String getSource() {
+        return source;
     }
 
-    public void setTargetId(String targetId) {
-        this.targetId = targetId;
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

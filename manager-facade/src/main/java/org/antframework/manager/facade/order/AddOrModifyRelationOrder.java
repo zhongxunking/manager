@@ -4,36 +4,28 @@
 
 /*
  * 修订记录:
- * @author 钟勋 2018-01-25 21:32 创建
+ * @author 钟勋 2018-01-25 21:17 创建
  */
 package org.antframework.manager.facade.order;
 
 import org.antframework.common.util.facade.AbstractOrder;
-import org.antframework.common.util.query.annotation.operator.QueryEQ;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * 删除关系order
+ * 新增或修改关系order
  */
-public class DeleteRelationsOrder extends AbstractOrder {
+public class AddOrModifyRelationOrder extends AbstractOrder {
     // 类型
-    @QueryEQ
     @NotBlank
     private String type;
-    // 源（null表示删除指定源的所有关系）
-    @QueryEQ
+    // 源
+    @NotBlank
     private String source;
-    // 目标（null表示删除指定目标的所有关系）
-    @QueryEQ
+    // 目标
+    @NotBlank
     private String target;
-
-    @Override
-    public void check() {
-        super.check();
-        if (source == null && target == null) {
-            throw new IllegalArgumentException("source和target不能同时为null");
-        }
-    }
+    // 值
+    private String value;
 
     public String getType() {
         return type;
@@ -57,5 +49,13 @@ public class DeleteRelationsOrder extends AbstractOrder {
 
     public void setTarget(String target) {
         this.target = target;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

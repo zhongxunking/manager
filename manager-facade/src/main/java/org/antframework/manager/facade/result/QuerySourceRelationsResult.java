@@ -4,7 +4,7 @@
 
 /*
  * 修订记录:
- * @author 钟勋 2018-01-26 09:35 创建
+ * @author 钟勋 2018-11-07 22:35 创建
  */
 package org.antframework.manager.facade.result;
 
@@ -12,7 +12,7 @@ import org.antframework.common.util.facade.AbstractQueryResult;
 import org.antframework.manager.facade.info.RelationInfo;
 
 /**
- * 查询指定管理员相关的关系result
+ * 查询指定源的关系result
  */
-public class QueryManagerRelationsResult extends AbstractQueryResult<RelationInfo> {
+public class QuerySourceRelationsResult extends AbstractQueryResult<RelationInfo> {
 }

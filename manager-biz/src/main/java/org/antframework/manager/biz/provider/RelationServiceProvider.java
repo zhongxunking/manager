@@ -15,8 +15,8 @@ import org.antframework.manager.dal.dao.RelationDao;
 import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindRelationResult;
-import org.antframework.manager.facade.result.QueryManagerRelationsResult;
 import org.antframework.manager.facade.result.QueryRelationsResult;
+import org.antframework.manager.facade.result.QuerySourceRelationsResult;
 import org.bekit.service.ServiceEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +30,8 @@ public class RelationServiceProvider implements RelationService {
     private ServiceEngine serviceEngine;
 
     @Override
-    public EmptyResult addRelation(AddRelationOrder order) {
-        return serviceEngine.execute("addRelationService", order);
+    public EmptyResult addOrModifyRelation(AddOrModifyRelationOrder order) {
+        return serviceEngine.execute("addOrModifyRelationService", order);
     }
 
     @Override
@@ -45,8 +45,9 @@ public class RelationServiceProvider implements RelationService {
     }
 
     @Override
-    public QueryManagerRelationsResult queryManagerRelations(QueryManagerRelationsOrder order) {
-        return serviceEngine.execute("queryManagerRelationsService", order);
+    public QuerySourceRelationsResult querySourceRelations(QuerySourceRelationsOrder order) {
+        CommonQueries.CommonQueryResult result = serviceEngine.execute(CommonQueries.SERVICE_NAME, order, QueryUtils.buildCommonQueryAttachment(RelationDao.class));
+        return result.convertTo(QuerySourceRelationsResult.class);
     }
 
     @Override

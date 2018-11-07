@@ -30,9 +30,9 @@ public interface RelationDao {
     void delete(Relation relation);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Relation findLockByManagerIdAndTargetId(String managerId, String targetId);
+    Relation findLockByTypeAndSourceAndTarget(String type, String source, String target);
 
-    Relation findByManagerIdAndTargetId(String managerId, String targetId);
+    Relation findByTypeAndSourceAndTarget(String type, String source, String target);
 
     List<Relation> query(Collection<QueryParam> queryParams);
 

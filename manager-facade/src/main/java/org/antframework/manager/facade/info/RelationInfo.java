@@ -14,24 +14,44 @@ import org.antframework.common.util.facade.AbstractInfo;
  * 关系info
  */
 public class RelationInfo extends AbstractInfo {
-    // 管理员id
-    private String managerId;
-    // 目标id
-    private String targetId;
+    // 类型
+    private String type;
+    // 源
+    private String source;
+    // 目标
+    private String target;
+    // 值
+    private String value;
 
-    public String getManagerId() {
-        return managerId;
+    public String getType() {
+        return type;
     }
 
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getTargetId() {
-        return targetId;
+    public String getSource() {
+        return source;
     }
 
-    public void setTargetId(String targetId) {
-        this.targetId = targetId;
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

@@ -9,32 +9,46 @@
 package org.antframework.manager.facade.order;
 
 import org.antframework.common.util.facade.AbstractQueryOrder;
+import org.antframework.common.util.query.annotation.operator.QueryEQ;
 import org.antframework.common.util.query.annotation.operator.QueryLike;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 查询关系order
  */
 public class QueryRelationsOrder extends AbstractQueryOrder {
-    // 管理员id
+    // 类型
+    @QueryEQ
+    @NotBlank
+    private String type;
+    // 源
     @QueryLike
-    private String managerId;
-    // 目标id
+    private String source;
+    // 目标
     @QueryLike
-    private String targetId;
+    private String target;
 
-    public String getManagerId() {
-        return managerId;
+    public String getType() {
+        return type;
     }
 
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getTargetId() {
-        return targetId;
+    public String getSource() {
+        return source;
     }
 
-    public void setTargetId(String targetId) {
-        this.targetId = targetId;
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 }

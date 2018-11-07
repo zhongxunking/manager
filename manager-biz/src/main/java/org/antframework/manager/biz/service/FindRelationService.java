@@ -32,10 +32,11 @@ public class FindRelationService {
     @ServiceExecute
     public void execute(ServiceContext<FindRelationOrder, FindRelationResult> context) {
         FindRelationOrder order = context.getOrder();
+        FindRelationResult result = context.getResult();
 
-        Relation relation = relationDao.findByManagerIdAndTargetId(order.getManagerId(), order.getTargetId());
+        Relation relation = relationDao.findByTypeAndSourceAndTarget(order.getType(), order.getSource(), order.getTarget());
         if (relation != null) {
-            context.getResult().setRelation(INFO_CONVERTER.convert(relation));
+            result.setRelation(INFO_CONVERTER.convert(relation));
         }
     }
 }
