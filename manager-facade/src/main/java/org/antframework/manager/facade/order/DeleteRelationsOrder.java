@@ -20,10 +20,10 @@ public class DeleteRelationsOrder extends AbstractOrder {
     @QueryEQ
     @NotBlank
     private String type;
-    // 源（null表示删除指定源的所有关系）
+    // 源（null表示删除指定目标的所有关系）
     @QueryEQ
     private String source;
-    // 目标（null表示删除指定目标的所有关系）
+    // 目标（null表示删除指定源的所有关系）
     @QueryEQ
     private String target;
 
