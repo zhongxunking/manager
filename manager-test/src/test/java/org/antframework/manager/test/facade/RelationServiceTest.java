@@ -12,8 +12,8 @@ import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindRelationResult;
-import org.antframework.manager.facade.result.QueryManagerRelationsResult;
 import org.antframework.manager.facade.result.QueryRelationsResult;
+import org.antframework.manager.facade.result.QuerySourceRelationsResult;
 import org.antframework.manager.test.AbstractTest;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -28,19 +28,32 @@ public class RelationServiceTest extends AbstractTest {
     private RelationService relationService;
 
     @Test
-    public void testAddRelation() {
-        AddRelationOrder order = new AddRelationOrder();
-        order.setManagerId("admin");
-        order.setTargetId("uid");
+    public void testAddOrModifyRelation() {
+        AddOrModifyRelationOrder order = new AddOrModifyRelationOrder();
+        order.setType("manager");
+        order.setSource("admin");
+        order.setTarget("customer");
+        order.setValue("001");
 
-        EmptyResult result = relationService.addRelation(order);
+        EmptyResult result = relationService.addOrModifyRelation(order);
+        assertSuccess(result);
+
+        order = new AddOrModifyRelationOrder();
+        order.setType("manager");
+        order.setSource("admin");
+        order.setTarget("account");
+        order.setValue("002");
+
+        result = relationService.addOrModifyRelation(order);
         assertSuccess(result);
     }
 
     @Test
     public void testDeleteRelations() {
         DeleteRelationsOrder order = new DeleteRelationsOrder();
-        order.setManagerId("admin");
+        order.setType("manager");
+        order.setSource("admin");
+        order.setTarget(null);
 
         EmptyResult result = relationService.deleteRelations(order);
         assertSuccess(result);
@@ -49,21 +62,23 @@ public class RelationServiceTest extends AbstractTest {
     @Test
     public void testFindRelation() {
         FindRelationOrder order = new FindRelationOrder();
-        order.setManagerId("admin");
-        order.setTargetId("uid");
+        order.setType("manager");
+        order.setSource("admin");
+        order.setTarget("customer");
 
         FindRelationResult result = relationService.findRelation(order);
         assertSuccess(result);
     }
 
     @Test
-    public void testQueryManagerRelations() {
-        QueryManagerRelationsOrder order = new QueryManagerRelationsOrder();
+    public void testQuerySourceRelations() {
+        QuerySourceRelationsOrder order = new QuerySourceRelationsOrder();
         order.setPageNo(1);
         order.setPageSize(10);
-        order.setManagerId("admin");
+        order.setType("manager");
+        order.setSource("admin");
 
-        QueryManagerRelationsResult result = relationService.queryManagerRelations(order);
+        QuerySourceRelationsResult result = relationService.querySourceRelations(order);
         assertSuccess(result);
     }
 
@@ -72,6 +87,7 @@ public class RelationServiceTest extends AbstractTest {
         QueryRelationsOrder order = new QueryRelationsOrder();
         order.setPageNo(1);
         order.setPageSize(10);
+        order.setType("manager");
 
         QueryRelationsResult result = relationService.queryRelations(order);
         assertSuccess(result);
