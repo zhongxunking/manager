@@ -23,8 +23,11 @@ public class SessionAccessorFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         ManagerSessionAccessor.setSession(((HttpServletRequest) request).getSession());
-        chain.doFilter(request, response);
-        ManagerSessionAccessor.removeSession();
+        try {
+            chain.doFilter(request, response);
+        } finally {
+            ManagerSessionAccessor.removeSession();
+        }
     }
 
     @Override

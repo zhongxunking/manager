@@ -6,24 +6,23 @@
  * 修订记录:
  * @author 钟勋 2018-02-01 23:13 创建
  */
-package org.antframework.manager.web.common;
+package org.antframework.manager.web;
 
 import org.antframework.boot.core.Contexts;
 import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
-import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.common.util.facade.Status;
 import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.info.ManagerInfo;
-import org.antframework.manager.facade.order.FindRelationOrder;
-import org.antframework.manager.facade.result.FindRelationResult;
-import org.apache.commons.lang3.StringUtils;
+import org.antframework.manager.web.common.ManagerSessionAccessor;
+
+import java.util.Objects;
 
 /**
- * 管理员断言
+ * 管理员工具类
  */
-public final class ManagerAssert {
+public final class Managers {
     // 关系服务
     private static final RelationService relationService = Contexts.getApplicationContext().getBean(RelationService.class);
 
@@ -44,7 +43,7 @@ public final class ManagerAssert {
     public static void admin() {
         ManagerInfo manager = currentManager();
         if (manager.getType() != ManagerType.ADMIN) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员[%s]不是超级管理员", manager.getManagerId()));
+            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("当前管理员[%s]不是超级管理员", manager.getManagerId()));
         }
     }
 
@@ -55,8 +54,8 @@ public final class ManagerAssert {
      */
     public static void myself(String managerId) {
         ManagerInfo manager = currentManager();
-        if (!StringUtils.equals(managerId, manager.getManagerId())) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员[%s]不是指定管理员[%s]", manager.getManagerId(), managerId));
+        if (!Objects.equals(managerId, manager.getManagerId())) {
+            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("当前管理员[%s]不是指定管理员[%s]", manager.getManagerId(), managerId));
         }
     }
 
@@ -73,30 +72,8 @@ public final class ManagerAssert {
                 myself(managerId);
             } catch (BizException myselfE) {
                 ManagerInfo manager = currentManager();
-                throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员[%s]既不是超级管理员也不是指定管理员[%s]", manager.getManagerId(), managerId));
+                throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("当前管理员[%s]既不是超级管理员也不是指定管理员[%s]", manager.getManagerId(), managerId));
             }
-        }
-    }
-
-    /**
-     * 断言当前管理员为超级管理员或与目标有关系
-     *
-     * @param targetId 目标id
-     */
-    public static void adminOrHaveRelation(String targetId) {
-        ManagerInfo manager = currentManager();
-        if (manager.getType() == ManagerType.ADMIN) {
-            return;
-        }
-
-        FindRelationOrder order = new FindRelationOrder();
-        order.setManagerId(manager.getManagerId());
-        order.setTargetId(targetId);
-
-        FindRelationResult result = relationService.findRelation(order);
-        FacadeUtils.assertSuccess(result);
-        if (result.getRelation() == null) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("管理员%s与%s不存在关系", manager.getManagerId(), targetId));
         }
     }
 }

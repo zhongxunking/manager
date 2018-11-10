@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Import;
 @Import({ManagerServiceProvider.class,
         RelationServiceProvider.class,
         AddManagerService.class,
-        AddRelationService.class,
+        AddOrModifyRelationService.class,
         DeleteManagerService.class,
         DeleteRelationsService.class,
         FindManagerService.class,
@@ -29,7 +29,6 @@ import org.springframework.context.annotation.Import;
         ManagerLoginService.class,
         ModifyManagerNameService.class,
         ModifyManagerPasswordService.class,
-        ModifyManagerTypeService.class,
-        QueryManagerRelationsService.class})
+        ModifyManagerTypeService.class})
 public class BizConfiguration {
 }

@@ -19,7 +19,7 @@ public class ManagerSessionAccessor {
     // session持有器
     private static final ThreadLocal<HttpSession> SESSION_HOLDER = new ThreadLocal<>();
     // 管理员在session中的key
-    private static final String KEY_MANAGER = "KEY_MANAGER";
+    private static final String MANAGER_KEY = "MANAGER_KEY";
 
     /**
      * 设置session
@@ -42,9 +42,9 @@ public class ManagerSessionAccessor {
      */
     public static void setManager(ManagerInfo manager) {
         if (manager != null) {
-            SESSION_HOLDER.get().setAttribute(KEY_MANAGER, manager);
+            SESSION_HOLDER.get().setAttribute(MANAGER_KEY, manager);
         } else {
-            SESSION_HOLDER.get().removeAttribute(KEY_MANAGER);
+            SESSION_HOLDER.get().removeAttribute(MANAGER_KEY);
         }
     }
 
@@ -52,6 +52,6 @@ public class ManagerSessionAccessor {
      * 从session获取管理员
      */
     public static ManagerInfo getManager() {
-        return (ManagerInfo) SESSION_HOLDER.get().getAttribute(KEY_MANAGER);
+        return (ManagerInfo) SESSION_HOLDER.get().getAttribute(MANAGER_KEY);
     }
 }

@@ -14,7 +14,7 @@ import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindManagerResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
-import org.antframework.manager.web.common.ManagerAssert;
+import org.antframework.manager.web.Managers;
 import org.antframework.manager.web.common.ManagerSessionAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +40,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/add")
     public EmptyResult add(String managerId, ManagerType type, String name, String password) {
-        ManagerAssert.admin();
+        Managers.admin();
         AddManagerOrder order = new AddManagerOrder();
         order.setManagerId(managerId);
         order.setType(type);
@@ -59,7 +59,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyType")
     public EmptyResult modifyType(String managerId, ManagerType newType) {
-        ManagerAssert.admin();
+        Managers.admin();
         ModifyManagerTypeOrder order = new ModifyManagerTypeOrder();
         order.setManagerId(managerId);
         order.setNewType(newType);
@@ -78,7 +78,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyName")
     public EmptyResult modifyName(String managerId, String newName) {
-        ManagerAssert.adminOrMyself(managerId);
+        Managers.adminOrMyself(managerId);
         ModifyManagerNameOrder order = new ModifyManagerNameOrder();
         order.setManagerId(managerId);
         order.setNewName(newName);
@@ -97,7 +97,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyPassword")
     public EmptyResult modifyPassword(String managerId, String newPassword) {
-        ManagerAssert.adminOrMyself(managerId);
+        Managers.adminOrMyself(managerId);
         ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
         order.setManagerId(managerId);
         order.setNewPassword(newPassword);
@@ -113,7 +113,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/delete")
     public EmptyResult delete(String managerId) {
-        ManagerAssert.admin();
+        Managers.admin();
         DeleteManagerOrder order = new DeleteManagerOrder();
         order.setManagerId(managerId);
 
@@ -130,7 +130,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/findManager")
     public FindManagerResult findManager(String managerId) {
-        ManagerAssert.adminOrMyself(managerId);
+        Managers.adminOrMyself(managerId);
         FindManagerOrder order = new FindManagerOrder();
         order.setManagerId(managerId);
 
@@ -149,7 +149,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/query")
     public QueryManagersResult query(int pageNo, int pageSize, String managerId, ManagerType type, String name) {
-        ManagerAssert.admin();
+        Managers.admin();
         QueryManagersOrder order = new QueryManagersOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
@@ -163,7 +163,7 @@ public class ManagerManageController {
     // 尝试刷新session中的管理员
     private void tryRefreshSessionManager(String managerId) {
         try {
-            ManagerAssert.myself(managerId);
+            Managers.myself(managerId);
             // 刷新session中的管理员
             FindManagerOrder order = new FindManagerOrder();
             order.setManagerId(managerId);
