@@ -100,6 +100,7 @@ const ManagerMain = {
     created: function () {
         this.allRoutes.push({
             path: '/managerProfile',
+            props: {manager: this.manager},
             component: ManagerProfile,
             meta: {
                 hidden: true,

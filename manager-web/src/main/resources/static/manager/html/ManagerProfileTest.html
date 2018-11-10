@@ -7,13 +7,20 @@
 </head>
 <body>
 <div id="managerProfileApp">
-    <manager-profile></manager-profile>
+    <manager-profile :manager="manager"></manager-profile>
 </div>
 </body>
 <script>
     MANAGER_LOGIN_PATH = 'ManagerLoginTest.html';
-    const managerProfileApp = new Vue({
-        el: '#managerProfileApp'
+
+    let managerProfileApp;
+    GET_CURRENT_MANAGER(function (manager) {
+        managerProfileApp = new Vue({
+            el: '#managerProfileApp',
+            data: {
+                manager: manager
+            }
+        });
     });
 </script>
 </html>

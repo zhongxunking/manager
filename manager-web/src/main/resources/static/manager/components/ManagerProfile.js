@@ -52,9 +52,9 @@ const ManagerProfileTemplate = `
 
 const ManagerProfile = {
     template: ManagerProfileTemplate,
+    props: ['manager'],
     data: function () {
         return {
-            manager: {},
             modifyNameDialogVisible: false,
             modifyNameForm: {
                 newName: null
@@ -65,31 +65,7 @@ const ManagerProfile = {
             }
         };
     },
-    created: function () {
-        this.findCurrentManager();
-    },
     methods: {
-        findCurrentManager: function () {
-            const theThis = this;
-            // 获取当前管理员
-            axios.get(MANAGER_ROOT_PATH + '/manager/main/current')
-                .then(function (result) {
-                    if (!result.success) {
-                        Vue.prototype.$message.error(result.message);
-                        return;
-                    }
-                    if (result.manager === null) {
-                        // 未登录，则跳转到登录页面
-                        Vue.prototype.$alert('未登录或登录已超时，请进行登录', '警告', {
-                            callback: function () {
-                                window.location.href = MANAGER_LOGIN_PATH;
-                            }
-                        });
-                        return;
-                    }
-                    theThis.manager = Object.assign({}, result.manager);
-                });
-        },
         closeModifyNameDialog: function () {
             this.modifyNameDialogVisible = false;
             this.modifyNameForm.newName = null;
@@ -110,7 +86,7 @@ const ManagerProfile = {
                     }
                     Vue.prototype.$message.success(result.message);
                     theThis.closeModifyNameDialog();
-                    theThis.findCurrentManager();
+                    window.location.reload()
                 });
             });
         },
@@ -134,7 +110,7 @@ const ManagerProfile = {
                     }
                     Vue.prototype.$message.success(result.message);
                     theThis.closeModifyPasswordDialog();
-                    theThis.findCurrentManager();
+                    window.location.reload()
                 });
             });
         }
