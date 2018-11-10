@@ -8,11 +8,9 @@
  */
 package org.antframework.manager.web;
 
-import org.antframework.boot.core.Contexts;
 import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
-import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.info.ManagerInfo;
 import org.antframework.manager.web.common.ManagerSessionAccessor;
@@ -23,9 +21,6 @@ import java.util.Objects;
  * 管理员工具类
  */
 public final class Managers {
-    // 关系服务
-    private static final RelationService relationService = Contexts.getApplicationContext().getBean(RelationService.class);
-
     /**
      * 断言管理员已登陆并获取管理员信息
      */
