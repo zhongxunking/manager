@@ -78,6 +78,5 @@ document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PA
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerLogin.js"></script>');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerInitAdmin.js"></script>');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerManagers.js"></script>');
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerRelations.js"></script>');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerProfile.js"></script>');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/components/ManagerMain.js"></script>');

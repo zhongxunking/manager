@@ -1,4 +1,4 @@
-// 设置axios请求超时时间（10秒）
+// 设置axios请求超时时间（20秒）
 axios.defaults.timeout = 20000;
 // 设置axios发送post请求时，参数按照url方式提交
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
