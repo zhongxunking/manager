@@ -9,34 +9,24 @@
 <div id="managerMainApp">
     <manager-main :title-html="titleHtml"
                   :routes="routes"
-                  :target-name="targetName"
-                  :find-target="findTarget"
-                  :query-matched-targets="queryMatchedTargets"></manager-main>
+                  :manager="manager"
+    ></manager-main>
 </div>
 <script>
     MANAGER_LOGIN_PATH = 'ManagerLoginTest.html';
-    const managerMainApp = new Vue({
-        el: '#managerMainApp',
-        data: {
-            titleHtml: `
-                <i class="manager-iconfont manager-icon-user" style="font-size: xx-large;color: #fff"></i>
-                <span style="font-size: xx-large;color: #fff;">管理员后台</span>
+    let managerMainApp;
+    GET_CURRENT_MANAGER(function (manager) {
+        managerMainApp = new Vue({
+            el: '#managerMainApp',
+            data: {
+                titleHtml: `
+                <i class="manager-iconfont manager-icon-user" style="font-size: x-large;color: #fff"></i>
+                <span style="font-size: x-large;color: #fff;">管理员后台</span>
             `,
-            routes: [],
-            targetName: '应用',
-            findTarget: function (targetId, successCallback) {
-                successCallback({
-                    id: targetId,
-                    label: 'label-' + targetId
-                });
-            },
-            queryMatchedTargets: function (targetId, successCallback) {
-                successCallback([{
-                    id: targetId,
-                    label: 'label-' + targetId
-                }]);
-            },
-        }
+                routes: [GET_MANAGER_MANAGERS_ROUTE()],
+                manager: manager
+            }
+        });
     });
 </script>
 </body>

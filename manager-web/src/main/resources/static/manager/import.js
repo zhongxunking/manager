@@ -1,5 +1,43 @@
 // 登录页面路径（由使用方设置）
 let MANAGER_LOGIN_PATH = null;
+// 当前管理员
+let CURRENT_MANAGER = null;
+// 获取当前管理员
+const GET_CURRENT_MANAGER = function (processor) {
+    if (CURRENT_MANAGER !== null) {
+        processor(CURRENT_MANAGER);
+    }
+    axios.get(MANAGER_ROOT_PATH + '/manager/main/current')
+        .then(function (result) {
+            if (!result.success) {
+                Vue.prototype.$message.error(result.message);
+                return;
+            }
+            if (result.manager === null) {
+                // 未登录，则跳转到登录页面
+                Vue.prototype.$alert('未登录或登录已超时，请进行登录', '警告', {
+                    callback: function () {
+                        window.location.href = MANAGER_LOGIN_PATH;
+                    }
+                });
+                return;
+            }
+            CURRENT_MANAGER = result.manager;
+            processor(CURRENT_MANAGER);
+        });
+};
+// 获取管理员组件的route配置
+const GET_MANAGER_MANAGERS_ROUTE = function () {
+    return {
+        path: '/managerManagers',
+        component: ManagerManagers,
+        meta: {
+            title: '管理员',
+            icon: 'manager-iconfont manager-icon-team'
+        }
+    };
+};
+
 // 计算根路径
 const MANAGER_ROOT_PATH = function () {
     let path = document.currentScript ? document.currentScript.src : function () {
