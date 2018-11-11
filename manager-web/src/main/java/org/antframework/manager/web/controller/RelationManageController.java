@@ -97,7 +97,7 @@ public class RelationManageController {
      * @param target   目标（选填）
      * @return 查询结果
      */
-    @RequestMapping("querySourceRelations")
+    @RequestMapping("/querySourceRelations")
     public QuerySourceRelationsResult querySourceRelations(int pageNo, int pageSize, String type, String source, String target) {
         Managers.admin();
         QuerySourceRelationsOrder order = new QuerySourceRelationsOrder();
