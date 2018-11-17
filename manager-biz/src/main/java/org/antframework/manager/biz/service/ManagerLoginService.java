@@ -18,12 +18,13 @@ import org.antframework.manager.dal.entity.Manager;
 import org.antframework.manager.facade.info.ManagerInfo;
 import org.antframework.manager.facade.order.ManagerLoginOrder;
 import org.antframework.manager.facade.result.ManagerLoginResult;
-import org.apache.commons.lang3.StringUtils;
 import org.bekit.service.annotation.service.Service;
 import org.bekit.service.annotation.service.ServiceExecute;
 import org.bekit.service.engine.ServiceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+
+import java.util.Objects;
 
 /**
  * 管理员登录服务
@@ -43,10 +44,10 @@ public class ManagerLoginService {
 
         Manager manager = managerDao.findByManagerId(order.getManagerId());
         if (manager == null) {
-            throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), String.format("管理员[%s]不存在", order.getManagerId()));
+            throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), String.format("管理员[%s]不存在或密码不正确", order.getManagerId()));
         }
-        if (!StringUtils.equals(PasswordUtils.digest(order.getPassword()), manager.getPassword())) {
-            throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), "密码不正确");
+        if (!Objects.equals(PasswordUtils.digest(order.getPassword()), manager.getPassword())) {
+            throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), String.format("管理员[%s]不存在或密码不正确", order.getManagerId()));
         }
         result.setManager(INFO_CONVERTER.convert(manager));
     }
