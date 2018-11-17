@@ -57,8 +57,8 @@ public class RelationManageController {
      * @param target 目标（不填表示删除指定源的所有关系）
      * @return 删除结果
      */
-    @RequestMapping("/delete")
-    public EmptyResult delete(String type, String source, String target) {
+    @RequestMapping("/deletes")
+    public EmptyResult deletes(String type, String source, String target) {
         Managers.admin();
         DeleteRelationsOrder order = new DeleteRelationsOrder();
         order.setType(type);
