@@ -7,7 +7,7 @@ const ManagerLoginTemplate = `
             <el-input v-model="loginForm.managerId" prefix-icon="manager-iconfont manager-icon-user" clearable placeholder="请输入管理员id"></el-input>
         </el-form-item>
         <el-form-item prop="password" :rules="[{required:true, message:'请输入密码', trigger:'blur'}]">
-            <el-input type="password" v-model="loginForm.password" prefix-icon="manager-iconfont manager-icon-lock" clearable placeholder="请输入密码"></el-input>
+            <el-input type="password" v-model="loginForm.password" @keyup.enter.native="login" prefix-icon="manager-iconfont manager-icon-lock" clearable placeholder="请输入密码"></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="login" style="width: 100%">登录</el-button>
