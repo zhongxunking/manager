@@ -11,27 +11,25 @@ package org.antframework.manager.dal.entity;
 import org.antframework.boot.jpa.AbstractEntity;
 import org.antframework.manager.facade.enums.ManagerType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 /**
  * 管理员
  */
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_managerId", columnNames = "managerId"))
 public class Manager extends AbstractEntity {
     // 管理员id
-    @Column(unique = true, length = 64)
+    @Column(length = 128)
     private String managerId;
 
     // 类型
-    @Column(length = 40)
+    @Column(length = 64)
     @Enumerated(EnumType.STRING)
     private ManagerType type;
 
     // 名称
-    @Column(length = 64)
+    @Column
     private String name;
 
     // 密码

@@ -13,27 +13,27 @@ import org.antframework.boot.jpa.AbstractEntity;
 import javax.persistence.*;
 
 /**
- * 关联
+ * 关系
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "pk_source_target_type", columnNames = {"source", "target", "type"}),
-        indexes = {@Index(name = "idx_source", columnList = "source"),
-                @Index(name = "idx_target", columnList = "target")})
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_type_source_target", columnNames = {"type", "source", "target"}),
+        indexes = {@Index(name = "idx_type_source", columnList = "type,source"),
+                @Index(name = "idx_type_target", columnList = "type,target")})
 public class Relation extends AbstractEntity {
     // 类型
     @Column(length = 64)
     private String type;
 
     // 源
-    @Column
+    @Column(length = 128)
     private String source;
 
     // 目标
-    @Column
+    @Column(length = 128)
     private String target;
 
     // 值
-    @Column(length = 1024)
+    @Column(length = 2048)
     private String value;
 
     public String getType() {
