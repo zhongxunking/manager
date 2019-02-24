@@ -32,12 +32,17 @@ public class ManagerInitController {
      */
     @RequestMapping("/canInitAdmin")
     public EmptyResult canInitAdmin() {
-        assertCanInitAdmin();
-
         EmptyResult result = new EmptyResult();
-        result.setStatus(Status.SUCCESS);
-        result.setCode(CommonResultCode.SUCCESS.getCode());
-        result.setMessage(CommonResultCode.SUCCESS.getMessage());
+        if (!existingManager()) {
+            result.setStatus(Status.SUCCESS);
+            result.setCode(CommonResultCode.SUCCESS.getCode());
+            result.setMessage(CommonResultCode.SUCCESS.getMessage());
+        } else {
+            result.setStatus(Status.FAIL);
+            result.setCode(CommonResultCode.ILLEGAL_STATE.getCode());
+            result.setMessage(CommonResultCode.ILLEGAL_STATE.getMessage());
+        }
+
         return result;
     }
 
@@ -51,7 +56,9 @@ public class ManagerInitController {
      */
     @RequestMapping("/initAdmin")
     public EmptyResult initAdmin(String managerId, String name, String password) {
-        assertCanInitAdmin();
+        if (existingManager()) {
+            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), "已存在管理员，不能初始化超级管理员");
+        }
         AddManagerOrder order = new AddManagerOrder();
         order.setManagerId(managerId);
         order.setType(ManagerType.ADMIN);
@@ -61,15 +68,14 @@ public class ManagerInitController {
         return managerService.addManager(order);
     }
 
-    // 断言能初始化超级管理员
-    private void assertCanInitAdmin() {
+    // 是否存在管理员
+    private boolean existingManager() {
         QueryManagersOrder order = new QueryManagersOrder();
         order.setPageNo(1);
         order.setPageSize(1);
+
         QueryManagersResult result = managerService.queryManagers(order);
         FacadeUtils.assertSuccess(result);
-        if (result.getTotalCount() > 0) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), "已存在管理员，不能初始化超级管理员");
-        }
+        return result.getTotalCount() > 0;
     }
 }
