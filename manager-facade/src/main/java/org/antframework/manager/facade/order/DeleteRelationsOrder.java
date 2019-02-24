@@ -8,6 +8,8 @@
  */
 package org.antframework.manager.facade.order;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractOrder;
 import org.antframework.common.util.query.annotation.operator.QueryEQ;
 import org.hibernate.validator.constraints.NotBlank;
@@ -15,6 +17,8 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  * 删除关系order
  */
+@Getter
+@Setter
 public class DeleteRelationsOrder extends AbstractOrder {
     // 类型
     @QueryEQ
@@ -33,29 +37,5 @@ public class DeleteRelationsOrder extends AbstractOrder {
         if (source == null && target == null) {
             throw new IllegalArgumentException("source和target不能同时为null");
         }
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
     }
 }

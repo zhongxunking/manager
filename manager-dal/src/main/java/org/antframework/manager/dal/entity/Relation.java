@@ -8,6 +8,8 @@
  */
 package org.antframework.manager.dal.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.boot.jpa.AbstractEntity;
 
 import javax.persistence.*;
@@ -19,6 +21,8 @@ import javax.persistence.*;
 @Table(uniqueConstraints = @UniqueConstraint(name = "uk_type_source_target", columnNames = {"type", "source", "target"}),
         indexes = {@Index(name = "idx_type_source", columnList = "type,source"),
                 @Index(name = "idx_type_target", columnList = "type,target")})
+@Getter
+@Setter
 public class Relation extends AbstractEntity {
     // 类型
     @Column(length = 64)
@@ -35,36 +39,4 @@ public class Relation extends AbstractEntity {
     // 值
     @Column(length = 2048)
     private String value;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

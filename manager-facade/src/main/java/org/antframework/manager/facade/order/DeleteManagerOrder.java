@@ -8,22 +8,18 @@
  */
 package org.antframework.manager.facade.order;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractOrder;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 删除管理员order
  */
+@Getter
+@Setter
 public class DeleteManagerOrder extends AbstractOrder {
     // 管理员id
     @NotBlank
     private String managerId;
-
-    public String getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
-    }
 }

@@ -8,12 +8,16 @@
  */
 package org.antframework.manager.facade.order;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractOrder;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 新增或修改关系order
  */
+@Getter
+@Setter
 public class AddOrModifyRelationOrder extends AbstractOrder {
     // 类型
     @NotBlank
@@ -26,36 +30,4 @@ public class AddOrModifyRelationOrder extends AbstractOrder {
     private String target;
     // 值
     private String value;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

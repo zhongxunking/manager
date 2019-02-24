@@ -25,7 +25,9 @@ import org.springframework.core.convert.converter.Converter;
  */
 @Service
 public class FindManagerService {
+    // info转换器
     private static final Converter<Manager, ManagerInfo> INFO_CONVERTER = new FacadeUtils.DefaultConverter<>(ManagerInfo.class);
+
     @Autowired
     private ManagerDao managerDao;
 

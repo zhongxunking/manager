@@ -8,12 +8,16 @@
  */
 package org.antframework.manager.facade.info;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractInfo;
 import org.antframework.manager.facade.enums.ManagerType;
 
 /**
  * 管理员info
  */
+@Getter
+@Setter
 public class ManagerInfo extends AbstractInfo {
     // 管理员id
     private String managerId;
@@ -21,28 +25,4 @@ public class ManagerInfo extends AbstractInfo {
     private ManagerType type;
     // 名称
     private String name;
-
-    public String getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
-    }
-
-    public ManagerType getType() {
-        return type;
-    }
-
-    public void setType(ManagerType type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

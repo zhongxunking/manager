@@ -8,6 +8,8 @@
  */
 package org.antframework.manager.facade.order;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractQueryOrder;
 import org.antframework.common.util.query.annotation.operator.QueryEQ;
 import org.antframework.common.util.query.annotation.operator.QueryLike;
@@ -16,6 +18,8 @@ import org.antframework.manager.facade.enums.ManagerType;
 /**
  * 查询管理员order
  */
+@Getter
+@Setter
 public class QueryManagersOrder extends AbstractQueryOrder {
     // 管理员id
     @QueryLike
@@ -26,28 +30,4 @@ public class QueryManagersOrder extends AbstractQueryOrder {
     // 名称
     @QueryLike
     private String name;
-
-    public String getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
-    }
-
-    public ManagerType getType() {
-        return type;
-    }
-
-    public void setType(ManagerType type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

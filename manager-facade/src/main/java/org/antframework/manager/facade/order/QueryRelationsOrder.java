@@ -8,6 +8,8 @@
  */
 package org.antframework.manager.facade.order;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractQueryOrder;
 import org.antframework.common.util.query.annotation.operator.QueryEQ;
 import org.antframework.common.util.query.annotation.operator.QueryLike;
@@ -16,6 +18,8 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  * 查询关系order
  */
+@Getter
+@Setter
 public class QueryRelationsOrder extends AbstractQueryOrder {
     // 类型
     @QueryEQ
@@ -27,28 +31,4 @@ public class QueryRelationsOrder extends AbstractQueryOrder {
     // 目标
     @QueryLike
     private String target;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
-    }
 }

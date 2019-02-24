@@ -8,6 +8,8 @@
  */
 package org.antframework.manager.facade.order;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractOrder;
 import org.antframework.common.util.tostring.format.Mask;
 import org.hibernate.validator.constraints.NotBlank;
@@ -15,6 +17,8 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  * 修改密码order
  */
+@Getter
+@Setter
 public class ModifyManagerPasswordOrder extends AbstractOrder {
     // 管理员id
     @NotBlank
@@ -23,20 +27,4 @@ public class ModifyManagerPasswordOrder extends AbstractOrder {
     @NotBlank
     @Mask(allMask = true)
     private String newPassword;
-
-    public String getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
 }

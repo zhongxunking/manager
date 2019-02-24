@@ -27,7 +27,9 @@ import org.springframework.core.convert.converter.Converter;
  */
 @Service(enableTx = true)
 public class DeleteManagerService {
+    // info转换器
     private static final Converter<Manager, ManagerInfo> INFO_CONVERTER = new FacadeUtils.DefaultConverter<>(ManagerInfo.class);
+
     @Autowired
     private ManagerDao managerDao;
     @Autowired

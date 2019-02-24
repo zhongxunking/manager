@@ -25,7 +25,9 @@ import org.springframework.core.convert.converter.Converter;
  */
 @Service
 public class FindRelationService {
+    // info转换器
     private static final Converter<Relation, RelationInfo> INFO_CONVERTER = new FacadeUtils.DefaultConverter<>(RelationInfo.class);
+
     @Autowired
     private RelationDao relationDao;
 

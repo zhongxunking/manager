@@ -8,22 +8,18 @@
  */
 package org.antframework.manager.facade.order;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractOrder;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 查找管理员order
  */
+@Getter
+@Setter
 public class FindManagerOrder extends AbstractOrder {
     // 管理员id
     @NotBlank
     private String managerId;
-
-    public String getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
-    }
 }

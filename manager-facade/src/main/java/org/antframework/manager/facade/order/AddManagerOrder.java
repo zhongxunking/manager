@@ -8,6 +8,8 @@
  */
 package org.antframework.manager.facade.order;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractOrder;
 import org.antframework.common.util.tostring.format.Mask;
 import org.antframework.manager.facade.enums.ManagerType;
@@ -18,6 +20,8 @@ import javax.validation.constraints.NotNull;
 /**
  * 添加管理员order
  */
+@Getter
+@Setter
 public class AddManagerOrder extends AbstractOrder {
     // 管理员id
     @NotBlank
@@ -32,36 +36,4 @@ public class AddManagerOrder extends AbstractOrder {
     @NotBlank
     @Mask(allMask = true)
     private String password;
-
-    public String getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
-    }
-
-    public ManagerType getType() {
-        return type;
-    }
-
-    public void setType(ManagerType type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

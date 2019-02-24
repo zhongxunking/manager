@@ -8,20 +8,16 @@
  */
 package org.antframework.manager.biz.event;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.antframework.manager.facade.info.ManagerInfo;
 
 /**
  * 删除管理员事件
  */
+@AllArgsConstructor
+@Getter
 public class ManagerDeletedEvent {
     // 被删除的管理员
     private final ManagerInfo manager;
-
-    public ManagerDeletedEvent(ManagerInfo manager) {
-        this.manager = manager;
-    }
-
-    public ManagerInfo getManager() {
-        return manager;
-    }
 }

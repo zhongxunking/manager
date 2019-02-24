@@ -8,12 +8,16 @@
  */
 package org.antframework.manager.facade.order;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractOrder;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 修改管理员名称order
  */
+@Getter
+@Setter
 public class ModifyManagerNameOrder extends AbstractOrder {
     // 管理员id
     @NotBlank
@@ -21,20 +25,4 @@ public class ModifyManagerNameOrder extends AbstractOrder {
     // 新名称
     @NotBlank
     private String newName;
-
-    public String getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
-    }
-
-    public String getNewName() {
-        return newName;
-    }
-
-    public void setNewName(String newName) {
-        this.newName = newName;
-    }
 }

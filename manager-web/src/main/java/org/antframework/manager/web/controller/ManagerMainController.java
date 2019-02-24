@@ -8,6 +8,8 @@
  */
 package org.antframework.manager.web.controller;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.facade.AbstractResult;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.EmptyResult;
@@ -81,16 +83,10 @@ public class ManagerMainController {
     /**
      * 获取当前信息
      */
+    @Getter
+    @Setter
     public static class CurrentResult extends AbstractResult {
         // 管理员
         private ManagerInfo manager;
-
-        public ManagerInfo getManager() {
-            return manager;
-        }
-
-        public void setManager(ManagerInfo manager) {
-            this.manager = manager;
-        }
     }
 }
