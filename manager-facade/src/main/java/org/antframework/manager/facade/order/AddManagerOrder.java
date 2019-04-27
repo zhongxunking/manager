@@ -13,8 +13,8 @@ import lombok.Setter;
 import org.antframework.common.util.facade.AbstractOrder;
 import org.antframework.common.util.tostring.format.Mask;
 import org.antframework.manager.facade.enums.ManagerType;
-import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**

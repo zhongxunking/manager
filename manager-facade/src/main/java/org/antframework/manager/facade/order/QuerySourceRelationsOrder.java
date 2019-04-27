@@ -13,7 +13,8 @@ import lombok.Setter;
 import org.antframework.common.util.facade.AbstractQueryOrder;
 import org.antframework.common.util.query.annotation.operator.QueryEQ;
 import org.antframework.common.util.query.annotation.operator.QueryLike;
-import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * 查询指定源的关系order
