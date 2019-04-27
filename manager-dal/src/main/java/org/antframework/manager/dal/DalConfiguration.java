@@ -21,6 +21,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.domain.EntityScanPackages;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.util.Streamable;
 import org.springframework.util.ClassUtils;
 
 import java.util.ArrayList;
@@ -34,16 +35,13 @@ import java.util.List;
 @Import({DalConfiguration.JpaScanConfiguration.class,
         DalConfiguration.JpaRepositoriesRegistrar.class})
 public class DalConfiguration {
-
     /**
      * jpa repository扫描配置
      */
     public static class JpaRepositoriesRegistrar extends AntJpaRepositoriesConfigureRegistrar {
         @Override
-        protected Iterable<String> getBasePackages() {
-            List<String> basePackages = new ArrayList<>();
-            basePackages.add(ClassUtils.getPackageName(DalConfiguration.class));
-            return basePackages;
+        protected Streamable<String> getBasePackages() {
+            return Streamable.of(ClassUtils.getPackageName(DalConfiguration.class));
         }
     }
 
