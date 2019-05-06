@@ -10,9 +10,9 @@ package org.antframework.manager.biz.service;
 
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.common.util.facade.FacadeUtils;
-import org.antframework.manager.biz.event.ManagerDeletedEvent;
 import org.antframework.manager.dal.dao.ManagerDao;
 import org.antframework.manager.dal.entity.Manager;
+import org.antframework.manager.facade.event.ManagerDeletedEvent;
 import org.antframework.manager.facade.info.ManagerInfo;
 import org.antframework.manager.facade.order.DeleteManagerOrder;
 import org.bekit.event.EventPublisher;

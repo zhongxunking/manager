@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2018-11-10 15:55 创建
  */
-package org.antframework.manager.biz.event;
+package org.antframework.manager.facade.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
