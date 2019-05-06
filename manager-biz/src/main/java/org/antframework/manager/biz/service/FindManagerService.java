@@ -8,6 +8,7 @@
  */
 package org.antframework.manager.biz.service;
 
+import lombok.AllArgsConstructor;
 import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.manager.dal.dao.ManagerDao;
 import org.antframework.manager.dal.entity.Manager;
@@ -17,19 +18,19 @@ import org.antframework.manager.facade.result.FindManagerResult;
 import org.bekit.service.annotation.service.Service;
 import org.bekit.service.annotation.service.ServiceExecute;
 import org.bekit.service.engine.ServiceContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
 /**
  * 查找管理员服务
  */
 @Service
+@AllArgsConstructor
 public class FindManagerService {
     // info转换器
     private static final Converter<Manager, ManagerInfo> INFO_CONVERTER = new FacadeUtils.DefaultConverter<>(ManagerInfo.class);
 
-    @Autowired
-    private ManagerDao managerDao;
+    // 管理员dao
+    private final ManagerDao managerDao;
 
     @ServiceExecute
     public void execute(ServiceContext<FindManagerOrder, FindManagerResult> context) {

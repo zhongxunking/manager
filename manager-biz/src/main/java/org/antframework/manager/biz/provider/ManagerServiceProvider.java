@@ -8,6 +8,7 @@
  */
 package org.antframework.manager.biz.provider;
 
+import lombok.AllArgsConstructor;
 import org.antframework.boot.bekit.CommonQueries;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.biz.util.QueryUtils;
@@ -18,16 +19,16 @@ import org.antframework.manager.facade.result.FindManagerResult;
 import org.antframework.manager.facade.result.ManagerLoginResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
 import org.bekit.service.ServiceEngine;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * 管理员服务提供者
  */
 @Service
+@AllArgsConstructor
 public class ManagerServiceProvider implements ManagerService {
-    @Autowired
-    private ServiceEngine serviceEngine;
+    // 服务引擎
+    private final ServiceEngine serviceEngine;
 
     @Override
     public EmptyResult addManager(AddManagerOrder order) {

@@ -8,6 +8,7 @@
  */
 package org.antframework.manager.biz.service;
 
+import lombok.AllArgsConstructor;
 import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.manager.dal.dao.RelationDao;
 import org.antframework.manager.dal.entity.Relation;
@@ -17,19 +18,19 @@ import org.antframework.manager.facade.result.FindRelationResult;
 import org.bekit.service.annotation.service.Service;
 import org.bekit.service.annotation.service.ServiceExecute;
 import org.bekit.service.engine.ServiceContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
 /**
  * 查找关系服务
  */
 @Service
+@AllArgsConstructor
 public class FindRelationService {
     // info转换器
     private static final Converter<Relation, RelationInfo> INFO_CONVERTER = new FacadeUtils.DefaultConverter<>(RelationInfo.class);
 
-    @Autowired
-    private RelationDao relationDao;
+    // 关系dao
+    private final RelationDao relationDao;
 
     @ServiceExecute
     public void execute(ServiceContext<FindRelationOrder, FindRelationResult> context) {

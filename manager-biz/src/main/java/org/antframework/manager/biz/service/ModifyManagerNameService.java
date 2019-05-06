@@ -8,6 +8,7 @@
  */
 package org.antframework.manager.biz.service;
 
+import lombok.AllArgsConstructor;
 import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.EmptyResult;
@@ -18,15 +19,15 @@ import org.antframework.manager.facade.order.ModifyManagerNameOrder;
 import org.bekit.service.annotation.service.Service;
 import org.bekit.service.annotation.service.ServiceExecute;
 import org.bekit.service.engine.ServiceContext;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 修改管理员名称服务
  */
 @Service(enableTx = true)
+@AllArgsConstructor
 public class ModifyManagerNameService {
-    @Autowired
-    private ManagerDao managerDao;
+    // 管理员dao
+    private final ManagerDao managerDao;
 
     @ServiceExecute
     public void execute(ServiceContext<ModifyManagerNameOrder, EmptyResult> context) {

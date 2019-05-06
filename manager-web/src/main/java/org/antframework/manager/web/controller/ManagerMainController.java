@@ -8,6 +8,7 @@
  */
 package org.antframework.manager.web.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.antframework.common.util.facade.AbstractResult;
@@ -19,7 +20,6 @@ import org.antframework.manager.facade.info.ManagerInfo;
 import org.antframework.manager.facade.order.ManagerLoginOrder;
 import org.antframework.manager.facade.result.ManagerLoginResult;
 import org.antframework.manager.web.common.ManagerSessionAccessor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,9 +28,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/manager/main")
+@AllArgsConstructor
 public class ManagerMainController {
-    @Autowired
-    private ManagerService managerService;
+    // 管理员服务
+    private final ManagerService managerService;
 
     /**
      * 登录

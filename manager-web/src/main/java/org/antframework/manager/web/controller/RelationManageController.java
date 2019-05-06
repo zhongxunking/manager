@@ -8,6 +8,7 @@
  */
 package org.antframework.manager.web.controller;
 
+import lombok.AllArgsConstructor;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.api.RelationService;
 import org.antframework.manager.facade.order.*;
@@ -15,7 +16,6 @@ import org.antframework.manager.facade.result.FindRelationResult;
 import org.antframework.manager.facade.result.QueryRelationsResult;
 import org.antframework.manager.facade.result.QuerySourceRelationsResult;
 import org.antframework.manager.web.Managers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/manager/relation")
+@AllArgsConstructor
 public class RelationManageController {
-    @Autowired
-    private RelationService relationService;
+    // 关系服务
+    private final RelationService relationService;
 
     /**
      * 新增或修改关系

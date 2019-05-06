@@ -8,6 +8,7 @@
  */
 package org.antframework.manager.web.controller;
 
+import lombok.AllArgsConstructor;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
@@ -16,7 +17,6 @@ import org.antframework.manager.facade.result.FindManagerResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
 import org.antframework.manager.web.Managers;
 import org.antframework.manager.web.common.ManagerSessionAccessor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,9 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/manager/manage")
+@AllArgsConstructor
 public class ManagerManageController {
-    @Autowired
-    private ManagerService managerService;
+    // 管理员服务
+    private final ManagerService managerService;
 
     /**
      * 新增管理员

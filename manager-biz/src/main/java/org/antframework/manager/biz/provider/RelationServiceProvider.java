@@ -8,6 +8,7 @@
  */
 package org.antframework.manager.biz.provider;
 
+import lombok.AllArgsConstructor;
 import org.antframework.boot.bekit.CommonQueries;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.biz.util.QueryUtils;
@@ -18,16 +19,16 @@ import org.antframework.manager.facade.result.FindRelationResult;
 import org.antframework.manager.facade.result.QueryRelationsResult;
 import org.antframework.manager.facade.result.QuerySourceRelationsResult;
 import org.bekit.service.ServiceEngine;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * 关系服务提供者
  */
 @Service
+@AllArgsConstructor
 public class RelationServiceProvider implements RelationService {
-    @Autowired
-    private ServiceEngine serviceEngine;
+    // 服务引擎
+    private final ServiceEngine serviceEngine;
 
     @Override
     public EmptyResult addOrModifyRelation(AddOrModifyRelationOrder order) {
