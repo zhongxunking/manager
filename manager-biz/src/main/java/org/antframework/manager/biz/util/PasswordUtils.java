@@ -13,7 +13,7 @@ import org.springframework.util.DigestUtils;
 /**
  * 密码工具类
  */
-public class PasswordUtils {
+public final class PasswordUtils {
 
     /**
      * 加密
