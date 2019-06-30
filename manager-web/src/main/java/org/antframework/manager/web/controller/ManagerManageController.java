@@ -107,6 +107,23 @@ public class ManagerManageController {
     }
 
     /**
+     * 修改管理员的密钥
+     *
+     * @param managerId 被修改的管理员id（必填）
+     * @param secretKey 密钥
+     * @return 修改结果
+     */
+    @RequestMapping("/modifySecretKey")
+    public EmptyResult modifySecretKey(String managerId, String secretKey) {
+        Managers.adminOrMyself(managerId);
+        ModifyManagerSecretKeyOrder order = new ModifyManagerSecretKeyOrder();
+        order.setManagerId(managerId);
+        order.setSecretKey(secretKey);
+
+        return managerService.modifyManagerSecretKey(order);
+    }
+
+    /**
      * 删除管理员
      *
      * @param managerId 被删除的管理员id（必填）
