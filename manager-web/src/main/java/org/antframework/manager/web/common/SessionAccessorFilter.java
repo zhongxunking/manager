@@ -17,10 +17,6 @@ import java.io.IOException;
  */
 public class SessionAccessorFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-    }
-
-    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         ManagerSessionAccessor.setSession(((HttpServletRequest) request).getSession());
         try {
@@ -28,9 +24,5 @@ public class SessionAccessorFilter implements Filter {
         } finally {
             ManagerSessionAccessor.removeSession();
         }
-    }
-
-    @Override
-    public void destroy() {
     }
 }

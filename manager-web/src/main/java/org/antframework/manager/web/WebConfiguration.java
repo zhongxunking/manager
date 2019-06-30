@@ -10,6 +10,7 @@ package org.antframework.manager.web;
 
 import org.antframework.manager.web.common.GlobalExceptionHandler;
 import org.antframework.manager.web.common.SessionAccessorFilter;
+import org.antframework.manager.web.common.SignFilter;
 import org.antframework.manager.web.controller.ManagerInitController;
 import org.antframework.manager.web.controller.ManagerMainController;
 import org.antframework.manager.web.controller.ManagerManageController;
@@ -30,14 +31,25 @@ import org.springframework.core.Ordered;
         ManagerManageController.class,
         RelationManageController.class})
 public class WebConfiguration {
-
     /**
      * session访问器设置filter
      */
     @Bean
     FilterRegistrationBean managerSessionAccessorFilter() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new SessionAccessorFilter());
-        registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE - 10);
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean<>(new SessionAccessorFilter());
+        registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE - 100);
+        registrationBean.addUrlPatterns("/*");
+
+        return registrationBean;
+    }
+
+    /**
+     * 签名filter
+     */
+    @Bean
+    FilterRegistrationBean managerSignFilter() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean<>(new SignFilter());
+        registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE - 90);
         registrationBean.addUrlPatterns("/*");
 
         return registrationBean;
