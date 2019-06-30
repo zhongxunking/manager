@@ -11,6 +11,7 @@ package org.antframework.manager.facade.info;
 import lombok.Getter;
 import lombok.Setter;
 import org.antframework.common.util.facade.AbstractInfo;
+import org.antframework.common.util.tostring.format.Mask;
 import org.antframework.manager.facade.enums.ManagerType;
 
 /**
@@ -25,4 +26,7 @@ public class ManagerInfo extends AbstractInfo {
     private ManagerType type;
     // 名称
     private String name;
+    // 密钥
+    @Mask(startSize = 0, endSize = 0)
+    private String secretKey;
 }

@@ -9,6 +9,7 @@
 package org.antframework.manager.test.facade;
 
 import org.antframework.common.util.facade.EmptyResult;
+import org.antframework.manager.biz.util.SecurityUtils;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
@@ -67,6 +68,16 @@ public class ManagerServiceTest extends AbstractTest {
         order.setNewPassword("abc");
 
         EmptyResult result = managerService.modifyManagerPassword(order);
+        assertSuccess(result);
+    }
+
+    @Test
+    public void testModifyManagerSecretKey() {
+        ModifyManagerSecretKeyOrder order = new ModifyManagerSecretKeyOrder();
+        order.setManagerId("admin");
+        order.setSecretKey(SecurityUtils.newSecretKey());
+
+        EmptyResult result = managerService.modifyManagerSecretKey(order);
         assertSuccess(result);
     }
 

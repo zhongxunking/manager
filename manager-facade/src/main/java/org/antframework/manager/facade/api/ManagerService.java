@@ -39,6 +39,11 @@ public interface ManagerService {
     EmptyResult modifyManagerPassword(ModifyManagerPasswordOrder order);
 
     /**
+     * 修改管理员的密钥
+     */
+    EmptyResult modifyManagerSecretKey(ModifyManagerSecretKeyOrder order);
+
+    /**
      * 删除管理员
      */
     EmptyResult deleteManager(DeleteManagerOrder order);

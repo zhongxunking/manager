@@ -13,7 +13,7 @@ import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.common.util.facade.Status;
-import org.antframework.manager.biz.util.PasswordUtils;
+import org.antframework.manager.biz.util.SecurityUtils;
 import org.antframework.manager.dal.dao.ManagerDao;
 import org.antframework.manager.dal.entity.Manager;
 import org.antframework.manager.facade.info.ManagerInfo;
@@ -47,7 +47,7 @@ public class ManagerLoginService {
         if (manager == null) {
             throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), String.format("管理员[%s]不存在或密码不正确", order.getManagerId()));
         }
-        if (!Objects.equals(PasswordUtils.digest(order.getPassword()), manager.getPassword())) {
+        if (!Objects.equals(SecurityUtils.digest(order.getPassword()), manager.getPassword())) {
             throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), String.format("管理员[%s]不存在或密码不正确", order.getManagerId()));
         }
         result.setManager(INFO_CONVERTER.convert(manager));

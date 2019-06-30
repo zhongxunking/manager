@@ -41,4 +41,9 @@ public class Manager extends AbstractEntity {
     @Column(length = 64)
     @Mask(allMask = true)
     private String password;
+
+    // 密钥
+    @Column(length = 128)
+    @Mask(startSize = 0, endSize = 0)
+    private String secretKey;
 }

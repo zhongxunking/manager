@@ -51,6 +51,11 @@ public class ManagerServiceProvider implements ManagerService {
     }
 
     @Override
+    public EmptyResult modifyManagerSecretKey(ModifyManagerSecretKeyOrder order) {
+        return serviceEngine.execute("modifyManagerSecretKeyService", order);
+    }
+
+    @Override
     public EmptyResult deleteManager(DeleteManagerOrder order) {
         return serviceEngine.execute("deleteManagerService", order);
     }

@@ -13,7 +13,7 @@ import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.common.util.facade.Status;
-import org.antframework.manager.biz.util.PasswordUtils;
+import org.antframework.manager.biz.util.SecurityUtils;
 import org.antframework.manager.dal.dao.ManagerDao;
 import org.antframework.manager.dal.entity.Manager;
 import org.antframework.manager.facade.order.AddManagerOrder;
@@ -47,7 +47,7 @@ public class AddManagerService {
     private Manager buildManager(AddManagerOrder addManagerOrder) {
         Manager manager = new Manager();
         BeanUtils.copyProperties(addManagerOrder, manager, "password");
-        manager.setPassword(PasswordUtils.digest(addManagerOrder.getPassword()));
+        manager.setPassword(SecurityUtils.digest(addManagerOrder.getPassword()));
         return manager;
     }
 }
