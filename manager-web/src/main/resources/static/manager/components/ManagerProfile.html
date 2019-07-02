@@ -9,7 +9,7 @@
 <div id="managerProfileApp">
     <el-row>
         <el-col>
-            <el-form label-width="110px">
+            <el-form label-width="110px" style="width: 500px">
                 <el-form-item label="管理员id：" prop="managerId">
                     <span>{{ manager.managerId }}</span>
                 </el-form-item>
@@ -19,6 +19,39 @@
                 </el-form-item>
                 <el-form-item label="名称：" prop="name">
                     <span>{{ manager.name }}</span>
+                </el-form-item>
+                <el-form-item label="密钥：" prop="secretKey">
+                    <template v-if="manager.secretKey">
+                        <el-row>
+                            <el-col :span="18">
+                                <span v-if="manager.showingSecretKey">{{ manager.secretKey }}</span>
+                                <span v-else>********************************</span>
+                            </el-col>
+                            <el-col :span="6">
+                                <el-tooltip content="显示/隐藏" placement="top" :open-delay="1000" :hide-after="3000">
+                                    <el-button @click="manager.showingSecretKey = !manager.showingSecretKey" type="success" icon="el-icon-view" size="mini" circle style="margin-left: 0"></el-button>
+                                </el-tooltip>
+                                <el-tooltip content="更换" placement="top" :open-delay="1000" :hide-after="3000">
+                                    <el-button @click="refreshSecretKey(manager)" type="primary" icon="el-icon-refresh" size="mini" circle style="margin-left: 0"></el-button>
+                                </el-tooltip>
+                                <el-tooltip content="删除" placement="top" :open-delay="1000" :hide-after="3000">
+                                    <el-button @click="deleteSecretKey(manager)" type="danger" icon="el-icon-delete" size="mini" circle style="margin-left: 0"></el-button>
+                                </el-tooltip>
+                            </el-col>
+                        </el-row>
+                    </template>
+                    <template v-else>
+                        <el-row>
+                            <el-col :span="18">
+                                <el-tag type="success">无</el-tag>
+                            </el-col>
+                            <el-col :span="6">
+                                <el-tooltip content="创建" placement="top" :open-delay="1000" :hide-after="3000">
+                                    <el-button @click="setNewSecretKey(manager)" type="success" icon="el-icon-plus" size="mini" circle style="margin-left: 0"></el-button>
+                                </el-tooltip>
+                            </el-col>
+                        </el-row>
+                    </template>
                 </el-form-item>
             </el-form>
         </el-col>
@@ -72,6 +105,9 @@
                     newPassword: null
                 }
             },
+            created: function () {
+                Vue.set(this.manager, 'showingSecretKey', false);
+            },
             methods: {
                 closeModifyNameDialog: function () {
                     this.modifyNameDialogVisible = false;
@@ -119,6 +155,49 @@
                             theThis.closeModifyPasswordDialog();
                             window.location.reload()
                         });
+                    });
+                },
+                refreshSecretKey: function (manager) {
+                    const theThis = this;
+                    Vue.prototype.$confirm('确定更换密钥？', '警告', {type: 'warning'})
+                        .then(function () {
+                            theThis.setNewSecretKey(manager);
+                        });
+                },
+                setNewSecretKey: function (manager) {
+                    const theThis = this;
+                    axios.get(MANAGER_ROOT_PATH + '/manager/main/randomCode', {params: {}})
+                        .then(function (result) {
+                            if (!result.success) {
+                                Vue.prototype.$message.error(result.message);
+                                return;
+                            }
+                            theThis.modifySecretKey(manager.managerId, result.randomCode, function () {
+                                manager.secretKey = result.randomCode;
+                                manager.showingSecretKey = true;
+                            });
+                        });
+                },
+                deleteSecretKey: function (manager) {
+                    const theThis = this;
+                    Vue.prototype.$confirm('确定删除密钥？', '警告', {type: 'warning'})
+                        .then(function () {
+                            theThis.modifySecretKey(manager.managerId, null, function () {
+                                manager.secretKey = null;
+                            });
+                        });
+                },
+                modifySecretKey: function (managerId, secretKey, callback) {
+                    axios.post(MANAGER_ROOT_PATH + '/manager/manage/modifySecretKey', {
+                        managerId: managerId,
+                        secretKey: secretKey
+                    }).then(function (result) {
+                        if (!result.success) {
+                            Vue.prototype.$message.error(result.message);
+                            return;
+                        }
+                        Vue.prototype.$message.success(result.message);
+                        callback();
                     });
                 }
             }
