@@ -10,6 +10,7 @@ package org.antframework.manager.web.controller;
 
 import lombok.AllArgsConstructor;
 import org.antframework.common.util.facade.EmptyResult;
+import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
@@ -19,6 +20,8 @@ import org.antframework.manager.web.Managers;
 import org.antframework.manager.web.common.ManagerSessionAccessor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Objects;
 
 /**
  * 管理员管理controller
@@ -93,17 +96,31 @@ public class ManagerManageController {
      * 修改管理员密码
      *
      * @param managerId   被修改的管理员id（必填）
+     * @param oldPassword 旧密码
      * @param newPassword 新密码（必填）
      * @return 修改结果
      */
     @RequestMapping("/modifyPassword")
-    public EmptyResult modifyPassword(String managerId, String newPassword) {
+    public EmptyResult modifyPassword(String managerId, String oldPassword, String newPassword) {
         Managers.adminOrMyself(managerId);
+        if (Objects.equals(managerId, Managers.currentManager().getManagerId())) {
+            validateManagerPassword(managerId, oldPassword);
+        }
         ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
         order.setManagerId(managerId);
         order.setNewPassword(newPassword);
 
         return managerService.modifyManagerPassword(order);
+    }
+
+    // 校验管理员密码
+    private void validateManagerPassword(String managerId, String password) {
+        ValidateManagerPasswordOrder order = new ValidateManagerPasswordOrder();
+        order.setManagerId(managerId);
+        order.setPassword(password);
+
+        EmptyResult result = managerService.validateManagerPassword(order);
+        FacadeUtils.assertSuccess(result);
     }
 
     /**
