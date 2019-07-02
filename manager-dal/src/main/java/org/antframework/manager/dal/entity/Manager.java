@@ -43,7 +43,7 @@ public class Manager extends AbstractEntity {
     private String password;
 
     // 密钥
-    @Column(length = 128)
+    @Column(length = 64)
     @Mask(startSize = 0, endSize = 0)
     private String secretKey;
 }
