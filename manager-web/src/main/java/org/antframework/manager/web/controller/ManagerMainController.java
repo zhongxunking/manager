@@ -17,9 +17,10 @@ import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.manager.biz.util.SecurityUtils;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.info.ManagerInfo;
-import org.antframework.manager.facade.order.ManagerLoginOrder;
-import org.antframework.manager.facade.result.ManagerLoginResult;
+import org.antframework.manager.facade.order.ValidateManagerPasswordOrder;
+import org.antframework.manager.web.Managers;
 import org.antframework.manager.web.common.ManagerSessionAccessor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,14 +42,18 @@ public class ManagerMainController {
      * @return 登陆结果
      */
     @RequestMapping("/login")
-    public ManagerLoginResult login(String managerId, String password) {
-        ManagerLoginOrder order = new ManagerLoginOrder();
+    public LoginResult login(String managerId, String password) {
+        ValidateManagerPasswordOrder order = new ValidateManagerPasswordOrder();
         order.setManagerId(managerId);
         order.setPassword(password);
 
-        ManagerLoginResult result = managerService.managerLogin(order);
-        if (result.isSuccess()) {
-            ManagerSessionAccessor.setManager(result.getManager());
+        EmptyResult validateManagerPasswordResult = managerService.validateManagerPassword(order);
+        LoginResult result = new LoginResult();
+        BeanUtils.copyProperties(validateManagerPasswordResult, result);
+        if (validateManagerPasswordResult.isSuccess()) {
+            ManagerInfo manager = Managers.findManager(managerId);
+            ManagerSessionAccessor.setManager(manager);
+            result.setManager(manager);
         }
         return result;
     }
@@ -83,7 +88,17 @@ public class ManagerMainController {
     }
 
     /**
-     * 获取当前信息
+     * 登陆result
+     */
+    @Getter
+    @Setter
+    public static class LoginResult extends AbstractResult {
+        // 管理员
+        private ManagerInfo manager;
+    }
+
+    /**
+     * 获取当前信息result
      */
     @Getter
     @Setter
@@ -93,7 +108,7 @@ public class ManagerMainController {
     }
 
     /**
-     * 获取随机码-result
+     * 获取随机码result
      */
     @Getter
     @Setter

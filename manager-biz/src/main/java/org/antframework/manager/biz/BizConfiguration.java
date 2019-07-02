@@ -11,6 +11,7 @@ package org.antframework.manager.biz;
 import org.antframework.manager.biz.provider.ManagerServiceProvider;
 import org.antframework.manager.biz.provider.RelationServiceProvider;
 import org.antframework.manager.biz.service.*;
+import org.antframework.manager.facade.order.ValidateManagerPasswordOrder;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -26,9 +27,10 @@ import org.springframework.context.annotation.Import;
         DeleteRelationsService.class,
         FindManagerService.class,
         FindRelationService.class,
-        ManagerLoginService.class,
         ModifyManagerNameService.class,
         ModifyManagerPasswordService.class,
-        ModifyManagerTypeService.class})
+        ModifyManagerSecretKeyService.class,
+        ModifyManagerTypeService.class,
+        ValidateManagerPasswordOrder.class})
 public class BizConfiguration {
 }

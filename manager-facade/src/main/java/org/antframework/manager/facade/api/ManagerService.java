@@ -11,7 +11,6 @@ package org.antframework.manager.facade.api;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindManagerResult;
-import org.antframework.manager.facade.result.ManagerLoginResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
 
 /**
@@ -49,6 +48,11 @@ public interface ManagerService {
     EmptyResult deleteManager(DeleteManagerOrder order);
 
     /**
+     * 校验管理员密码
+     */
+    EmptyResult validateManagerPassword(ValidateManagerPasswordOrder order);
+
+    /**
      * 查找管理员
      */
     FindManagerResult findManager(FindManagerOrder order);
@@ -57,9 +61,4 @@ public interface ManagerService {
      * 查询管理员
      */
     QueryManagersResult queryManagers(QueryManagersOrder order);
-
-    /**
-     * 管理员登录
-     */
-    ManagerLoginResult managerLogin(ManagerLoginOrder order);
 }

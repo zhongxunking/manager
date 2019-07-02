@@ -16,7 +16,6 @@ import org.antframework.manager.dal.dao.ManagerDao;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindManagerResult;
-import org.antframework.manager.facade.result.ManagerLoginResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
 import org.bekit.service.ServiceEngine;
 import org.springframework.stereotype.Service;
@@ -61,6 +60,11 @@ public class ManagerServiceProvider implements ManagerService {
     }
 
     @Override
+    public EmptyResult validateManagerPassword(ValidateManagerPasswordOrder order) {
+        return serviceEngine.execute("validateManagerPasswordService", order);
+    }
+
+    @Override
     public FindManagerResult findManager(FindManagerOrder order) {
         return serviceEngine.execute("findManagerService", order);
     }
@@ -69,10 +73,5 @@ public class ManagerServiceProvider implements ManagerService {
     public QueryManagersResult queryManagers(QueryManagersOrder order) {
         CommonQueries.CommonQueryResult result = serviceEngine.execute(CommonQueries.SERVICE_NAME, order, QueryUtils.buildCommonQueryAttachment(ManagerDao.class));
         return result.convertTo(QueryManagersResult.class);
-    }
-
-    @Override
-    public ManagerLoginResult managerLogin(ManagerLoginOrder order) {
-        return serviceEngine.execute("managerLoginService", order);
     }
 }

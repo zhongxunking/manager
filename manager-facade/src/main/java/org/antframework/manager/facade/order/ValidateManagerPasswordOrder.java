@@ -16,11 +16,11 @@ import org.antframework.common.util.tostring.format.Mask;
 import javax.validation.constraints.NotBlank;
 
 /**
- * 管理员登陆order
+ * 校验管理员密码order
  */
 @Getter
 @Setter
-public class ManagerLoginOrder extends AbstractOrder {
+public class ValidateManagerPasswordOrder extends AbstractOrder {
     // 管理员Id
     @NotBlank
     private String managerId;

@@ -14,7 +14,6 @@ import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindManagerResult;
-import org.antframework.manager.facade.result.ManagerLoginResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
 import org.antframework.manager.test.AbstractTest;
 import org.junit.Ignore;
@@ -91,6 +90,16 @@ public class ManagerServiceTest extends AbstractTest {
     }
 
     @Test
+    public void testValidateManagerPassword() {
+        ValidateManagerPasswordOrder order = new ValidateManagerPasswordOrder();
+        order.setManagerId("admin");
+        order.setPassword("123");
+
+        EmptyResult result = managerService.validateManagerPassword(order);
+        assertSuccess(result);
+    }
+
+    @Test
     public void testFindManager() {
         FindManagerOrder order = new FindManagerOrder();
         order.setManagerId("admin");
@@ -106,16 +115,6 @@ public class ManagerServiceTest extends AbstractTest {
         order.setPageSize(10);
 
         QueryManagersResult result = managerService.queryManagers(order);
-        assertSuccess(result);
-    }
-
-    @Test
-    public void testManagerLogin() {
-        ManagerLoginOrder order = new ManagerLoginOrder();
-        order.setManagerId("admin");
-        order.setPassword("123");
-
-        ManagerLoginResult result = managerService.managerLogin(order);
         assertSuccess(result);
     }
 }
