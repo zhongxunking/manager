@@ -23,16 +23,16 @@ import org.antframework.manager.web.common.ManagerSessionAccessor;
 import java.util.Objects;
 
 /**
- * 管理员工具类
+ * 当前登录的管理员工具类
  */
-public final class Managers {
+public final class CurrentManagers {
     // 管理员服务
     private static final ManagerService MANAGER_SERVICE = Contexts.getApplicationContext().getBean(ManagerService.class);
 
     /**
      * 断言管理员已登陆并获取管理员信息
      */
-    public static ManagerInfo currentManager() {
+    public static ManagerInfo current() {
         ManagerInfo manager = ManagerSessionAccessor.getManager();
         if (manager == null) {
             throw new BizException(Status.FAIL, CommonResultCode.UNAUTHORIZED.getCode(), CommonResultCode.UNAUTHORIZED.getMessage());
@@ -44,7 +44,7 @@ public final class Managers {
      * 断言当前管理员为超级管理员
      */
     public static void admin() {
-        ManagerInfo manager = currentManager();
+        ManagerInfo manager = current();
         if (manager.getType() != ManagerType.ADMIN) {
             throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("当前管理员[%s]不是超级管理员", manager.getManagerId()));
         }
@@ -56,7 +56,7 @@ public final class Managers {
      * @param managerId 管理员id
      */
     public static void myself(String managerId) {
-        ManagerInfo manager = currentManager();
+        ManagerInfo manager = current();
         if (!Objects.equals(managerId, manager.getManagerId())) {
             throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("当前管理员[%s]不是指定管理员[%s]", manager.getManagerId(), managerId));
         }
@@ -74,7 +74,7 @@ public final class Managers {
             try {
                 myself(managerId);
             } catch (BizException myselfE) {
-                ManagerInfo manager = currentManager();
+                ManagerInfo manager = current();
                 throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("当前管理员[%s]既不是超级管理员也不是指定管理员[%s]", manager.getManagerId(), managerId));
             }
         }

@@ -16,7 +16,7 @@ import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindManagerResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
-import org.antframework.manager.web.Managers;
+import org.antframework.manager.web.CurrentManagers;
 import org.antframework.manager.web.common.ManagerSessionAccessor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +44,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/add")
     public EmptyResult add(String managerId, ManagerType type, String name, String password) {
-        Managers.admin();
+        CurrentManagers.admin();
         AddManagerOrder order = new AddManagerOrder();
         order.setManagerId(managerId);
         order.setType(type);
@@ -63,7 +63,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyType")
     public EmptyResult modifyType(String managerId, ManagerType newType) {
-        Managers.admin();
+        CurrentManagers.admin();
         ModifyManagerTypeOrder order = new ModifyManagerTypeOrder();
         order.setManagerId(managerId);
         order.setNewType(newType);
@@ -82,7 +82,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyName")
     public EmptyResult modifyName(String managerId, String newName) {
-        Managers.adminOrMyself(managerId);
+        CurrentManagers.adminOrMyself(managerId);
         ModifyManagerNameOrder order = new ModifyManagerNameOrder();
         order.setManagerId(managerId);
         order.setNewName(newName);
@@ -102,8 +102,8 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyPassword")
     public EmptyResult modifyPassword(String managerId, String oldPassword, String newPassword) {
-        Managers.adminOrMyself(managerId);
-        if (Objects.equals(managerId, Managers.currentManager().getManagerId())) {
+        CurrentManagers.adminOrMyself(managerId);
+        if (Objects.equals(managerId, CurrentManagers.current().getManagerId())) {
             validateManagerPassword(managerId, oldPassword);
         }
         ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
@@ -132,7 +132,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifySecretKey")
     public EmptyResult modifySecretKey(String managerId, String secretKey) {
-        Managers.adminOrMyself(managerId);
+        CurrentManagers.adminOrMyself(managerId);
         ModifyManagerSecretKeyOrder order = new ModifyManagerSecretKeyOrder();
         order.setManagerId(managerId);
         order.setSecretKey(secretKey);
@@ -148,7 +148,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/delete")
     public EmptyResult delete(String managerId) {
-        Managers.admin();
+        CurrentManagers.admin();
         DeleteManagerOrder order = new DeleteManagerOrder();
         order.setManagerId(managerId);
 
@@ -165,7 +165,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/findManager")
     public FindManagerResult findManager(String managerId) {
-        Managers.adminOrMyself(managerId);
+        CurrentManagers.adminOrMyself(managerId);
         FindManagerOrder order = new FindManagerOrder();
         order.setManagerId(managerId);
 
@@ -184,7 +184,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/query")
     public QueryManagersResult query(int pageNo, int pageSize, String managerId, ManagerType type, String name) {
-        Managers.admin();
+        CurrentManagers.admin();
         QueryManagersOrder order = new QueryManagersOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
@@ -198,7 +198,7 @@ public class ManagerManageController {
     // 尝试刷新session中的管理员
     private void tryRefreshSessionManager(String managerId) {
         try {
-            Managers.myself(managerId);
+            CurrentManagers.myself(managerId);
             // 刷新session中的管理员
             FindManagerOrder order = new FindManagerOrder();
             order.setManagerId(managerId);

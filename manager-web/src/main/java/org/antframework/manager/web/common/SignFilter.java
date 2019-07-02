@@ -12,7 +12,7 @@ import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
 import org.antframework.manager.biz.util.SecurityUtils;
 import org.antframework.manager.facade.info.ManagerInfo;
-import org.antframework.manager.web.Managers;
+import org.antframework.manager.web.CurrentManagers;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +46,7 @@ public class SignFilter implements Filter {
 
     // 验证签名
     private boolean validateSign(String managerId, String sign, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ManagerInfo manager = Managers.findManager(managerId);
+        ManagerInfo manager = CurrentManagers.findManager(managerId);
         if (manager == null) {
             write(response, Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), String.format("管理员[%s]不存在", managerId));
             return false;
