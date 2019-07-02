@@ -14,11 +14,10 @@ import lombok.Setter;
 import org.antframework.common.util.facade.AbstractResult;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.common.util.facade.FacadeUtils;
+import org.antframework.manager.biz.util.Managers;
 import org.antframework.manager.biz.util.SecurityUtils;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.info.ManagerInfo;
-import org.antframework.manager.facade.order.ValidateManagerPasswordOrder;
-import org.antframework.manager.web.CurrentManagers;
 import org.antframework.manager.web.common.ManagerSessionAccessor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,23 +41,13 @@ public class ManagerMainController {
      */
     @RequestMapping("/login")
     public LoginResult login(String managerId, String password) {
-        validateManagerPassword(managerId, password);
-        ManagerInfo manager = CurrentManagers.findManager(managerId);
+        Managers.validateManagerPassword(managerId, password);
+        ManagerInfo manager = Managers.findManager(managerId);
         ManagerSessionAccessor.setManager(manager);
 
         LoginResult result = FacadeUtils.buildSuccess(LoginResult.class);
         result.setManager(manager);
         return result;
-    }
-
-    // 校验管理员密码
-    private void validateManagerPassword(String managerId, String password) {
-        ValidateManagerPasswordOrder order = new ValidateManagerPasswordOrder();
-        order.setManagerId(managerId);
-        order.setPassword(password);
-
-        EmptyResult result = managerService.validateManagerPassword(order);
-        FacadeUtils.assertSuccess(result);
     }
 
     /**
