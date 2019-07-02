@@ -26,9 +26,9 @@ public final class SecurityUtils {
     }
 
     /**
-     * 获取新密钥
+     * 获取新的随机码
      */
-    public static String newSecretKey() {
+    public static String newRandomCode() {
         String key = UUID.randomUUID().toString() + System.nanoTime();
         key = digest(key);
         return key;

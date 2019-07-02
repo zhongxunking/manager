@@ -75,7 +75,7 @@ public class ManagerServiceTest extends AbstractTest {
     public void testModifyManagerSecretKey() {
         ModifyManagerSecretKeyOrder order = new ModifyManagerSecretKeyOrder();
         order.setManagerId("admin");
-        order.setSecretKey(SecurityUtils.newSecretKey());
+        order.setSecretKey(SecurityUtils.newRandomCode());
 
         EmptyResult result = managerService.modifyManagerSecretKey(order);
         assertSuccess(result);

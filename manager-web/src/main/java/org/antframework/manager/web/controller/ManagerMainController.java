@@ -12,9 +12,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.antframework.common.util.facade.AbstractResult;
-import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.EmptyResult;
-import org.antframework.common.util.facade.Status;
+import org.antframework.common.util.facade.FacadeUtils;
+import org.antframework.manager.biz.util.SecurityUtils;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.info.ManagerInfo;
 import org.antframework.manager.facade.order.ManagerLoginOrder;
@@ -59,12 +59,7 @@ public class ManagerMainController {
     @RequestMapping("/logout")
     public EmptyResult logout() {
         ManagerSessionAccessor.setManager(null);
-
-        EmptyResult result = new EmptyResult();
-        result.setStatus(Status.SUCCESS);
-        result.setCode(CommonResultCode.SUCCESS.getCode());
-        result.setMessage(CommonResultCode.SUCCESS.getMessage());
-        return result;
+        return FacadeUtils.buildSuccess(EmptyResult.class);
     }
 
     /**
@@ -72,12 +67,18 @@ public class ManagerMainController {
      */
     @RequestMapping("/current")
     public CurrentResult current() {
-        CurrentResult result = new CurrentResult();
-        result.setStatus(Status.SUCCESS);
-        result.setCode(CommonResultCode.SUCCESS.getCode());
-        result.setMessage(CommonResultCode.SUCCESS.getMessage());
+        CurrentResult result = FacadeUtils.buildSuccess(CurrentResult.class);
         result.setManager(ManagerSessionAccessor.getManager());
+        return result;
+    }
 
+    /**
+     * 获取随机码
+     */
+    @RequestMapping("/randomCode")
+    public RandomCodeResult randomCode() {
+        RandomCodeResult result = FacadeUtils.buildSuccess(RandomCodeResult.class);
+        result.setRandomCode(SecurityUtils.newRandomCode());
         return result;
     }
 
@@ -89,5 +90,15 @@ public class ManagerMainController {
     public static class CurrentResult extends AbstractResult {
         // 管理员
         private ManagerInfo manager;
+    }
+
+    /**
+     * 获取随机码-result
+     */
+    @Getter
+    @Setter
+    public static class RandomCodeResult extends AbstractResult {
+        // 随机码
+        private String randomCode;
     }
 }
