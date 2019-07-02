@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2018-11-10 20:57 创建
  */
-package org.antframework.manager.web;
+package org.antframework.manager.biz.util;
 
 import org.antframework.boot.core.Contexts;
 import org.antframework.common.util.facade.EmptyResult;
