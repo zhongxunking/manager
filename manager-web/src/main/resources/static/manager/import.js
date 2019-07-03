@@ -62,13 +62,13 @@ const DEV_MODE = function () {
 }();
 // 导入依赖
 if (DEV_MODE) {
-    document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue.js"></script>');
+    document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue@2.6.10.js"></script>');
 } else {
-    document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue.min.js"></script>');
+    document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue@2.6.10.min.js"></script>');
 }
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue-router.js"></script>');
-document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PATH + '/manager/lib/element-ui/element-ui@2.4.11.css">');
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/element-ui/element-ui@2.4.11.js"></script>');
+document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue-router@3.0.7.js"></script>');
+document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PATH + '/manager/lib/element-ui/element-ui@2.10.1.css">');
+document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/element-ui/element-ui@2.10.1.js"></script>');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/axios.js"></script>');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/qs.js"></script>');
 document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PATH + '/manager/lib/icon/iconfont.css">');
