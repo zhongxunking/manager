@@ -59,8 +59,8 @@ const ManagerProfileTemplate = `
 
     <el-dialog :visible.sync="modifyNameDialogVisible" :before-close="closeModifyNameDialog" title="修改名称" width="40%">
         <el-form ref="modifyNameForm" :model="modifyNameForm" label-width="20%">
-            <el-form-item label="新名称" prop="newName" :rules="[{required:true, message:'请输入新名词', trigger:'blur'}]">
-                <el-input v-model="modifyNameForm.newName" clearable placeholder="请输入新名词" style="width: 90%"></el-input>
+            <el-form-item label="新名称" prop="newName" :rules="[{required:true, message:'请输入新名称', trigger:'blur'}]">
+                <el-input v-model="modifyNameForm.newName" clearable placeholder="请输入新名称" style="width: 90%"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer">
