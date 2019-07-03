@@ -3,7 +3,7 @@ const ManagerProfileTemplate = `
 <div>
     <el-row>
         <el-col>
-            <el-form label-width="110px">
+            <el-form label-width="110px" style="width: 500px">
                 <el-form-item label="管理员id：" prop="managerId">
                     <span>{{ manager.managerId }}</span>
                 </el-form-item>
@@ -13,6 +13,39 @@ const ManagerProfileTemplate = `
                 </el-form-item>
                 <el-form-item label="名称：" prop="name">
                     <span>{{ manager.name }}</span>
+                </el-form-item>
+                <el-form-item label="密钥：" prop="secretKey">
+                    <template v-if="manager.secretKey">
+                        <el-row>
+                            <el-col :span="18">
+                                <span v-if="manager.showingSecretKey">{{ manager.secretKey }}</span>
+                                <span v-else>********************************</span>
+                            </el-col>
+                            <el-col :span="6">
+                                <el-tooltip content="显示/隐藏" placement="top" :open-delay="1000" :hide-after="3000">
+                                    <el-button @click="manager.showingSecretKey = !manager.showingSecretKey" type="success" icon="el-icon-view" size="mini" circle style="margin-left: 0"></el-button>
+                                </el-tooltip>
+                                <el-tooltip content="更换" placement="top" :open-delay="1000" :hide-after="3000">
+                                    <el-button @click="refreshSecretKey(manager)" type="primary" icon="el-icon-refresh" size="mini" circle style="margin-left: 0"></el-button>
+                                </el-tooltip>
+                                <el-tooltip content="删除" placement="top" :open-delay="1000" :hide-after="3000">
+                                    <el-button @click="deleteSecretKey(manager)" type="danger" icon="el-icon-delete" size="mini" circle style="margin-left: 0"></el-button>
+                                </el-tooltip>
+                            </el-col>
+                        </el-row>
+                    </template>
+                    <template v-else>
+                        <el-row>
+                            <el-col :span="18">
+                                <el-tag type="success">无</el-tag>
+                            </el-col>
+                            <el-col :span="6">
+                                <el-tooltip content="创建" placement="top" :open-delay="1000" :hide-after="3000">
+                                    <el-button @click="setNewSecretKey(manager)" type="success" icon="el-icon-plus" size="mini" circle style="margin-left: 0"></el-button>
+                                </el-tooltip>
+                            </el-col>
+                        </el-row>
+                    </template>
                 </el-form-item>
             </el-form>
         </el-col>
@@ -38,6 +71,11 @@ const ManagerProfileTemplate = `
 
     <el-dialog :visible.sync="modifyPasswordDialogVisible" :before-close="closeModifyPasswordDialog" title="修改密码" width="40%">
         <el-form ref="modifyPasswordForm" :model="modifyPasswordForm" label-width="20%">
+            <el-form-item label="原密码" prop="oldPassword" :rules="[{required:true, message:'请输入原密码', trigger:'blur'}]">
+                <el-input v-model="modifyPasswordForm.oldPassword" type="password" clearable placeholder="请输入原密码" style="width: 90%"></el-input>
+            </el-form-item>
+        </el-form>
+        <el-form ref="modifyPasswordForm" :model="modifyPasswordForm" label-width="20%">
             <el-form-item label="新密码" prop="newPassword" :rules="[{required:true, message:'请输入新密码', trigger:'blur'}]">
                 <el-input v-model="modifyPasswordForm.newPassword" type="password" clearable placeholder="请输入新密码" style="width: 90%"></el-input>
             </el-form-item>
@@ -61,9 +99,13 @@ const ManagerProfile = {
             },
             modifyPasswordDialogVisible: false,
             modifyPasswordForm: {
+                oldPassword: null,
                 newPassword: null
             }
         };
+    },
+    created: function () {
+        Vue.set(this.manager, 'showingSecretKey', false);
     },
     methods: {
         closeModifyNameDialog: function () {
@@ -92,6 +134,7 @@ const ManagerProfile = {
         },
         closeModifyPasswordDialog: function () {
             this.modifyPasswordDialogVisible = false;
+            this.modifyPasswordForm.oldPassword = null;
             this.modifyPasswordForm.newPassword = null;
         },
         modifyPassword: function () {
@@ -102,6 +145,7 @@ const ManagerProfile = {
                 }
                 axios.post(MANAGER_ROOT_PATH + '/manager/manage/modifyPassword', {
                     managerId: theThis.manager.managerId,
+                    oldPassword: theThis.modifyPasswordForm.oldPassword,
                     newPassword: theThis.modifyPasswordForm.newPassword
                 }).then(function (result) {
                     if (!result.success) {
@@ -112,6 +156,49 @@ const ManagerProfile = {
                     theThis.closeModifyPasswordDialog();
                     window.location.reload()
                 });
+            });
+        },
+        refreshSecretKey: function (manager) {
+            const theThis = this;
+            Vue.prototype.$confirm('确定更换密钥？', '警告', {type: 'warning'})
+                .then(function () {
+                    theThis.setNewSecretKey(manager);
+                });
+        },
+        setNewSecretKey: function (manager) {
+            const theThis = this;
+            axios.get(MANAGER_ROOT_PATH + '/manager/main/randomCode', {params: {}})
+                .then(function (result) {
+                    if (!result.success) {
+                        Vue.prototype.$message.error(result.message);
+                        return;
+                    }
+                    theThis.modifySecretKey(manager.managerId, result.randomCode, function () {
+                        manager.secretKey = result.randomCode;
+                        manager.showingSecretKey = true;
+                    });
+                });
+        },
+        deleteSecretKey: function (manager) {
+            const theThis = this;
+            Vue.prototype.$confirm('确定删除密钥？', '警告', {type: 'warning'})
+                .then(function () {
+                    theThis.modifySecretKey(manager.managerId, null, function () {
+                        manager.secretKey = null;
+                    });
+                });
+        },
+        modifySecretKey: function (managerId, secretKey, callback) {
+            axios.post(MANAGER_ROOT_PATH + '/manager/manage/modifySecretKey', {
+                managerId: managerId,
+                secretKey: secretKey
+            }).then(function (result) {
+                if (!result.success) {
+                    Vue.prototype.$message.error(result.message);
+                    return;
+                }
+                Vue.prototype.$message.success(result.message);
+                callback();
             });
         }
     }
