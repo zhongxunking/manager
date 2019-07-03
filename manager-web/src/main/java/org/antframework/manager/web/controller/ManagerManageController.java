@@ -21,6 +21,8 @@ import org.antframework.manager.web.common.ManagerSessionAccessor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 /**
  * 管理员管理controller
  */
@@ -101,7 +103,7 @@ public class ManagerManageController {
     @RequestMapping("/modifyPassword")
     public EmptyResult modifyPassword(String managerId, String oldPassword, String newPassword) {
         CurrentManagers.adminOrMyself(managerId);
-        if (CurrentManagers.current().getType() != ManagerType.ADMIN) {
+        if (Objects.equals(managerId, CurrentManagers.current().getManagerId())) {
             Managers.validateManagerPassword(managerId, oldPassword);
         }
         ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
