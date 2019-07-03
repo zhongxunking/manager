@@ -77,6 +77,11 @@
 
     <el-dialog :visible.sync="modifyPasswordDialogVisible" :before-close="closeModifyPasswordDialog" title="修改密码" width="40%">
         <el-form ref="modifyPasswordForm" :model="modifyPasswordForm" label-width="20%">
+            <el-form-item label="原密码" prop="oldPassword" :rules="[{required:true, message:'请输入原密码', trigger:'blur'}]">
+                <el-input v-model="modifyPasswordForm.oldPassword" type="password" clearable placeholder="请输入原密码" style="width: 90%"></el-input>
+            </el-form-item>
+        </el-form>
+        <el-form ref="modifyPasswordForm" :model="modifyPasswordForm" label-width="20%">
             <el-form-item label="新密码" prop="newPassword" :rules="[{required:true, message:'请输入新密码', trigger:'blur'}]">
                 <el-input v-model="modifyPasswordForm.newPassword" type="password" clearable placeholder="请输入新密码" style="width: 90%"></el-input>
             </el-form-item>
@@ -102,6 +107,7 @@
                 },
                 modifyPasswordDialogVisible: false,
                 modifyPasswordForm: {
+                    oldPassword: null,
                     newPassword: null
                 }
             },
@@ -135,6 +141,7 @@
                 },
                 closeModifyPasswordDialog: function () {
                     this.modifyPasswordDialogVisible = false;
+                    this.modifyPasswordForm.oldPassword = null;
                     this.modifyPasswordForm.newPassword = null;
                 },
                 modifyPassword: function () {
@@ -145,6 +152,7 @@
                         }
                         axios.post(MANAGER_ROOT_PATH + '/manager/manage/modifyPassword', {
                             managerId: theThis.manager.managerId,
+                            oldPassword: theThis.modifyPasswordForm.oldPassword,
                             newPassword: theThis.modifyPasswordForm.newPassword
                         }).then(function (result) {
                             if (!result.success) {
