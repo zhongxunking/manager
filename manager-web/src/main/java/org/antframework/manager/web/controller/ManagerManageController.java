@@ -125,7 +125,9 @@ public class ManagerManageController {
         order.setManagerId(managerId);
         order.setSecretKey(secretKey);
 
-        return managerService.modifyManagerSecretKey(order);
+        EmptyResult result = managerService.modifyManagerSecretKey(order);
+        tryRefreshSessionManager(managerId);
+        return result;
     }
 
     /**
@@ -188,13 +190,7 @@ public class ManagerManageController {
         try {
             CurrentManagers.myself(managerId);
             // 刷新session中的管理员
-            FindManagerOrder order = new FindManagerOrder();
-            order.setManagerId(managerId);
-
-            FindManagerResult result = managerService.findManager(order);
-            if (result.isSuccess()) {
-                ManagerSessionAccessor.setManager(result.getManager());
-            }
+            ManagerSessionAccessor.setManager(Managers.findManager(managerId));
         } catch (Throwable e) {
             // 忽略
         }

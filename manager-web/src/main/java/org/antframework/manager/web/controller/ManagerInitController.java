@@ -35,9 +35,7 @@ public class ManagerInitController {
     public EmptyResult canInitAdmin() {
         EmptyResult result = new EmptyResult();
         if (!existingManager()) {
-            result.setStatus(Status.SUCCESS);
-            result.setCode(CommonResultCode.SUCCESS.getCode());
-            result.setMessage(CommonResultCode.SUCCESS.getMessage());
+            FacadeUtils.initSuccess(result);
         } else {
             result.setStatus(Status.FAIL);
             result.setCode(CommonResultCode.ILLEGAL_STATE.getCode());
