@@ -69,8 +69,8 @@ if (DEV_MODE) {
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/vue-router@3.0.7.js"></script>');
 document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PATH + '/manager/lib/element-ui/element-ui@2.10.1.css">');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/element-ui/element-ui@2.10.1.js"></script>');
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/axios.js"></script>');
-document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/qs.js"></script>');
+document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/axios@0.19.0.js"></script>');
+document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/lib/qs@6.7.0.js"></script>');
 document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PATH + '/manager/lib/icon/iconfont.css">');
 document.write('<script src="' + MANAGER_ROOT_PATH + '/manager/common/common.js"></script>');
 document.write('<link rel="stylesheet" type="text/css" href="' + MANAGER_ROOT_PATH + '/manager/common/common.css">');
