@@ -98,16 +98,9 @@
                                 <el-tooltip content="取消修改" placement="top" :open-delay="1000" :hide-after="3000">
                                     <el-button @click="row.editing = false" type="info" icon="el-icon-close" size="small" circle></el-button>
                                 </el-tooltip>
-                                <el-popover placement="top" v-model="row.savePopoverShowing">
-                                    <p>确定保存修改？</p>
-                                    <div style="text-align: right; margin: 0">
-                                        <el-button size="mini" type="text" @click="row.savePopoverShowing = false">取消</el-button>
-                                        <el-button type="primary" size="mini" @click="saveEditing(row)">确定</el-button>
-                                    </div>
-                                    <el-tooltip slot="reference" :disabled="row.savePopoverShowing" content="保存修改" placement="top" :open-delay="1000" :hide-after="3000">
-                                        <el-button @click="row.savePopoverShowing = true" type="success" icon="el-icon-check" size="small" circle></el-button>
-                                    </el-tooltip>
-                                </el-popover>
+                                <el-tooltip content="保存修改" placement="top" :open-delay="1000" :hide-after="3000">
+                                    <el-button @click="saveEditing(row)" type="success" icon="el-icon-check" size="small" circle></el-button>
+                                </el-tooltip>
                             </el-button-group>
                         </template>
                     </el-col>
@@ -209,15 +202,14 @@
                             Vue.prototype.$message.error(result.message);
                             return;
                         }
+                        result.infos.forEach(function (manager) {
+                            manager.editing = false;
+                            manager.editingType = null;
+                            manager.editingName = null;
+                            manager.showingSecretKey = false;
+                        });
                         theThis.totalManagers = result.totalCount;
                         theThis.managers = result.infos;
-                        theThis.managers.forEach(function (manager) {
-                            Vue.set(manager, 'editing', false);
-                            Vue.set(manager, 'editingType', null);
-                            Vue.set(manager, 'editingName', null);
-                            Vue.set(manager, 'showingSecretKey', false);
-                            Vue.set(manager, 'savePopoverShowing', false);
-                        });
                     });
             },
             startEditing: function (manager) {
@@ -226,8 +218,6 @@
                 manager.editingName = manager.name;
             },
             saveEditing: function (manager) {
-                manager.savePopoverShowing = false;
-
                 const theThis = this;
                 axios.post(MANAGER_ROOT_PATH + '/manager/manage/modifyType', {
                     managerId: manager.managerId,
