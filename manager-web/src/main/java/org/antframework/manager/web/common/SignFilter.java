@@ -58,9 +58,12 @@ public class SignFilter implements Filter {
         String parameters = request.getParameterMap().entrySet().stream()
                 .sorted(Comparator.comparing(Map.Entry::getKey))
                 .map(entry -> entry.getKey() + "=" + Arrays.stream(entry.getValue()).reduce((left, right) -> left + right).orElse(""))
-                .reduce((left, right) -> left + "," + right)
+                .reduce((left, right) -> left + "&" + right)
                 .orElse("");
-        parameters += manager.getSecretKey();
+        if (parameters.length() > 0) {
+            parameters += '&';
+        }
+        parameters += "sign=" + manager.getSecretKey();
         String correctSign = SecurityUtils.digest(parameters);
         if (!Objects.equals(sign, correctSign)) {
             write(response, Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), "签名不正确");
