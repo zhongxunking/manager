@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * session访问器设置filter
+ * 管理员session访问器filter
  */
-public class SessionAccessorFilter implements Filter {
+public class ManagerSessionAccessorFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         ManagerSessionAccessor.setSession(((HttpServletRequest) request).getSession());

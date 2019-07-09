@@ -24,9 +24,9 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 验证签名filter
+ * 管理员验签filter
  */
-public class SignFilter implements Filter {
+public class ManagerSignFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
