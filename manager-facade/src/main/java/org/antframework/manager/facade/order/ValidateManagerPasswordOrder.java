@@ -26,6 +26,6 @@ public class ValidateManagerPasswordOrder extends AbstractOrder {
     private String managerId;
     // 密码
     @NotBlank
-    @Mask(allMask = true)
+    @Mask(secureMask = true)
     private String password;
 }

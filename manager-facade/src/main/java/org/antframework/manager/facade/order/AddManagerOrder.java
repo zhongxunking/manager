@@ -34,6 +34,6 @@ public class AddManagerOrder extends AbstractOrder {
     private String name;
     // 密码
     @NotBlank
-    @Mask(allMask = true)
+    @Mask(secureMask = true)
     private String password;
 }

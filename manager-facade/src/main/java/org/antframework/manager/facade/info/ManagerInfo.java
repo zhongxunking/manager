@@ -27,6 +27,6 @@ public class ManagerInfo extends AbstractInfo {
     // 名称
     private String name;
     // 密钥
-    @Mask(startSize = 0, endSize = 0)
+    @Mask
     private String secretKey;
 }

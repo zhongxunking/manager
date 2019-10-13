@@ -39,11 +39,11 @@ public class Manager extends AbstractEntity {
 
     // 密码
     @Column(length = 64)
-    @Mask(allMask = true)
+    @Mask(secureMask = true)
     private String password;
 
     // 密钥
     @Column(length = 64)
-    @Mask(startSize = 0, endSize = 0)
+    @Mask
     private String secretKey;
 }

@@ -25,6 +25,6 @@ public class ModifyManagerSecretKeyOrder extends AbstractOrder {
     @NotBlank
     private String managerId;
     // 密钥
-    @Mask(startSize = 0, endSize = 0)
+    @Mask
     private String secretKey;
 }

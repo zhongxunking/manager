@@ -26,6 +26,6 @@ public class ModifyManagerPasswordOrder extends AbstractOrder {
     private String managerId;
     // 新密码
     @NotBlank
-    @Mask(allMask = true)
+    @Mask(secureMask = true)
     private String newPassword;
 }
