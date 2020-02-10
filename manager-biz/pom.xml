@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.antframework.manager</groupId>
         <artifactId>manager</artifactId>
-        <version>1.4.3.RELEASE</version>
+        <version>1.4.4.RELEASE</version>
     </parent>
 
     <artifactId>manager-biz</artifactId>
