@@ -10,7 +10,7 @@
 
     <groupId>org.antframework.manager</groupId>
     <artifactId>manager</artifactId>
-    <version>1.4.4.RELEASE</version>
+    <version>1.4.5.RELEASE</version>
     <packaging>pom</packaging>
 
     <name>manager</name>
