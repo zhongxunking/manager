@@ -11,14 +11,11 @@ package org.antframework.manager.web.controller;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.antframework.common.util.facade.AbstractResult;
-import org.antframework.common.util.facade.EmptyResult;
-import org.antframework.common.util.facade.FacadeUtils;
-import org.antframework.manager.biz.util.Managers;
+import org.antframework.common.util.facade.*;
 import org.antframework.manager.biz.util.SecurityUtils;
 import org.antframework.manager.facade.api.ManagerService;
 import org.antframework.manager.facade.info.ManagerInfo;
-import org.antframework.manager.web.common.ManagerSessionAccessor;
+import org.antframework.manager.web.common.CurrentManagers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,10 +38,10 @@ public class ManagerMainController {
      */
     @RequestMapping("/login")
     public LoginResult login(String managerId, String password) {
-        Managers.validateManagerPassword(managerId, password);
-        ManagerInfo manager = Managers.findManager(managerId);
-        ManagerSessionAccessor.setManager(manager);
-
+        ManagerInfo manager = CurrentManagers.login(managerId, password);
+        if (manager == null) {
+            throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), String.format("管理员[%s]不存在或密码不正确", managerId));
+        }
         LoginResult result = FacadeUtils.buildSuccess(LoginResult.class);
         result.setManager(manager);
         return result;
@@ -55,7 +52,7 @@ public class ManagerMainController {
      */
     @RequestMapping("/logout")
     public EmptyResult logout() {
-        ManagerSessionAccessor.setManager(null);
+        CurrentManagers.logout();
         return FacadeUtils.buildSuccess(EmptyResult.class);
     }
 
@@ -65,7 +62,7 @@ public class ManagerMainController {
     @RequestMapping("/current")
     public CurrentResult current() {
         CurrentResult result = FacadeUtils.buildSuccess(CurrentResult.class);
-        result.setManager(ManagerSessionAccessor.getManager());
+        result.setManager(CurrentManagers.current());
         return result;
     }
 

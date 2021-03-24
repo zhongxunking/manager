@@ -15,7 +15,7 @@ import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindRelationResult;
 import org.antframework.manager.facade.result.QueryRelationsResult;
 import org.antframework.manager.facade.result.QuerySourceRelationsResult;
-import org.antframework.manager.web.CurrentManagers;
+import org.antframework.manager.web.CurrentManagerAssert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,7 +40,7 @@ public class RelationManageController {
      */
     @RequestMapping("/addOrModify")
     public EmptyResult addOrModify(String type, String source, String target, String value) {
-        CurrentManagers.admin();
+        CurrentManagerAssert.admin();
         AddOrModifyRelationOrder order = new AddOrModifyRelationOrder();
         order.setType(type);
         order.setSource(source);
@@ -60,7 +60,7 @@ public class RelationManageController {
      */
     @RequestMapping("/deletes")
     public EmptyResult deletes(String type, String source, String target) {
-        CurrentManagers.admin();
+        CurrentManagerAssert.admin();
         DeleteRelationsOrder order = new DeleteRelationsOrder();
         order.setType(type);
         order.setSource(source);
@@ -79,7 +79,7 @@ public class RelationManageController {
      */
     @RequestMapping("/find")
     public FindRelationResult find(String type, String source, String target) {
-        CurrentManagers.admin();
+        CurrentManagerAssert.admin();
         FindRelationOrder order = new FindRelationOrder();
         order.setType(type);
         order.setSource(source);
@@ -100,7 +100,7 @@ public class RelationManageController {
      */
     @RequestMapping("/querySourceRelations")
     public QuerySourceRelationsResult querySourceRelations(int pageNo, int pageSize, String type, String source, String target) {
-        CurrentManagers.admin();
+        CurrentManagerAssert.admin();
         QuerySourceRelationsOrder order = new QuerySourceRelationsOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
@@ -123,7 +123,7 @@ public class RelationManageController {
      */
     @RequestMapping("/query")
     public QueryRelationsResult query(int pageNo, int pageSize, String type, String source, String target) {
-        CurrentManagers.admin();
+        CurrentManagerAssert.admin();
         QueryRelationsOrder order = new QueryRelationsOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);

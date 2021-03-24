@@ -11,6 +11,9 @@ package org.antframework.manager.biz;
 import org.antframework.manager.biz.provider.ManagerServiceProvider;
 import org.antframework.manager.biz.provider.RelationServiceProvider;
 import org.antframework.manager.biz.service.*;
+import org.antframework.manager.facade.api.ManagerService;
+import org.antframework.manager.facade.api.RelationService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -18,9 +21,7 @@ import org.springframework.context.annotation.Import;
  * biz层配置
  */
 @Configuration
-@Import({ManagerServiceProvider.class,
-        RelationServiceProvider.class,
-        AddManagerService.class,
+@Import({AddManagerService.class,
         AddOrModifyRelationService.class,
         DeleteManagerService.class,
         DeleteRelationsService.class,
@@ -32,4 +33,21 @@ import org.springframework.context.annotation.Import;
         ModifyManagerTypeService.class,
         ValidateManagerPasswordService.class})
 public class BizConfiguration {
+    /**
+     * ManagerService配置
+     */
+    @Configuration
+    @ConditionalOnMissingBean(ManagerService.class)
+    @Import(ManagerServiceProvider.class)
+    public static class ManagerServiceConfiguration {
+    }
+
+    /**
+     * RelationService配置
+     */
+    @Configuration
+    @ConditionalOnMissingBean(RelationService.class)
+    @Import(RelationServiceProvider.class)
+    public static class RelationServiceConfiguration {
+    }
 }

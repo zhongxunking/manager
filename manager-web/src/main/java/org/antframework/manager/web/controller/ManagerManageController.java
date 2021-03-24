@@ -9,6 +9,7 @@
 package org.antframework.manager.web.controller;
 
 import lombok.AllArgsConstructor;
+import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.manager.biz.util.Managers;
 import org.antframework.manager.facade.api.ManagerService;
@@ -16,8 +17,8 @@ import org.antframework.manager.facade.enums.ManagerType;
 import org.antframework.manager.facade.order.*;
 import org.antframework.manager.facade.result.FindManagerResult;
 import org.antframework.manager.facade.result.QueryManagersResult;
-import org.antframework.manager.web.CurrentManagers;
-import org.antframework.manager.web.common.ManagerSessionAccessor;
+import org.antframework.manager.web.CurrentManagerAssert;
+import org.antframework.manager.web.common.CurrentManagers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,7 +45,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/add")
     public EmptyResult add(String managerId, ManagerType type, String name, String password) {
-        CurrentManagers.admin();
+        CurrentManagerAssert.admin();
         AddManagerOrder order = new AddManagerOrder();
         order.setManagerId(managerId);
         order.setType(type);
@@ -63,7 +64,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyType")
     public EmptyResult modifyType(String managerId, ManagerType newType) {
-        CurrentManagers.admin();
+        CurrentManagerAssert.admin();
         ModifyManagerTypeOrder order = new ModifyManagerTypeOrder();
         order.setManagerId(managerId);
         order.setNewType(newType);
@@ -82,7 +83,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyName")
     public EmptyResult modifyName(String managerId, String newName) {
-        CurrentManagers.adminOrMyself(managerId);
+        CurrentManagerAssert.adminOrMyself(managerId);
         ModifyManagerNameOrder order = new ModifyManagerNameOrder();
         order.setManagerId(managerId);
         order.setNewName(newName);
@@ -102,8 +103,8 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifyPassword")
     public EmptyResult modifyPassword(String managerId, String oldPassword, String newPassword) {
-        CurrentManagers.adminOrMyself(managerId);
-        if (Objects.equals(managerId, CurrentManagers.current().getManagerId())) {
+        CurrentManagerAssert.adminOrMyself(managerId);
+        if (Objects.equals(managerId, CurrentManagerAssert.current().getManagerId())) {
             Managers.validateManagerPassword(managerId, oldPassword);
         }
         ModifyManagerPasswordOrder order = new ModifyManagerPasswordOrder();
@@ -122,7 +123,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/modifySecretKey")
     public EmptyResult modifySecretKey(String managerId, String secretKey) {
-        CurrentManagers.adminOrMyself(managerId);
+        CurrentManagerAssert.adminOrMyself(managerId);
         ModifyManagerSecretKeyOrder order = new ModifyManagerSecretKeyOrder();
         order.setManagerId(managerId);
         order.setSecretKey(secretKey);
@@ -140,7 +141,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/delete")
     public EmptyResult delete(String managerId) {
-        CurrentManagers.admin();
+        CurrentManagerAssert.admin();
         DeleteManagerOrder order = new DeleteManagerOrder();
         order.setManagerId(managerId);
 
@@ -157,7 +158,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/findManager")
     public FindManagerResult findManager(String managerId) {
-        CurrentManagers.adminOrMyself(managerId);
+        CurrentManagerAssert.adminOrMyself(managerId);
         FindManagerOrder order = new FindManagerOrder();
         order.setManagerId(managerId);
 
@@ -176,7 +177,7 @@ public class ManagerManageController {
      */
     @RequestMapping("/query")
     public QueryManagersResult query(int pageNo, int pageSize, String managerId, ManagerType type, String name) {
-        CurrentManagers.admin();
+        CurrentManagerAssert.admin();
         QueryManagersOrder order = new QueryManagersOrder();
         order.setPageNo(pageNo);
         order.setPageSize(pageSize);
@@ -187,14 +188,13 @@ public class ManagerManageController {
         return managerService.queryManagers(order);
     }
 
-    // 尝试刷新session中的管理员
+    // 尝试刷新当前管理员
     private void tryRefreshSessionManager(String managerId) {
         try {
-            CurrentManagers.myself(managerId);
-            // 刷新session中的管理员
-            ManagerSessionAccessor.setManager(Managers.findManager(managerId));
-        } catch (Throwable e) {
-            // 忽略
+            CurrentManagerAssert.myself(managerId);
+        } catch (BizException e) {
+            return;
         }
+        CurrentManagers.refreshCurrent();
     }
 }

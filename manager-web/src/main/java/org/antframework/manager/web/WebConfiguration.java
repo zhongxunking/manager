@@ -9,12 +9,15 @@
 package org.antframework.manager.web;
 
 import org.antframework.manager.web.common.GlobalExceptionHandler;
-import org.antframework.manager.web.common.ManagerSessionAccessorFilter;
 import org.antframework.manager.web.common.ManagerSignFilter;
 import org.antframework.manager.web.controller.ManagerInitController;
 import org.antframework.manager.web.controller.ManagerMainController;
 import org.antframework.manager.web.controller.ManagerManageController;
 import org.antframework.manager.web.controller.RelationManageController;
+import org.antframework.manager.web.extension.CurrentManagerService;
+import org.antframework.manager.web.extension.session.ManagerSessionAccessorFilter;
+import org.antframework.manager.web.extension.session.SessionCurrentManagerService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,12 +35,12 @@ import org.springframework.core.Ordered;
         RelationManageController.class})
 public class WebConfiguration {
     /**
-     * 管理员session访问器filter
+     * 管理员Session访问器filter
      */
     @Bean
-    FilterRegistrationBean managerSessionAccessorFilter() {
+    public FilterRegistrationBean managerSessionAccessorFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean<>(new ManagerSessionAccessorFilter());
-        registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE - 100);
+        registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE - 200);
         registrationBean.addUrlPatterns("/*");
 
         return registrationBean;
@@ -47,11 +50,17 @@ public class WebConfiguration {
      * 管理员验签filter
      */
     @Bean
-    FilterRegistrationBean managerSignFilter() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean<>(new ManagerSignFilter());
-        registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE - 90);
+    public FilterRegistrationBean managerSignFilter() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean<>(new ManagerSignFilter(120000));
+        registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE - 100);
         registrationBean.addUrlPatterns("/*");
 
         return registrationBean;
+    }
+
+    @Configuration
+    @ConditionalOnMissingBean(CurrentManagerService.class)
+    @Import(SessionCurrentManagerService.class)
+    public static class CurrentManagerConfiguration {
     }
 }
