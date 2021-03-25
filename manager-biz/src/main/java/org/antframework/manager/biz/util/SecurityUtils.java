@@ -8,7 +8,7 @@
  */
 package org.antframework.manager.biz.util;
 
-import org.springframework.util.DigestUtils;
+import org.antframework.common.util.digest.Digests;
 
 import java.util.UUID;
 
@@ -22,7 +22,7 @@ public final class SecurityUtils {
      * @param str 待加密的字符串
      */
     public static String digest(String str) {
-        return DigestUtils.md5DigestAsHex(str.getBytes());
+        return Digests.md5DigestAsHex(str);
     }
 
     /**

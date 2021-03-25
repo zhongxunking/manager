@@ -9,10 +9,10 @@
 package org.antframework.manager.web.common;
 
 import lombok.AllArgsConstructor;
+import org.antframework.common.util.digest.Digests;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
 import org.antframework.manager.biz.util.Managers;
-import org.antframework.manager.biz.util.SecurityUtils;
 import org.antframework.manager.facade.info.ManagerInfo;
 
 import javax.servlet.*;
@@ -98,7 +98,7 @@ public class ManagerSignFilter implements Filter {
         }
         parameters += "requestTime=" + requestTime;
         parameters += "&secretKey=" + secretKey;
-        return SecurityUtils.digest(parameters);
+        return Digests.md5DigestAsHex(parameters);
     }
 
     // 设置返回结果
