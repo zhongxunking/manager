@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -81,6 +82,7 @@ public class WebConfiguration {
      * 管理员配置
      */
     @ConfigurationProperties("ant.manager")
+    @Validated
     @Getter
     @Setter
     public static class ManagerProperties {
