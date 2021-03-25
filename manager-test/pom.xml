@@ -22,6 +22,15 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.antframework.manager</groupId>
+            <artifactId>manager-client</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
