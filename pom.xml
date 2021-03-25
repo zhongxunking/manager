@@ -22,6 +22,7 @@
         <module>manager-biz</module>
         <module>manager-web</module>
         <module>manager-assemble</module>
+        <module>manager-client</module>
         <module>manager-test</module>
     </modules>
 
