@@ -83,7 +83,7 @@ public class ManagerSignFilter implements Filter {
     private boolean isExpired(String requestTime) {
         long time = Long.parseLong(requestTime);
         long currentTime = System.currentTimeMillis();
-        return time >= currentTime - maxSurvivalTime && time <= currentTime + maxSurvivalTime;
+        return time < currentTime - maxSurvivalTime || time > currentTime + maxSurvivalTime;
     }
 
     // 生成签名
