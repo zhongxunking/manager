@@ -19,13 +19,13 @@ public class ManagerSigns {
     /**
      * 生成签名
      *
-     * @param parameters  参数
+     * @param params      参数
      * @param requestTime 请求时间
      * @param secretKey   密钥
      * @return 签名
      */
-    public static String generateSign(Map<String, Object> parameters, long requestTime, String secretKey) {
-        String str = parameters.entrySet().stream()
+    public static String generateSign(Map<String, Object> params, long requestTime, String secretKey) {
+        String str = params.entrySet().stream()
                 .sorted(Comparator.comparing(Map.Entry::getKey))
                 .map(entry -> {
                     String value;

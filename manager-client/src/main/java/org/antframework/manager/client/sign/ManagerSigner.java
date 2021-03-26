@@ -33,25 +33,25 @@ public class ManagerSigner {
      * 签名
      *
      * @param httpMessage http请求
-     * @param parameters  参数
+     * @param params      参数
      */
-    public void sign(HttpMessage httpMessage, Iterable<? extends NameValuePair> parameters) {
+    public void sign(HttpMessage httpMessage, Iterable<? extends NameValuePair> params) {
         HashMap<String, Object> parameterMap = new HashMap<>();
-        for (NameValuePair pair : parameters) {
-            Object value = parameterMap.get(pair.getName());
+        for (NameValuePair param : params) {
+            Object value = parameterMap.get(param.getName());
             if (value == null) {
-                value = pair.getValue();
+                value = param.getValue();
             } else {
                 if (value instanceof Collection) {
-                    ((Collection<Object>) value).add(pair.getValue());
+                    ((Collection<Object>) value).add(param.getValue());
                 } else {
                     List<Object> temp = new ArrayList<>();
                     temp.add(value);
-                    temp.add(pair.getValue());
+                    temp.add(param.getValue());
                     value = temp;
                 }
             }
-            parameterMap.put(pair.getName(), value);
+            parameterMap.put(param.getName(), value);
         }
         long requestTime = System.currentTimeMillis();
         String sign = ManagerSigns.generateSign(parameterMap, requestTime, secretKey);
