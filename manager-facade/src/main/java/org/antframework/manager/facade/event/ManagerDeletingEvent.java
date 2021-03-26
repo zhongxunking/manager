@@ -17,7 +17,7 @@ import org.antframework.manager.facade.info.ManagerInfo;
  */
 @AllArgsConstructor
 @Getter
-public class ManagerDeletedEvent {
+public class ManagerDeletingEvent {
     // 被删除的管理员
     private final ManagerInfo manager;
 }

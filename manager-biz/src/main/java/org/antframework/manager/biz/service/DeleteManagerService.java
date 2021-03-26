@@ -13,7 +13,7 @@ import org.antframework.common.util.facade.EmptyResult;
 import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.manager.dal.dao.ManagerDao;
 import org.antframework.manager.dal.entity.Manager;
-import org.antframework.manager.facade.event.ManagerDeletedEvent;
+import org.antframework.manager.facade.event.ManagerDeletingEvent;
 import org.antframework.manager.facade.info.ManagerInfo;
 import org.antframework.manager.facade.order.DeleteManagerOrder;
 import org.bekit.event.EventPublisher;
@@ -46,6 +46,6 @@ public class DeleteManagerService {
         }
         managerDao.delete(manager);
         // 发送事件
-        eventPublisher.publish(new ManagerDeletedEvent(INFO_CONVERTER.convert(manager)));
+        eventPublisher.publish(new ManagerDeletingEvent(INFO_CONVERTER.convert(manager)));
     }
 }
