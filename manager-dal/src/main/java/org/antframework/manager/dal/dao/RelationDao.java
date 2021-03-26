@@ -9,7 +9,7 @@
 package org.antframework.manager.dal.dao;
 
 import org.antframework.common.util.query.QueryParam;
-import org.antframework.manager.common.CacheConstant;
+import org.antframework.manager.common.constant.CacheConstant;
 import org.antframework.manager.dal.entity.Relation;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

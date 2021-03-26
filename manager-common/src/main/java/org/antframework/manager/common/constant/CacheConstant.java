@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2019-05-02 18:36 创建
  */
-package org.antframework.manager.common;
+package org.antframework.manager.common.constant;
 
 /**
  * 缓存静态常量
