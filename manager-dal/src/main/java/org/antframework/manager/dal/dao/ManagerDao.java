@@ -9,7 +9,10 @@
 package org.antframework.manager.dal.dao;
 
 import org.antframework.common.util.query.QueryParam;
+import org.antframework.manager.common.CacheConstant;
 import org.antframework.manager.dal.entity.Manager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Lock;
@@ -23,14 +26,16 @@ import java.util.Collection;
  */
 @RepositoryDefinition(domainClass = Manager.class, idClass = Long.class)
 public interface ManagerDao {
-
+    @CacheEvict(cacheNames = CacheConstant.MANAGER_CACHE_NAME, key = "#p0.managerId")
     void save(Manager manager);
 
+    @CacheEvict(cacheNames = CacheConstant.MANAGER_CACHE_NAME, key = "#p0.managerId")
     void delete(Manager manager);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Manager findLockByManagerId(String managerId);
 
+    @Cacheable(cacheNames = CacheConstant.MANAGER_CACHE_NAME, key = "#p0")
     Manager findByManagerId(String managerId);
 
     Page<Manager> query(Collection<QueryParam> queryParams, Pageable pageable);
