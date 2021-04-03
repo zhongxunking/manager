@@ -56,7 +56,7 @@ const ManagerMain = {
     data: function () {
         return {
             allRoutes: this.routes,
-            sidebarCollapsed: false
+            sidebarCollapsed: true
         };
     },
     computed: {
