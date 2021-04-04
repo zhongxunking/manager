@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -108,6 +108,7 @@ public class ManagerSignFilter implements Filter {
                 code,
                 message,
                 status == Status.SUCCESS);
+        response.setContentType("application/json;charset:utf-8");
         response.setCharacterEncoding("utf-8");
         response.getWriter().append(result);
     }
