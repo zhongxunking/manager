@@ -68,7 +68,7 @@ const MANAGER_ROOT_PATH = function () {
     return path;
 }();
 
-MANAGER_VERSION = '1.4.6';
+MANAGER_VERSION = '1.4.7';
 // 是否为开发模式
 const DEV_MODE = function () {
     let host = window.location.hostname;
